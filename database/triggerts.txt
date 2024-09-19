@@ -1,0 +1,30 @@
+CREATE TRIGGER `users_after_ins_tr` BEFORE INSERT ON `users`
+  FOR EACH ROW
+BEGIN
+insert into roles(
+  idrol,
+  iduser,
+  newproveedor,
+  editproveedor,
+  newvendedor,
+  editvendedor,
+  newcliente,
+  editcliente,
+  newarticulo,
+  editarticulo,
+  crearcompra,
+  anularcompra,
+  crearventa,
+  anularventa,
+  crearajuste,
+  abonarcxc,
+  creargasto,
+  anulargasto,
+  abonarcxp,
+  abonargasto,
+  comisiones,
+  acttasa,
+  actroles)
+values(new.id,'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0');
+END;
+..

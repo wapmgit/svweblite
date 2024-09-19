@@ -1,0 +1,134 @@
+@extends ('layouts.master')
+@section ('contenido')    
+<?php $acum=0; 
+$ceros=5;  $acumnc=0;
+function add_ceros($numero,$ceros) {
+  $numero=$numero;
+$digitos=strlen($numero);
+  $recibo=" ";
+  for ($i=0;$i<8-$digitos;$i++){
+    $recibo=$recibo."0";
+  }
+return $insertar_ceros = $recibo.$numero;
+};
+$cntl=0;
+?>   	 
+    <style>
+
+    hr.class1 {
+        position: relative;
+        top: 10px;
+        border: none;
+        height: 5px;
+        background: black;
+        margin-bottom: 30px;
+    }
+	    hr.class2 {
+        height: 2px;
+        background: black;
+
+    }
+
+    </style>
+<div align="center">
+<div id="areaimprimir"  class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >
+			<div style="line-height:90%" width="100%">
+			<span align="center"><label><font size="5"><b>{{$empresa->nombre}}</b></font></span></br>
+			 <!-- <small>{{$empresa->rif}}</small></br>-->
+			<font size="3">{{$empresa->direccion}}</font></br>
+			<font size="4">Telf:{{$empresa->telefono}}</font></br>
+					 
+			<font size="4"> {{$venta->cedula}} -> <b>{{$venta->nombre}}</b></br>
+				{{$venta->direccion}} </br>
+				Control:  <b><?php echo $venta->control; ?>  </b> Fecha: <b><?php echo date("d-m-Y",strtotime($venta->fecha_hora)); ?></b></label> </font> 
+			</div>  <!-- <div></br><table style="line-height:80%" border="0"  width="40%">
+     <thead>                 
+                          <th ><font size="3">Usuario: {{$venta->user}}</font></th>
+                          <th align="center">Condicion: {{$venta->estado}}</th>
+
+                      </thead>
+					  </table>  </div> -->
+					  <div  width="30%"> <font size="5"> <b>RECIBO DE VENTA</b></font>  <hr class="class2"></div> 
+					  
+                  <table style="line-height:80%" id="detalles" border="0" width="40%">
+                      <thead>                 
+                          <th ><font size="3">Cant.</font></th>
+                          <th align="center">Descrip.</th>
+                          <th ><font size="3">Precio.</font></th>
+                          <th ><font size="3">Subt.</font></th>
+                      </thead>
+                      <tfoot>                      
+							  <tr >
+                          <th colspan="4"> <hr class="class1"> </th>  </tr >
+						  		  <tr >
+                          <th colspan="4"><div align="right"><font size="5" >Total $: <?php echo number_format($venta->total_venta, 2,',','.'); ?> </font></div></th>  </tr >
+                          </tfoot>
+                      <tbody>
+                        @foreach($detalles as $det)
+						 <?php $cntl++; ?> 
+                        <tr height="10px"> 
+						  <td><font size="4">{{$det->cantidad}}</font></td>
+                          <td><font size="4"><?php echo strtolower($det->articulo);?></font></td>                       
+                          <td><font size="3"><?php echo number_format( $det->precio_venta, 2,',','.'); ?></font></td>
+                          <td><font size="4"><?php echo number_format( (($det->cantidad*$det->precio_venta)-$det->descuento), 2,',','.'); ?></font></td>
+                        </tr>
+                     @endforeach
+                      </tbody>
+                  </table>
+			   
+							 <?php for ( $i=0;$i<6;$i++){
+							 echo "</br>";
+							 
+							 } ?> 
+                <!--  <table id="desglose" style="line-height:80%" border="0"  width="40%">
+                      <thead>                  
+                          <td><font size="2">Tipo</font></td>
+                          <td><font size="2">Monto</font></td>
+                          <td><font size="2">Monto$</font></td>                        
+                      </thead>                     
+                      <tbody>                       
+                        @foreach($recibos as $re) <?php  $acum=$acum+$re->monto;?>
+                        <tr >
+                          <td><font size="2">{{$re->idbanco}}</font></td>
+                          <td><font size="2"><?php echo number_format( $re->recibido, 2,',','.'); ?></font></td>
+						  <td><font size="2"><?php echo number_format( $re->monto, 2,',','.'); ?></font></td>                       
+                        </tr>
+                        @endforeach
+                        <tfoot >                    
+                          </tfoot>
+                      </tbody>
+                  </table> -->
+				  <div><P></br></br> Gracias por su compra..</p>
+</div>
+				</div>
+</div>
+     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                    <div class="form-group" align="center">
+					 <button type="button" id="regresar" class="btn btn-danger btn-xs" data-dismiss="modal">Regresar</button>
+                     <button type="button" id="imprimir" class="btn btn-primary btn-xs" onclick="printdiv('areaimprimir');" >Imprimir</button>
+                    </div>
+                </div>  
+			
+@push ('scripts')
+<script>
+$(document).ready(function(){
+
+});
+  function printdiv(divname){
+		document.getElementById('imprimir').style.display="none";
+		document.getElementById('regresar').style.display="none";
+	 	var printcontenido =document.getElementById(divname).innerHTML;
+		var originalcontenido = document.body.innerHTML;
+		document.body.innerHTML =printcontenido;
+	  	window.print();
+	  	window.location="{{route('newventa')}}";
+	  	document.body.innerHTML=originalcontenido;
+  }
+  $('#regresar').on("click",function(){
+  window.location="{{route('newventa')}}";
+  
+});
+
+</script>
+@endpush
+@endsection

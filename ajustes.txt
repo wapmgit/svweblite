@@ -1,0 +1,15 @@
+09/05/2024
+ /- validar la cantidad de seriales seleccionados en ventas..
+ - verificar ajustes en seriales 
+ 17/07
+ /-orden de ventas en la vista ventas index
+ /-retencion a clientes
+ 
+ -/ opcion ed facturar forma libre a una cuenta por cobrar
+ - incluir ret en libro de venats
+ /- ocultar boton en generar retencion y confirmar convertir en form LIBRE
+ / - BOTON REGRESAR EN RETENCION EN VENTAS
+ -ANULAR RETENCION ENVENTAS Y AJUSTAR CORRELATIVO
+creacion de gti
+act de datos git
+probando gitbash
