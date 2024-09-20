@@ -42,7 +42,7 @@ class ClientesController extends Controller
 		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 		if ($rol->newcliente==1){
 		$vendedor=DB::table('vendedores')->where('idempresa','=',$empresa->idempresa)->get();	
-		return view("clientes.cliente.create",["vendedores"=>$vendedor]);
+		return view("clientes.cliente.create",["vendedores"=>$vendedor,"empresa"=>$empresa]);
 		} else { 
 		return view("reportes.mensajes.noautorizado");
 		}
@@ -206,7 +206,10 @@ class ClientesController extends Controller
     }
 	public function validar (Request $request){
 		if($request->ajax()){
-			$pacientes=DB::table('clientes')->where('cedula','=',$request->get('cedula'))->get();
+			$pacientes=DB::table('clientes')
+			->where('cedula','=',$request->get('cedula'))
+			->where('idempresa','=',$request->get('empresa'))
+			->get();
 			return response()->json($pacientes);
 		}     
     }

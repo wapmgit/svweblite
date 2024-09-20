@@ -57,6 +57,7 @@
            <div class="form-group">
 				<label for="tipo_precio">Dias Credito </label><br>
 				  <input type="number" name="diascre"  id="diascre"  value="" class="form-control">
+				  <input type="hidden" name="empresa"    value="{{$empresa->idempresa}}" >
 
            </div>
 		</div>
@@ -65,7 +66,7 @@
            <div class="form-group">
 				<label for="tipo_precio">Tipo de Precio </label><br>
 				<label for="precio1"> Precio 1 </label> <input name="precio" type="radio" value="1" checked="checked">
-				<label for="precio2"> Precio 2 </label> <input name="precio" type="radio" value="2">
+				<!--<label for="precio2"> Precio 2 </label> <input name="precio" type="radio" value="2"> -->
            </div>
 		</div>
 

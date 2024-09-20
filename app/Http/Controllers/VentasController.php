@@ -466,7 +466,10 @@ public function fbs($id){
     }
 	public function validar (Request $request){
         if($request->ajax()){
-			$pacientes=DB::table('clientes')->where('cedula','=',$request->get('ccedula'))->get();
+			
+			$pacientes=DB::table('clientes')->where('cedula','=',$request->get('ccedula'))
+			->where('idempresa','=',$request->get('empresa'))
+			->get();
          return response()->json($pacientes);
 		}
       

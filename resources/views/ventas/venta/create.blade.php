@@ -84,7 +84,7 @@ $idv=0;
 						<input type="hidden" value="{{$empresa->tc}}" id="valortasa" name="tc" class="form-control">
 						<input type="hidden" value="{{$empresa->peso}}" id="valortasap" name="peso" class="form-control">
                     		 <input type="hidden" value="" id="nvendedor" name="nvendedor" class="form-control">
-						<label for="cliente">Cliente <a href="" data-target="#modalcliente" data-toggle="modal"><span class="label label-success"> <i class="fa fa-fw  fa-user-plus "> </i></span></a></label><?php if($cntvend==0){ echo "<span class='text-danger'>Debe Registrar Cliente¡¡</span>";} ?>
+						<label for="cliente">Cliente <a href="" data-target="#modalcliente" data-toggle="modal"><span class="label label-success"> <i class="fa fa-fw  fa-user-plus "> </i></span></a></label><?php if($cntvend==0){ echo "<span class='text-danger'>Debe Registrar Vendedor!!</span>";} ?>
                     	<select name="id_cliente" id="id_cliente" class="form-control selectpicker" data-live-search="true">						
                            @foreach ($personas as $per)
                            <option value="{{$per -> id_cliente}}_{{$per -> tipo_precio}}_{{$per -> comision}}_{{$per -> nombrev}}_{{$per -> tipo_cliente}}">{{$per -> cedula}}-{{$per -> nombre}}</option> 
