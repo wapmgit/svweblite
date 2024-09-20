@@ -34,7 +34,7 @@ return $insertar_ceros = $recibo.$numero;
               </div>
               <!-- info row -->
               <div class="row invoice-info">
-			<div class="col-sm-6 invoice-col">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3 ">
 			{{$empresa->nombre}}
 			<address>
 			<strong>{{$empresa->rif}}</strong><br>
@@ -42,16 +42,16 @@ return $insertar_ceros = $recibo.$numero;
 					Tel: {{$empresa->telefono}}<br>
 			</address>
 	</div>
-				 	<div class="col-sm-3 invoice-col">
+				 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
 		<h3 align="center"><u>  Estado de Cuenta </u></h3>		
 	</div>	
-	<div class="col-sm-3 invoice-col" align="center">
+	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 " align="center">
 <img src="{{asset('dist/img/logoempresa.png')}}" width="50%" height="80%" title="NKS">
 	</div>
               </div>
 <div class="row"><?php $acummonto=0; ?>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<table width="100%"><tr><td width="30%"><strong>Rif -> Proveedor</strong></td><td width="20%"><strong>Telefono</strong></td><td width="30%"><strong>Direccion</strong></td><td width="20%"><strong>Vendedor</strong></td>
+			<table width="100%" class="table-responsive"><tr><td width="30%"><strong>Rif -> Cliente</strong></td><td width="20%"><strong>Telefono</strong></td><td width="30%"><strong>Direccion</strong></td><td width="20%"><strong>Vendedor</strong></td>
 			</tr>
 			<tr><td>{{$cliente->cedula}} -> {{$cliente->nombre}}</td><td>{{$cliente->telefono}}</td><td>{{$cliente->direccion}}</td><td>{{$cliente->vendedor}} </td>
 			</tr>
@@ -74,7 +74,7 @@ return $insertar_ceros = $recibo.$numero;
 		<div class="row">	
 	<div id="capac">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<table width="100%">
+			<table width="100%" class="table-responsive">
 				<thead>
 				<th class="filap1"></th>
 					<th>Documento</th>

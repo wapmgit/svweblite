@@ -27,8 +27,8 @@ $cefe=0;?>
 
               <!-- Table row -->
               <div class="row">
-                <div class="col-6 table-responsive">
-      <table width="100%">
+			   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <table width="100%" class="table-responsive">
         <thead style="background-color: #E6E6E6">
           
           <th>Facturas</th>

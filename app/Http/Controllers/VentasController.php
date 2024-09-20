@@ -54,6 +54,8 @@ class VentasController extends Controller
         }
     }
     public function create(Request $request){
+		
+		//dd($request->user()->id);
 		$rol=DB::table('roles')-> select('crearventa','iduser')->where('iduser','=',$request->user()->id)->first();
 		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')
 		 ->join('sistema','sistema.idempresa','=','empresa.idempresa')

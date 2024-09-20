@@ -100,7 +100,7 @@ if (dias_transcurridos($fecha_a,$fserver) < 10){
         <!-- ./col -->
       </div>
 <div class="row">
-              <h3 align="center">RESUMEN -> Compras/Ventas</h3>
+              <h3 align="center">RESUMEN f-> Compras/Ventas</h3>
               <div class="box-tools pull-right">
             <!--    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>

@@ -128,7 +128,7 @@
                 </div>
               </div>
               <div class="card-body">
-			      <table width="100%">
+			      <table width="100%" class="table-responsive">
         <thead >
           <th>Item</th>
           <th>Enero</th><th>Febrero</th><th>Marzo</th><th>Abril</th><th>Mayo</th><th>Junio</th><th>Julio</th><th>Agosto</th><th>Septiembre</th><th>Octubre</th><th>Noviembre</th><th>Diciembre</th>

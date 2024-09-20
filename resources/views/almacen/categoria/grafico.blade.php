@@ -112,12 +112,12 @@ if (dias_transcurridos($fecha_a,$fserver) < 10){
                 <canvas id="barChart" style="height:450px"></canvas>
               </div>
 			  </div>
-			  <div class="col-lg-12 col-xs-12">
+			  <div class="col-12 table-responsive">		  
 			  <div class="table-responsive">
 			      <table class="table table-striped table-bordered table-condensed table-hover">
         <thead >
           <th></th>
-          <th>Enero</th><th>Febrero</th><th>Marzo</th><th>Abril</th><th>Mayo</th><th>Junio</th><th>Julio</th><th>Agosto</th><th>Septiembre</th><th>Octubre</th><th>Noviembre</th><th>Diciembre</th>
+          <th>Ene</th><th>Feb</th><th>Mar</th><th>Abr</th><th>May</th><th>Jun</th><th>Jul</th><th>Ago</th><th>Sept</th><th>Oct</th><th>Nov</th><th>Dic</th>
         </thead>    
 		<tbody>
 		<tr>

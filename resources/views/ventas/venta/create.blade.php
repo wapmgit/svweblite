@@ -234,8 +234,8 @@ $idv=0;
 							<tfoot> 
 							<th></th>
 							  <th></th>
-							   <th></th>
-							  <th><h3>Total $</h3></th>
+							
+							  <th colspan="2"><h3>Total $</h3></th>
 							  <th><h3 id="total_abono">$.  0.00</h3></th><input type="hidden" name="totala" id="totala" value="0.00">
 							  </tfoot>
 							<tbody></tbody>
