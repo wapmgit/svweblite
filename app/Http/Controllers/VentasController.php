@@ -390,8 +390,8 @@ public function recibo($id){
 public function show(Request $request, $id){
 
 			$ruta=$_SERVER["HTTP_REFERER"];
-			$c1= substr($ruta,22);		
-		//	dd($c1);
+			$c1= substr($ruta,11);		
+			//dd($c1);
 		
 			$venta=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
