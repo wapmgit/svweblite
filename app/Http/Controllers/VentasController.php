@@ -390,7 +390,7 @@ public function recibo($id){
 public function show(Request $request, $id){
 
 			$ruta=$_SERVER["HTTP_REFERER"];
-			$c1= substr($ruta,33);		
+			$c1= substr($ruta,26);		
 			//dd($c1);
 		
 			$venta=DB::table('venta as v')
