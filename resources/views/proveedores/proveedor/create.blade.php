@@ -39,6 +39,7 @@
 		    <div class="form-group">
              <label for="imagen">Contacto</label>
             <input type="text" name="contacto" class="form-control" value="{{old('contacto')}}" placeholder="Contacto...">
+            <input type="hidden" name="empresa" class="form-control" value="{{$empresa->idempresa}}">
            </div>
 		</div>
 

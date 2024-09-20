@@ -324,7 +324,9 @@ return Redirect::to('showcompra/'.$ingreso->idcompra."-1");
     }
 	public function validar (Request $request){
 		if($request->ajax()){
-        $result=DB::table('proveedores')->where('rif','=',$request->get('rif'))->get();
+        $result=DB::table('proveedores')
+		->where('idempresa',$request->get('empresa'))
+		->where('rif','=',$request->get('rif'))->get();
          return response()->json($result);
 		}		
     }

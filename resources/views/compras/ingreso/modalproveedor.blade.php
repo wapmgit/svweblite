@@ -47,7 +47,7 @@
 					 <div class="form-group">
 				 <label for="direccion">Direccion</label>
 				<input type="text" name="cdireccion" class="form-control" placeholder="Direccion...">
-				 <input type="hidden" name="idempresa"  class="form-control" value="{{$empresa->idempresa}}">
+				 <input type="hidden" name="empresa"  class="form-control" value="{{$empresa->idempresa}}">
 			   </div>
 				</div>
 				</div>  <!-- del row -->

@@ -34,9 +34,10 @@ $this->middleware('auth');
 	} 
 	public function create(Request $request)
 	{
-			$rol=DB::table('roles')-> select('newproveedor')->where('iduser','=',$request->user()->id)->first();	
+			$rol=DB::table('roles')-> select('newproveedor','iduser')->where('iduser','=',$request->user()->id)->first();	
+			$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 	if ($rol->newproveedor==1){
-	return view("proveedores.proveedor.create");
+	return view("proveedores.proveedor.create",["empresa"=>$empresa]);
 		} else { 
 	return view("reportes.mensajes.noautorizado");
 	}
@@ -125,7 +126,9 @@ $this->middleware('auth');
      }
 		public function validar (Request $request){
         if($request->ajax()){
-			$pacientes=DB::table('proveedores')->where('rif','=',$request->get('rif'))->get();
+			$pacientes=DB::table('proveedores')
+			->where('idempresa',$request->get('empresa'))
+			->where('rif','=',$request->get('rif'))->get();
          // dd($municipios);
          return response()->json($pacientes);
 		}
