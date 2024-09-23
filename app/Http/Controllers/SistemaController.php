@@ -64,11 +64,15 @@ class SistemaController extends Controller
 	{
 		$rol=DB::table('roles')-> select('actroles','updatepass','iduser')->where('iduser','=',$request->user()->id)->first();	
 		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
-			if ($rol->actroles==1){			
+			if ($rol->actroles==1){
+					if($empresa->idempresa==1){
+						$user=DB::table('users')->join('roles','users.id','=','roles.iduser')
+						->get();	
+					}else{
 			$user=DB::table('users')->join('roles','users.id','=','roles.iduser')
 			->where('idempresa',$empresa->idempresa)
 			->get();
-	
+					}
 			return view('sistema.roles.usuarios',["empresa"=>$user,"updatepass"=>$rol->updatepass]);							  
 			} else { 
 		return view("reportes.mensajes.noautorizado");

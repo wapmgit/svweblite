@@ -7,6 +7,7 @@
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
  
     <h3 align="center">USUARIOS DEL SISTEMA</h3> 
+			<div class="table-responsive">
       <table class="table table-striped table-bordered table-condensed table-hover">
         <thead style="background-color: #A9D0F5">
     
@@ -33,6 +34,7 @@
       </table>
 
   
+  </div>
   </div>
   
   </div>
