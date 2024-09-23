@@ -2,8 +2,11 @@
 @section ('contenido')
 <?php
 $fserver=date('Y-m-d');
-$nivel=Auth::user()->nivel;
+$fechaini=$empresa->fechainicio;
 $fecha_a=$empresa->fechavence;
+$dato=$empresa->dato;
+$nivel=Auth::user()->nivel;
+
 function dias_transcurridos($fecha_a,$fserver)
 {
 $dias = (strtotime($fecha_a)-strtotime($fserver))/86400;
@@ -11,11 +14,15 @@ $dias = (strtotime($fecha_a)-strtotime($fserver))/86400;
 return $dias;
 }
 $vencida=$cntvend=$cntcli=0;
-if (dias_transcurridos($fecha_a,$fserver) < 0){
+$diaslicencia=dias_transcurridos($fserver,$fechaini);
+$diasuso=($dato-$diaslicencia);
+if (dias_transcurridos($fserver,$fechaini)>$dato){
   $vencida=1;
   echo "<div class='alert alert-danger'>
-      <H2>LICENCIA DE USO DE SOFTWARE VENCIDA!!!</H2> contacte su Tecnico de soporte.
+      <H2>LICENCIA DE USO DE SOFTWARE VENCIDA!!!</H2> Contacte su Tecnico de soporte.
       </div>";
+}if (($diasuso>0) and ($diasuso<10)){
+	  echo "<H5>".$diasuso." Dias para Vencer Licencia de Uso del Software.</H5>";
 };
 $ceros=5;
 function add_ceros($numero,$ceros) {
@@ -111,6 +118,7 @@ $idv=0;
 					</table>		
 				</div>	
             </div>
+			<?php if($vencida==0){?>
             <div class ="row" id="divarticulos" style="display: true">
 				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 					<div class="form-group">
@@ -188,7 +196,7 @@ $idv=0;
 
 					</div>
 				</div>
-			</div> 
+			</div> <?php } ?>
 			@include('ventas.venta.modalseriales')			
 			<div class ="row" id="divdesglose" style="display: none">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

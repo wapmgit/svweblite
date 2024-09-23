@@ -107,28 +107,7 @@ $this->middleware('auth');
 				$mytime=Carbon::now('America/Caracas');
 				$recibo->fecha_comp=$mytime->toDateTimeString();						
 				$recibo->save();
-						$mon=Monedas::findOrFail($idpago[$contp]);
-							if($mon->idbanco>0){
-								    $mov=new MovBancos;
-									$mov->idbanco=$mon->idbanco;
-									$mov->clasificador=$clasi;
-									$mov->tipodoc=$doc;
-									$mov->docrelacion=$request->get('venta'); 
-									$mov->iddocumento=$recibo->idrecibo;
-									$mov->tipo_mov="N/D";
-									$mov->numero=$doc."-".$ndoc." Rec-".$recibo->idrecibo;
-									$mov->concepto="Pago ".$doc;
-									$mov->idbeneficiario= $person;	
-									$mov->identificacion="";
-									$mov->ced="";
-									$mov->tipo_per="P";
-									$mov->monto=$denomina[$contp];
-									$mov->tasadolar=$request->get('tc');
-									$mytime=Carbon::now('America/Caracas');
-									$mov->fecha_mov=$mytime->toDateTimeString();	
-									$mov->user=Auth::user()->name;
-									$mov->save();
-							}
+
 				$contp=$contp+1;
 			  } 
 		if($request->get('tipop')==0){
@@ -256,28 +235,7 @@ $this->middleware('auth');
 				$mytime=Carbon::now('America/Caracas');			
 				$recibo->fecha_comp=$mytime->toDateTimeString();
 				$recibo->save();	
-					$mon=Monedas::findOrFail($recibo->idpago);
-							if($mon->idbanco>0){
-						    $mov=new MovBancos;
-									$mov->idbanco=$mon->idbanco;
-									$mov->clasificador=7;
-									$mov->tipodoc="COMP";
-									$mov->docrelacion=$fac[$cont];
-									$mov->iddocumento=$recibo->idrecibo;
-									$mov->tipo_mov="N/D";
-									$mov->numero="COMP-".$recibo->idcompra." Rec-".$recibo->idrecibo;
-									$mov->concepto="Pago Compras";
-									$mov->idbeneficiario=$venta->idproveedor;	
-									$mov->identificacion="";
-									$mov->ced="";
-									$mov->tipo_per="P";
-									$mov->monto=$saldo[$cont];
-									$mov->tasadolar=0;
-									$mytime=Carbon::now('America/Caracas');
-									$mov->fecha_mov=$mytime->toDateTimeString();	
-									$mov->user=Auth::user()->name;
-									$mov->save(); 
-							}	
+				
 			$cont=$cont+1;
             } 
    return Redirect::to('cxp');

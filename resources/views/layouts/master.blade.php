@@ -721,8 +721,8 @@
 <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!-- Toastr -->
 <script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="https://kit.fontawesome.com/808781cc1c.js" crossorigin="anonymous"></script>
+<!-- AdminLTE App-->
+<script src="https://kit.fontawesome.com/808781cc1c.js" crossorigin="anonymous"></script> 
 <script src="{{asset('dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>

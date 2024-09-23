@@ -2,7 +2,17 @@
 @section ('contenido')
 <?php
  $fserver=date('Y-m-d');
-$fecha_a=$empresa -> fechavence;
+$fechaini=$empresa->fechainicio;
+$fecha_a=$empresa->fechavence;
+$dato=$empresa->dato;
+
+/*$fecha1= new DateTime($fechaini);
+$fecha2= new DateTime($fserver);
+
+$diff = $fecha1->diff($fecha2);
+$intervalMeses=$diff->format("%m");
+$intervaldias=$diff->format("%d");
+*/
 function dias_transcurridos($fecha_a,$fserver)
 {
 $dias = (strtotime($fecha_a)-strtotime($fserver))/86400;
@@ -10,10 +20,12 @@ $dias = (strtotime($fecha_a)-strtotime($fserver))/86400;
 return $dias;
 }
 $vencida=0;
-if (dias_transcurridos($fecha_a,$fserver) < 0){
+$diaslicencia=dias_transcurridos($fserver,$fechaini);
+$diasuso=($dato-$diaslicencia);
+if (dias_transcurridos($fserver,$fechaini)>$dato){
   $vencida=1;
   echo "<div class='alert alert-danger'>
-      <H2>LICENCIA DE USO DE SOFTWARE VENCIDA!!!</H2> contacte su Tecnico de soporte.
+      <H2>LICENCIA DE USO DE SOFTWARE VENCIDA!!!</H2> Contacte su Tecnico de soporte.
       </div>";
 };
 ?>
@@ -29,8 +41,19 @@ if (dias_transcurridos($fecha_a,$fserver) < 0){
 			</p>
 			<p>
 				<span> <b>fecha de inicio de servicio:</b> </span>{{$empresa -> inicio}} </br>
+				<span> <b>Modo Licencia:</b> </span> <?php 
+				if($empresa->dato==31){echo "Mensual";}
+				if($empresa->dato==93){echo "Trimestre";}
+				if($empresa->dato==183){echo "Semestre";}
+				if($empresa->dato==365){echo "Anual";} 			
+				?> </br>
+				<span> <b>fecha de inicio de Licencia:</b> </span>{{$empresa -> fechainicio}} </br>
 				<span> <b>fecha de vencimiento:</b> </span>{{$empresa -> fechavence}} </br>
-				<span> <b>Dias para vencer:</b> </span><?php echo dias_transcurridos($fecha_a,$fserver); ?></br>
+				<?php if($vencida==0){?>
+				<span> <b>Dias para vencer:</b> </span><?php echo ($diasuso)." Dias "; ?></br>
+				<?php }else{ ?>
+				<span> <b>Dias de Vencimiento:</b> </span><?php echo ($diasuso)." Dias "; ?></br>
+					<?php }?>
 			<span></br><b>Contacto Soporte:</b> 04169067104- 04247163726<span>
 		</p>
 		

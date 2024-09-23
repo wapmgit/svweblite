@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Empresa;
 use App\Models\Monedas;
+use App\Models\Sistema;
 use App\Models\Articulos;
 use App\Models\Roles;
 use App\Models\User;
@@ -167,9 +168,16 @@ class SistemaController extends Controller
 		echo exec('start sistema\bloc.bat');
 		    return Redirect::to($c1);
 	}
-	public function info()
+	public function info(Request $request)
     {
-		$empresa=DB::table('empresa')->join('sistema','sistema.idempresa','=','empresa.idempresa')->first();
+		
+		$rol=DB::table('roles')-> select('idrol','iduser')->where('iduser','=',$request->user()->id)->first();
+		$empresa=DB::table('empresa')
+		->join('sistema','sistema.idempresa','=','empresa.idempresa')
+		->join('users','users.idempresa','=','empresa.idempresa')
+		->where('users.id',$rol->iduser)
+		->first();
+		//dd($empresa);
         return view('sistema.info',["empresa"=>$empresa]);
     }
 		public function empresa(Request $request)
@@ -183,8 +191,8 @@ class SistemaController extends Controller
     }
 		public function updatempresa(Request $request)
     {
-		//dd($request);
-        $emp=Empresa::findOrFail('1');
+
+        $emp=Empresa::findOrFail($request->get('idempresa'));
 		$tasa=$emp->tasaespecial;
         $emp->nombre=$request->get('nombre');
         $emp->rif=$request->get('rif');
@@ -209,11 +217,23 @@ class SistemaController extends Controller
 		if($request->get('actcosto')=="on"){$emp->actcosto=1;}else{$emp->actcosto=0;}
 		if($request->get('serie')=="on"){$emp->usaserie=1;}else{$emp->usaserie=0;}
         $emp->update();
-
+		
+            $query2=trim($request->get('vencimiento'));
+            $query2 = date_create($query2);  
+			$dias=$request->get('modo');
+            date_add($query2, date_interval_create_from_date_string($dias.' day'));
+            $query2=date_format($query2, 'Y-m-d');
+			
+		$sis=Sistema::findOrFail($request->get('idempresa'));
+		$sis->fechainicio=$request->get('vencimiento');
+		$sis->fechavence=$query2;
+		$sis->dato=$request->get('modo');
+		$sis->update();
 		 if ($tasa>0){
 		$lista=DB::table('articulos')
             -> select('idarticulo','costo','precio1','utilidad','precio2','util2')
             -> where ('costo','>',0)
+            -> where ('idempresa',$request->get('idempresa'))
             ->get();
 			
 		$longitud = count($lista);
@@ -229,7 +249,7 @@ class SistemaController extends Controller
 			$articulo->update();
 		}
 		 }
-	   return Redirect::to('/home');
+	   return Redirect::to('/iempresas');
     }
 		public function sininternet(Request $request)
 	{

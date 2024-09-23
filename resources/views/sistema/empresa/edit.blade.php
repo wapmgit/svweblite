@@ -2,7 +2,7 @@
 @section ('contenido')
 	<div class="row">
 	 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"> 
-		<h3>Editar Empresa</h3>
+		<h3>Editar Empresa </h3>
 		</div>
 		   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" align="center"> @if (($empresa->logo)!="")
                      <img src="{{ asset('dist/img/'.$empresa->logo)}}" width="100" height="80" title="Empresa">
@@ -22,6 +22,7 @@
             <div class="form-group">
             	<label for="descripcion">Rif</label>
             	<input type="text" name="rif" class="form-control" value="{{$empresa->rif}}"  placeholder="Rif...">
+            	<input type="text" name="idempresa" class="form-control" value="{{$empresa->idempresa}}">
             </div>
 	          
 		</div>
@@ -103,7 +104,7 @@
                     </div>
                     </td>  </tr>
                   <tr>
-                    <td>Maneja Tasa Espercial (Pesos)</td>
+                    <td>Maneja Tasa Especial (Pesos)</td>
                   
                     <td class="text-right py-0 align-middle">
    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
@@ -147,7 +148,52 @@
             <!-- /.card-body -->
           </div>
             </div>
-        
+        		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
+		
+  <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Opciones de Licencia</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>SysVent@sWeb</th>
+                
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td>Modo Licencia</td>
+                 
+                    <td class="text-right py-0 align-middle">
+					<select name="modo"  class="form-control">
+					<option value="31" <?php if($empresa->dato==31){echo  "selected='selected'";}?> >Mensual</option>
+					<option value="93" <?php if($empresa->dato==93){echo  "selected='selected'";}?>>Trimestre</option>
+					<option value="183" <?php if($empresa->dato==183){echo  "selected='selected'";}?>>Semestre</option>
+					<option value="365" <?php if($empresa->dato==365){echo  "selected='selected'";}?>>Anual</option>
+					</select>
+                    </td></tr>
+                  <tr>
+                    <td>Fecha Inicio</td>
+                  
+                    <td class="text-right py-0 align-middle">
+ <input type="date" class="form-control" name="vencimiento" value="{{$empresa->fechavence}}">
+                    </td>  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+            </div>
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">	
             <div class="form-group">
 				<button class="btn btn-danger btn-sm" id="btncancelar" type="reset">Cancelar</button>

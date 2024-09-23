@@ -26,7 +26,8 @@ class EmpresasController extends Controller
 		if ($request){
             $query=trim($request->get('searchText'));
             $empresas=DB::table('empresa')->where('nombre','LIKE','%'.$query.'%')
-            ->orderBy('idempresa','asc')
+			->join('sistema','sistema.idempresa','empresa.idempresa')
+            ->orderBy('empresa.idempresa','asc')
             ->paginate(20);
             return view('empresas.empresa.index',["empresas"=>$empresas,"searchText"=>$query]);
 		}
