@@ -25,7 +25,7 @@
 							</select>
                   </div>	<div class="form-group">
 				  	<label for="stock">Valor</label>
-            			<input type="text" name="valor" required  value="{{$mone->valor}}" class="form-control" placeholder="valor...">
+            			<input type="number" name="valor" required  value="{{$mone->valor}}" class="form-control" placeholder="valor...">
 						@if($errors->first('valor'))<P class='text-danger'>{{$errors->first('valor')}}</p>@endif
 	          
 		</div>
