@@ -178,11 +178,11 @@ $idv=0;
 						  </thead>
 						  <tfoot style="background-color: #A9D0F5"> 
 						  <th colspan="4">Total</th>
-							  <th></th>
+							 
 							  <th style="display: none">Exe:<input type="number" style="width: 70px" readonly  name="totalexe" id="texe">Bs</th>
 							  <th style="display: none">Iva:<input type="number" style="width: 70px" readonly  name="total_iva" id="total_iva">Bs</th> 
 							  <th style="display: none">BI:<input type="number" style="width: 80px" readonly name="totalbase" id="totalbase">Bs</th>
-							  <th><h4 id="total">$.  0.00</h4><input type="hidden" name="total_venta" id="total_venta"></th>
+							  <th colspan="2"><h4 id="total" align="right" >$.  0.00</h4><input type="hidden" name="total_venta" id="total_venta"></th>
 							 
 							  </tfoot>
 						  <tbody></tbody>
