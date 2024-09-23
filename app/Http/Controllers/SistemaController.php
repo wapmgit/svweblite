@@ -34,6 +34,7 @@ class SistemaController extends Controller
 	}
 	 public function update(Request $request)
     {
+	//	dd($request);
 		$rol=DB::table('roles')-> select('iduser')->where('iduser','=',$request->user()->id)->first();	
 			$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 	         
@@ -44,13 +45,13 @@ class SistemaController extends Controller
 				  $actm=Monedas::findOrFail($idm[$contp]);
 					$actm->valor=$valor[$contp];				
 				$actm->update();
-				if($idm[$contp]==4){
-					$empresa=Empresa::findOrFail('1');
+				if($actm->reftasa==1){
+					$empresa=Empresa::findOrFail($empresa->idempresa);
 					$empresa->tc=$valor[$contp];
 					$empresa->update();
 				}
-				if($idm[$contp]==3){
-					$empresa=Empresa::findOrFail('1');
+				if($actm->reftasa==2){
+					$empresa=Empresa::findOrFail($empresa->idempresa);
 					$empresa->peso=$valor[$contp];
 					$empresa->update();
 				}
