@@ -187,8 +187,12 @@ class ArticulosController extends Controller
 
     }
 	    public function validar (Request $request){
+		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$request->user()->id)->first();	
             if($request->ajax()){
-        $result=DB::table('articulos')->where('codigo','=',$request->get('codigo'))->get();
+        $result=DB::table('articulos')
+		->where('codigo','=',$request->get('codigo'))
+		->where('idempresa','=',$empresa->idempresa)
+		->get();
          return response()->json($result);
      }
       
