@@ -152,7 +152,7 @@ class AjustesController extends Controller
 	}
 	public function loadcsv(Request $request){
 		//dd($request);
-      $empresa=DB::table('empresa')->join('sistema','sistema.idempresa','=','empresa.idempresa')->first();
+     $empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$request->user()->id)->first();	
 		$num=0;
 		$consulta=[];
 		$fname = $_FILES['sel_file']['name'];
