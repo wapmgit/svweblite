@@ -42,9 +42,8 @@
 						<th>Costo</th>
 					  <th>Iva</th>
 					  <th>Utilidad</th>
-					  <th>Precio 1</th>
-					   <th>Utilidad 2</th>
-					  <th>Precio 2</th>					
+					  <th>Precio</th>
+			
 						</thead><?php $count=0; $costo=0;$costoacum=0; $precioacum=0;?>
 						@foreach ($lista as $q)
 							<tr> <?php $count++; 
@@ -59,8 +58,6 @@
 							  <td>{{ $q->iva}} %</td>
 							<td>{{$q->utilidad}} %</td>
 							<td><?php echo number_format( $q->precio1, 2,',','.'); ?></td>	
-							<td>{{$q->util2}} %</td>
-							<td><?php echo number_format( $q->precio2, 2,',','.'); ?></td>  
 							</tr>
 						@endforeach
 							<tr style="background-color: #E6E6E6" >
@@ -68,9 +65,7 @@
 						  <td></td>
 						  <td ></td>
 						  <td></td>
-						  <td></td>
-						  <td></td>
-						  <td></td>     
+						  <td></td>    
 						  <td></td></tr>
 					</table>
 				</div>
