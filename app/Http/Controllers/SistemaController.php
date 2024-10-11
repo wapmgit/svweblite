@@ -202,7 +202,8 @@ class SistemaController extends Controller
         $emp->nombre=$request->get('nombre');
         $emp->rif=$request->get('rif');
         $emp->direccion=$request->get('direccion');
-        $emp->telefono=$request->get('telefono');
+        $emp->direccion=$request->get('direccion');
+        $emp->uuid=$request->get('uuid');
         $emp->tasaespecial=$request->get('tasaajuste');
 		if($request->get('usaserie')){
         $emp->serie=$request->get('usaserie');}else{

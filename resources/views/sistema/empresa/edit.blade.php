@@ -22,7 +22,7 @@
             <div class="form-group">
             	<label for="descripcion">Rif</label>
             	<input type="text" name="rif" class="form-control" value="{{$empresa->rif}}"  placeholder="Rif...">
-            	<input type="text" name="idempresa" class="form-control" value="{{$empresa->idempresa}}">
+            	<input type="hidden" name="idempresa" class="form-control" value="{{$empresa->idempresa}}">
             </div>
 	          
 		</div>
@@ -33,12 +33,12 @@
 						<input type="hidden" id="tpeso" value="{{$empresa->peso}}">
             		</div>
             </div>
-
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="form-group">
-            	<label for="descripcion">Direccion</label>
-            	<input type="text" name="direccion" class="form-control" value="{{$empresa->direccion}}" placeholder="Direccion...">
-            </div>          
+            	<label for="descripcion">UUID</label>
+            	<input type="text" name="uuid" class="form-control" value="{{$empresa->uuid}}"  placeholder="UUID...">
+            </div>
+	          
 		</div>
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
             <div class="form-group">
@@ -60,6 +60,12 @@
             	<input type="number" name="tasaajuste" id="tespecial"  <?php if ($empresa->tespecial == 0){ echo "disabled"; }   ?> class="form-control" value="{{$empresa->tasaespecial}}">
             </div>
 	          
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+            	<label for="descripcion">Direccion</label>
+            	<input type="text" name="direccion" class="form-control" value="{{$empresa->direccion}}" placeholder="Direccion...">
+            </div>          
 		</div> 
 
 		<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
@@ -140,10 +146,7 @@
                       <input type="checkbox" name="serie" <?Php if($empresa->usaserie==1) echo "checked"; ?> class="custom-control-input" id="customSwitch6">
                       <label class="custom-control-label" for="customSwitch6"></label>
                     </div>
-                    </td>
-</tr>
-                </tbody>
-              </table>
+        </table>
             </div>
             <!-- /.card-body -->
           </div>
