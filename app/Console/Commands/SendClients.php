@@ -111,7 +111,7 @@ class SendClients extends Command
 		$ventasjs=json_encode($ventascxc);
 		$recibosjs=json_encode($recibos);
 		
-	 dd($clientesjs);
+	
 		
             $response = Http::post('http://pedidos.nks-sistemas.net/api/recibir-clientes', [      	
 				'empresa' =>$empresa->codigo,

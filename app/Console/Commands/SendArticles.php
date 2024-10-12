@@ -39,28 +39,18 @@ class SendArticles extends Command
      */
     public function handle()
     {
-          try {
-			  $products=DB::table('articulos')->join('empresa','empresa.idempresa','=','articulos.idempresa')
-			->select('codigo as barcode','nombre as name','stock','precio1 as price')
-			->where('empresa.uuid','=','3e17fb7b-40ea-4787-0644-df3bb20a97f5')
-			->where('stock','>=',0)
+				$empresa="3e17fb7b-40ea-4787-0644-df3bb20a97f5";
+			  $products=DB::table('articulos as art')->join('empresa','empresa.idempresa','=','art.idempresa')
+			->select('art.codigo as barcode','art.nombre as name','art.stock','art.precio1 as price')
+			->where('empresa.uuid','=',$empresa)
+			->where('art.stock','>=',0)
 			->get();
-            $message  = count($products) . ' registros cargados al servidor de Mercarapi.';
 
- 
-            $productsjs=json_encode($products);
-	//dd($productsjs);		
+      //      $productsjs=json_encode($products);
+	///dd($products);		
             $response = Http::post('https://mercarapid.nks-sistemas.net/api/recibir-inventario', [
                 'store' => '3e17fb7b-40ea-4787-0644-df3bb20a97f5',
                 'productos' => ["data" => $products]
             ]);
-
-            return ($response->ok())
-                ? response()->json($response->body())
-                : response()->json([$this->recordsNotFound]);
-
-        } catch (Exception $e) {
-            return response()->json($e->getMessage());
-        }
     }
 }
