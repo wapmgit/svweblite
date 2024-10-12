@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
 use App\Models\Articulos;
 use Exception;
 use DB;
