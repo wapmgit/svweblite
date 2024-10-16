@@ -48,10 +48,11 @@ class SendArticles extends Command
 			->get();
 
       //      $productsjs=json_encode($products);
-	///dd($products);		
+	//dd($products);		
             $response = Http::post('https://mercarapid.nks-sistemas.net/api/recibir-inventario', [
-                'store' => '3e17fb7b-40ea-4787-0644-df3bb20a97f5',
+                'store' => $empresa,
                 'productos' => ["data" => $products]
             ]);
+		
     }
 }
