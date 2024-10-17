@@ -52,7 +52,7 @@ private $recordsNotFound = ['status' => 400, 'message' => '0 registros encontrad
 		
       //$productsjs=json_decode($product);
 		//dd($products);
-          $response = Http::post('http://mercarapid.nks-sistemas.net/api/recibir-inventario', [
+          $response = Http::post('https://mercarapid.nks-sistemas.net/api/recibir-inventario', [
                 'store' => $empresa,
                 'productos' => ["data" => $products]
             ]);
