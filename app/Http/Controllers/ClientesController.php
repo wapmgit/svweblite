@@ -37,9 +37,9 @@ class ClientesController extends Controller
 		}
 	}
 	public function create(Request $request)
-	{
+	{		
 		$rol=DB::table('roles')-> select('newcliente','iduser')->where('iduser','=',$request->user()->id)->first();	
-		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
+		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('users.id','=',$rol->iduser)->first();
 		if ($rol->newcliente==1){
 		$vendedor=DB::table('vendedores')->where('idempresa','=',$empresa->idempresa)->get();	
 		return view("clientes.cliente.create",["vendedores"=>$vendedor,"empresa"=>$empresa]);
