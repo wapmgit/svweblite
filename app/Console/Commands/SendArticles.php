@@ -15,7 +15,7 @@ class SendArticles extends Command
      * @var string
      */
     protected $signature = 'sendarticles';
-
+private $recordsNotFound = ['status' => 400, 'message' => '0 registros encontrados.', 'data' => ''];
     /**
      * The console command description.
      *
@@ -40,19 +40,26 @@ class SendArticles extends Command
      */
     public function handle()
     {
-				$empresa="3e17fb7b-40ea-4787-0644-df3bb20a97f5";
+		
+		 
+			$empresa="3e17fb7b-40ea-4787-0644-df3bb20a97f5";
 			  $products=DB::table('articulos as art')->join('empresa','empresa.idempresa','=','art.idempresa')
 			->select('art.codigo as barcode','art.nombre as name','art.stock','art.precio1 as price')
 			->where('empresa.uuid','=',$empresa)
 			->where('art.stock','>=',0)
-			->get();
-
-      //      $productsjs=json_encode($products);
-	//dd($products);		
-            $response = Http::post('http://mercarapid.nks-sistemas.net/api/recibir-inventario', [
+			->get()->toArray();
+			
+		
+      //$productsjs=json_decode($product);
+		//dd($products);
+          $response = Http::post('http://mercarapid.nks-sistemas.net/api/recibir-inventario', [
                 'store' => $empresa,
                 'productos' => ["data" => $products]
             ]);
-		
+			
+			  /*  return ($response->ok())
+                ? response()->json($response->body())
+                : response()->json([$this->recordsNotFound]); */
+		//dd($response->getBody());		
     }
 }
