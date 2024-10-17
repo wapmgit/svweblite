@@ -43,15 +43,16 @@ private $recordsNotFound = ['status' => 400, 'message' => '0 registros encontrad
 		
 		 
 			$empresa="3e17fb7b-40ea-4787-0644-df3bb20a97f5";
-			  $products=DB::table('articulos as art')->join('empresa','empresa.idempresa','=','art.idempresa')
-			->select('art.codigo as barcode','art.nombre as name','art.stock','art.precio1 as price')
-			->where('empresa.uuid','=',$empresa)
-			->where('art.stock','>=',0)
-			->get()->toArray();
+			  $products=DB::table('articulos as art')
+				->join('empresa','empresa.idempresa','=','art.idempresa')
+				->select('art.codigo as barcode','art.nombre as name','art.stock','art.precio1 as price')
+				->where('empresa.uuid','=',$empresa)
+				->where('art.stock','>=','0')
+				->get()->toArray();
 			
 		
       //$productsjs=json_decode($product);
-		dd($products);
+		//dd($products);
           $response = Http::post('http://mercarapid.nks-sistemas.net/api/recibir-inventario', [
                 'store' => $empresa,
                 'productos' => ["data" => $products]
