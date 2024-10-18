@@ -359,15 +359,17 @@ class ReportesventasController extends Controller
 	}
 	public function cuentascobrar(Request $request)	
 	{
-			$rol=DB::table('roles')-> select('rcxc')->where('iduser','=',$request->user()->id)->first();	
+			$rol=DB::table('roles')-> select('rcxc','iduser')->where('iduser','=',$request->user()->id)->first();	
+		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 		if ($rol->rcxc==1){
-		$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();		
+		//$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();		
 		$vendedores=DB::table('vendedores')->get();  
 			if($request->get('vendedor')==NULL){
 			$clientes=DB::table('venta as v')
 			->join('clientes as c','c.id_cliente','=','v.idcliente')
 			->join('vendedores as ve','ve.id_vendedor','=','v.idvendedor')
 			->select(DB::raw('sum(v.saldo) as acumulado'),'c.nombre','c.cedula','c.telefono','c.id_cliente')
+			->where('c.idempresa','=',$empresa->idempresa)
 			->where('v.saldo','>',0)
 			->where('v.devolu','=',0)
 			->groupby('c.id_cliente')
@@ -388,6 +390,7 @@ class ReportesventasController extends Controller
 			->join('vendedores as ve','ve.id_vendedor','=','v.idvendedor')
 			->select(DB::raw('sum(v.saldo) as acumulado'),'c.nombre','c.cedula','c.telefono','c.id_cliente')
 			->where('v.idvendedor','=',$request->get('vendedor'))
+			->where('c.idempresa','=',$empresa->idempresa)
 			->where('v.saldo','>',0)
 			->where('v.devolu','=',0)
 			->groupby('c.id_cliente')
