@@ -14,19 +14,21 @@
 					<th>Id</th>
 					<th>UUID</th>
 					<th>Nombre</th>
-					<th>Rif</th>
+					
 					<th>Telefono</th>
-					<th>Direccion</th>
+				
 					<th>Opciones</th>
+					<th>Ult.</th>
 				</thead>
                @foreach ($empresas as $cat)
 				<tr>
 					<td>{{ $cat->idempresa}}</td>
-					<td>{{ $cat->uuid}}</td>
-					<td>{{ $cat->nombre}}</td>
-					<td>{{ $cat->rif}}</td>
+					<td><small>{{ $cat->uuid}}</small></td>
+					<td><small>{{ $cat->rif}} {{ $cat->nombre}}</small></td>
+				
 					<td>{{ $cat->telefono}}</td>
-					<td>{{ $cat->direccion}}</td>
+						
+					<td><?php echo date("d-m-Y h:i:s a",strtotime($cat->lastact)); ?></td>
 					<td>
 						<a href="{{route('empresa',['id'=>$cat->idempresa])}}"><button class="btn btn-warning btn-sm">Editar</button></a>
                         

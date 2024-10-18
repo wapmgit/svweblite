@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use App\Models\Articulos;
+use App\Models\Empresa;
+use Carbon\Carbon;
 use Exception;
 use DB;
 class SendArticles extends Command
@@ -41,7 +43,6 @@ private $recordsNotFound = ['status' => 400, 'message' => '0 registros encontrad
     public function handle()
     {
 		
-		 
 			$empresa="3e17fb7b-40ea-4787-0644-df3bb20a97f5";
 			  $products=DB::table('articulos as art')
 				->join('empresa','empresa.idempresa','=','art.idempresa')
@@ -49,16 +50,17 @@ private $recordsNotFound = ['status' => 400, 'message' => '0 registros encontrad
 				->where('empresa.uuid','=',$empresa)
 				->where('art.stock','>=','0')
 				->get()->toArray();
-			
-		
-      //$productsjs=json_decode($product);
-		//dd($products);
+
           $response = Http::post('http://mercarapid.nks-sistemas.net/api/recibir-inventario', [
                 'store' => $empresa,
                 'productos' => ["data" => $products]
             ]);
 			
-
+		//act last actualizacion en empresa
+		$emp=Empresa::findOrFail(5);
+        $mytime=Carbon::now('America/Caracas');
+		$emp->lastact=$mytime->toDateTimeString();
+		$emp->update();
 				
     }
 }
