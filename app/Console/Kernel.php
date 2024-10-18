@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
        //$schedule->command('sendclientes')->everyMinute();
     $schedule->command('sendarticles')->everyTenMinutes();
+    $schedule->command('sendarticlesrox')->everyTenMinutes();
 	 // $schedule->command('sendarticles')
          //    ->everyTenMinutes()
          //    ->between('8:00', '23:00');
