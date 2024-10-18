@@ -16,9 +16,9 @@
 					<th>Nombre</th>
 					
 					<th>Telefono</th>
-				
-					<th>Opciones</th>
 					<th>Ult.</th>
+					<th>Opciones</th>
+					
 				</thead>
                @foreach ($empresas as $cat)
 				<tr>

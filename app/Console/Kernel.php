@@ -17,11 +17,14 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
        //$schedule->command('sendclientes')->everyMinute();
-    $schedule->command('sendarticles')->everyTenMinutes();
-    $schedule->command('sendarticlesrox')->everyTenMinutes();
-	 // $schedule->command('sendarticles')
-         //    ->everyTenMinutes()
-         //    ->between('8:00', '23:00');
+   // $schedule->command('sendarticles')->everyTenMinutes();
+    //$schedule->command('sendarticlesrox')->everyFifteenMinutes();
+		$schedule->command('sendarticles')
+			->everySevenMinutes()
+			->between('8:00', '22:00');
+	$schedule->command('sendarticlesrox')
+			->everyNineMinutes()
+			->between('8:00', '22:00');
 		
     /**
      * Register the commands for the application.
