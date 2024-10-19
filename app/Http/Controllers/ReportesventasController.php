@@ -485,12 +485,13 @@ class ReportesventasController extends Controller
     }
 	public function ventasarticulo(Request $request)
     {
-		$rol=DB::table('roles')-> select('rventasarti')->where('iduser','=',$request->user()->id)->first();	
+		$rol=DB::table('roles')-> select('rventasarti','iduser')->where('iduser','=',$request->user()->id)->first();	
+		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 		if ($rol->rventasarti==1){
-		$vendedores=DB::table('vendedores')->get();  
-		$clientes=DB::table('clientes')->get();  
+		$vendedores=DB::table('vendedores')->where('idempresa','=',$empresa->idempresa)->get();  
+		$clientes=DB::table('clientes')->where('idempresa','=',$empresa->idempresa)->get();  
         $corteHoy = date("Y-m-d");
-        $empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
+        //$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
              $query=trim($request->get('searchText'));
              $query2=trim($request->get('searchText2'));
              if (($query)==""){$query=$corteHoy; }
@@ -502,13 +503,15 @@ class ReportesventasController extends Controller
              ->join ('categoria as ca','ca.idcategoria','=','a.idcategoria')      
             -> select(DB::raw('avg(dv.precio_venta) as vpromedio'),DB::raw('sum(dv.cantidad) as vendido'),'a.nombre','a.precio1 as pventa','a.idarticulo','ca.nombre as grupo')
             ->whereBetween('dv.fecha', [$query, $query2])
+			->where('a.idempresa','=',$empresa->idempresa)
             ->groupby('dv.idarticulo','a.nombre')
 			->OrderBy('a.nombre')
             ->get();
 			$nvendedor="";
 		if($request->get('opcion')>0){	
 			if($request->get('opcion')==1){		
-			$vende=DB::table('vendedores')->where('id_vendedor','=',$request->get('vendedor'))->first();  
+			$vende=DB::table('vendedores')->where('id_vendedor','=',$request->get('vendedor'))
+			->where('idempresa','=',$empresa->idempresa)->first();  
 			$nvendedor=$vende->nombre;
 			$datos=DB::table('detalle_venta as dv')            
              ->join ('venta as ve', 've.idventa','=','dv.idventa') 
@@ -518,12 +521,14 @@ class ReportesventasController extends Controller
 			->where('ve.idvendedor','=',$request->get('vendedor'))
 			->where('ve.devolu','=',0)
             ->whereBetween('dv.fecha', [$query, $query2])
+			->where('a.idempresa','=',$empresa->idempresa)
             ->groupby('dv.idarticulo','a.nombre')
 			->OrderBy('a.nombre')
             ->get();	
 			}
 		if($request->get('opcion')==2){
-				$cli=DB::table('clientes')->where('id_cliente','=',$request->get('cliente'))->first();
+				$cli=DB::table('clientes')->where('id_cliente','=',$request->get('cliente'))
+				->where('idempresa','=',$empresa->idempresa)->first();
 				$nvendedor=$cli->nombre;
 			$datos=DB::table('detalle_venta as dv')            
              ->join ('venta as ve', 've.idventa','=','dv.idventa') 
@@ -533,6 +538,7 @@ class ReportesventasController extends Controller
 			->where('ve.idcliente','=',$request->get('cliente'))
 			->where('ve.devolu','=',0)
             ->whereBetween('dv.fecha', [$query, $query2])
+			->where('a.idempresa','=',$empresa->idempresa)
             ->groupby('dv.idarticulo','a.nombre')
 			->OrderBy('a.nombre')
             ->get();	
