@@ -100,7 +100,7 @@ class ClientesController extends Controller
 		  $pagos=DB::table('recibos as re')
 				  ->join('venta as v','v.idventa','=','re.idventa')
 				  ->join('clientes as cli','cli.id_cliente','=','v.idcliente')
-         -> select('re.monto','re.recibido','re.idbanco','re.idpago','v.tipo_comprobante','re.referencia','v.num_comprobante','re.fecha')
+         -> select('re.idrecibo','re.monto','re.recibido','re.idbanco','re.idpago','v.tipo_comprobante','re.idventa','re.referencia','v.num_comprobante','re.fecha')
 		 -> where('v.idcliente','=',$id)
             ->get(); 
 

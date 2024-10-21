@@ -46,12 +46,12 @@ return $insertar_ceros = $recibo.$numero;
 		<h3 align="center"><u>  Estado de Cuenta </u></h3>		
 	</div>	
 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 " align="center">
-<img src="{{asset('dist/img/logoempresa.png')}}" width="50%" height="80%" title="NKS">
+<img src="{{ asset('dist/img/'.$empresa->logo)}}" width="60%" height="90%" title="NKS">
 	</div>
               </div>
 <div class="row"><?php $acummonto=0; ?>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<table width="100%" class="table-responsive"><tr><td width="30%"><strong>Rif -> Cliente</strong></td><td width="20%"><strong>Telefono</strong></td><td width="30%"><strong>Direccion</strong></td><td width="20%"><strong>Vendedor</strong></td>
+			<table width="100%"border="1"><tr><td width="30%"><strong>Rif -> Cliente</strong></td><td width="20%"><strong>Telefono</strong></td><td width="30%"><strong>Direccion</strong></td><td width="20%"><strong>Vendedor</strong></td>
 			</tr>
 			<tr><td>{{$cliente->cedula}} -> {{$cliente->nombre}}</td><td>{{$cliente->telefono}}</td><td>{{$cliente->direccion}}</td><td>{{$cliente->vendedor}} </td>
 			</tr>
@@ -73,8 +73,9 @@ return $insertar_ceros = $recibo.$numero;
 
 		<div class="row">	
 	<div id="capac">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<table width="100%" class="table-responsive">
+			   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="table-responsive" >
+			<table width="100%">
 				<thead>
 				<th class="filap1"></th>
 					<th>Documento</th>
@@ -95,7 +96,7 @@ return $insertar_ceros = $recibo.$numero;
 				<tr>
 				<td class="filap1"> <a  href="{{route('tcarta',['id'=>$cat->idventa.'-'.$link])}}"><i class="fa fa-fw fa-eye" title="Ver Documento"></i></a></td>
 					<td> <?php if($cat->devolu==1){echo "*DEV";}?>             
-					{{ $cat->tipo_comprobante}}-{{ $cat->serie_comprobante}} {{$cat->num_comprobante}}
+					{{ $cat->serie_comprobante}}<?php $idv=$cat->idventa; echo add_ceros($idv,$ceros); ?>
 					</td>
 					<td></td><td></td>
 					<td><small><?php echo date("d-m-Y h:i:s a",strtotime($cat->fecha_hora)); ?></small></td>
@@ -105,21 +106,27 @@ return $insertar_ceros = $recibo.$numero;
 					<td>{{ $cat->total_pagar}}</td>
 					<td> {{ $cat->saldo}}</td>				
 				</tr>
+				
+					@foreach($pagos as $p)
+					<?php if($cat->idventa==$p->idventa){ ?>
+					<tr style="line-height:80%"><td></td><td colspan="4">------------> Recibo-{{$p->idrecibo}} <?php echo date("d-m-Y",strtotime($p->fecha)); ?></td><td colspan="4">{{$p->idbanco}}->{{$p->recibido}}->{{$p->monto}}$</td><td></td><td></td></tr>
+					<?php } ?>
+					@endforeach
 				@endforeach
-
 				<tr><td class="filap1"></td><td colspan="5"><strong>Facturas: <?php echo $cont. " -> N/D: ".$contnd." -> N/C: ".$contnc; ?></strong></td><td><strong>Facturado: <?php echo$vendido; ?> $.</strong></td><td colspan="2"></td><td><strong><?php echo (($saldo+$saldond)-$saldonc); ?> $.</strong></td></tr>
 			</table>
 			
 		</div>
-
-	</div>
-	     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12"></br>
+		</div>
+	     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"></br>
                     <div class="form-group" align="center">
 					<button type="button" id="regresar" class="btn btn-danger btn-sm" data-dismiss="modal">Regresar</button>
                      <button type="button" id="imprimir" class="btn btn-primary btn-sm" data-dismiss="modal">Imprimir</button>
 
                     </div>
-                </div>  
+                </div> 
+	</div>
+ 
 
 			<form action="{{route('clientes')}}" method="POST" id="formulariodetalle" enctype="multipart/form-data" >  
 			 {{csrf_field()}}
@@ -127,7 +134,7 @@ return $insertar_ceros = $recibo.$numero;
 	 <input type="hidden" name="tipo" id="pidtipo" value="0">
 	 </form>
      
-</div>
+
 	<div id="capaprint" style="display:none">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<table width="100%">
@@ -148,7 +155,7 @@ return $insertar_ceros = $recibo.$numero;
 			   $cont++; 
 			   ?>
 				<tr>
-					<td> <?php if($cat->devolu==1){echo "*DEV";}?>{{ $cat->tipo_comprobante}}-{{ $cat->serie_comprobante}} {{$cat->num_comprobante}}	
+					<td> <?php if($cat->devolu==1){echo "*DEV";}?>{{ $cat->serie_comprobante}}<?php $idv=$cat->idventa; echo add_ceros($idv,$ceros); ?>
 					</td>
 					<td></td><td></td>
 					<td><small><?php echo date("d-m-Y h:i:s a",strtotime($cat->fecha_hora)); ?></small></td>
@@ -158,6 +165,11 @@ return $insertar_ceros = $recibo.$numero;
 					<td>{{ $cat->total_pagar}}</td>
 					<td>{{ $cat->saldo}}</td>				
 				</tr>
+				@foreach($pagos as $p)
+					<?php if($cat->idventa==$p->idventa){ ?>
+					<tr style="line-height:80%"><td></td><td colspan="4">------------> Recibo-{{$p->idrecibo}} <?php echo date("d-m-Y",strtotime($p->fecha)); ?></td><td colspan="4">{{$p->idbanco}}->{{$p->recibido}}->{{$p->monto}}$</td><td></td><td></td></tr>
+					<?php } ?>
+					@endforeach
 				@endforeach
 				<tr><td colspan="5"><strong>Facturas: <?php echo $cont; ?></strong></td><td><strong>Facturado: <?php echo$vendido; ?> $.</strong></td><td colspan="2"></td><td><strong><?php echo (($saldo+$saldond)-$saldonc); ?> $.</strong></td></tr>
 			</table>
