@@ -26,7 +26,7 @@ return $insertar_ceros = $recibo.$numero;
               <div class="row">
                 <div class="col-12">
                   <h4>
-                  <img src="{{asset('dist/img/iconosistema.png')}}" title="NKS">SysVent@s
+                  <img src="{{asset('dist/img/iconosistema.png')}}" title="NKS">SysVent@s</img>
                     <small class="float-right"></small>
                   </h4>
                 </div>
