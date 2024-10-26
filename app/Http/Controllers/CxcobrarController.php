@@ -35,7 +35,7 @@ $this->middleware('auth');
 			$pacientes=DB::table('venta as v')
 			->join('clientes as c','c.id_cliente','=','v.idcliente')
 			->join('vendedores as ve','ve.id_vendedor','=','c.vendedor')
-			->select(DB::raw('SUM(v.saldo) as acumulado'),DB::raw('SUM(v.total_venta) as tventa'),'c.nombre','ve.nombre as vendedor','c.cedula','c.telefono','c.id_cliente')
+			->select(DB::raw('SUM(v.saldo) as acumulado'),DB::raw('SUM(v.total_venta) as tventa'),'c.nombre','ve.nombre as vendedor','c.cedula','c.codpais','c.telefono','c.id_cliente')
 			 -> where ('c.idempresa',$empresa->idempresa)
 			->where('c.nombre','LIKE','%'.$query.'%')
 			->where('v.saldo','>',0)

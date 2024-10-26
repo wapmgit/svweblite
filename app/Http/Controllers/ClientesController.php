@@ -27,7 +27,7 @@ class ClientesController extends Controller
 			$query=trim($request->get('searchText'));
 			$pacientes=DB::table('clientes')->where('clientes.nombre','LIKE','%'.$query.'%')
 			->join('vendedores as ven','ven.id_vendedor','=','clientes.vendedor')
-			->select('clientes.id_cliente','clientes.nombre','clientes.telefono','clientes.cedula','clientes.direccion','ven.nombre as vendedor')
+			->select('clientes.id_cliente','clientes.nombre','clientes.codpais','clientes.telefono','clientes.cedula','clientes.direccion','ven.nombre as vendedor')
 			->where('clientes.status','A')
 			->where('clientes.idempresa',$empresa->idempresa)
 			->orderBy('clientes.id_cliente','desc')
@@ -53,6 +53,7 @@ class ClientesController extends Controller
 	$this->validate($request,[
             'nombre' => 'required',
             'rif' => 'required',
+            'codpais' => 'required',
             'cedula' => 'required'
         ]);
 		$rol=DB::table('roles')->where('iduser','=',$request->user()->id)->first();	
@@ -62,6 +63,7 @@ class ClientesController extends Controller
         $paciente->nombre=$request->get('nombre');
         $paciente->cedula=$request->get('cedula');
         $paciente->rif=$request->get('rif');
+        $paciente->codpais=$request->get('codpais');
         $paciente->telefono=$request->get('telefono');
         $paciente->licencia=$request->get('licencia');
         $paciente->status='A';
@@ -123,6 +125,7 @@ class ClientesController extends Controller
 			$this->validate($request,[
             'nombre' => 'required',
 			'rif'=>'required',
+			'codpais' => 'required',
             'cedula' => 'required'
         ]);
 		$paciente=Clientes::findOrFail($request->get('id'));
@@ -130,6 +133,7 @@ class ClientesController extends Controller
         $paciente->cedula=$request->get('cedula');
         $paciente->telefono=$request->get('telefono');
         $paciente->rif=$request->get('rif');
+        $paciente->codpais=$request->get('codpais');
     	$paciente->direccion=$request->get('direccion');
     	$paciente->tipo_cliente=$request->get('tipo_cliente');
     	$paciente->diascredito=$request->get('diascre');

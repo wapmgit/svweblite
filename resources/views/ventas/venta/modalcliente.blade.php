@@ -31,7 +31,18 @@
 					<input type="text" name="rif" onchange="conMayusculas(this)"  id="virif" class="form-control"  maxlength="12" placeholder="V00000-0">
 				</div>
 				</div>
-				<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">			
+            <div class="form-group">
+            	<label for="descripcion">Codigo</label>
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input type="text" required name="codpais" value="{{old('codpais')}}" placeholder="+58" class="form-control">
+                  </div>
+            </div>
+		</div>	
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 					  <div class="form-group">
 					<label for="descripcion">Telefono</label>
 					<div class="input-group">

@@ -25,8 +25,19 @@
             	<input type="text" name="rif" id="rif" value="{{old('rif')}}" onchange="conMayusculas(this)"  class="form-control" maxlength="12" placeholder="V000000-0">
 					@if($errors->first('rif'))<P class='text-danger'>{{$errors->first('rif')}}</p>@endif
             </div>
-		</div>	
-			<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">				
+		</div>
+		<div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">			
+            <div class="form-group">
+            	<label for="descripcion">Codigo</label>
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input type="text" required name="codpais" value="{{old('codpais')}}" placeholder="+58" class="form-control">
+                  </div>
+            </div>
+		</div>		
+			<div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">				
             <div class="form-group">
             	<label for="descripcion">Telefono</label>
 
@@ -38,6 +49,7 @@
                   </div>
             </div>
 		</div>
+
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">			
              <div class="form-group">
              <label for="direccion">Direccion</label>

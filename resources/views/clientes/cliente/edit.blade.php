@@ -26,7 +26,19 @@
 				@if($errors->first('rif'))<P class='text-danger'>{{$errors->first('rif')}}</p>@endif
             </div>
 	</div>
-		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">			
+			<div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">			
+            <div class="form-group">
+            	<label for="descripcion">Codigo</label>
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input type="text" required name="codpais" value="{{old('codpais')}}" placeholder="+58" class="form-control">
+                  @if($errors->first('rif'))<P class='text-danger'>{{$errors->first('rif')}}</p>@endif
+				  </div>
+            </div>
+		</div>	
+		<div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">			
              <div class="form-group">
             	<label for="telefono">Telefono</label>
             	<input type="text" name="telefono" class="form-control" value="{{$cliente->telefono}}" placeholder="telefono...">

@@ -30,7 +30,7 @@
 				<tr>
 					<td><small>{{ $cat->nombre}}</small></td>
 					<td><small>{{ $cat->cedula}}</small></td>
-					<td><small>{{ $cat->telefono}}</small></td>
+					<td><small>{{ $cat->codpais}}{{ $cat->telefono}}</small></td>
 					<td><small><small> <?php echo substr( $cat->direccion, 0, 20 ); ?></small></small></td>
 					<td><small>{{ $cat->vendedor}}</small></td>
 					<td>
