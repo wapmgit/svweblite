@@ -53,7 +53,6 @@ class ClientesController extends Controller
 	$this->validate($request,[
             'nombre' => 'required',
             'rif' => 'required',
-            'codpais' => 'required',
             'cedula' => 'required'
         ]);
 		$rol=DB::table('roles')->where('iduser','=',$request->user()->id)->first();	
@@ -125,7 +124,6 @@ class ClientesController extends Controller
 			$this->validate($request,[
             'nombre' => 'required',
 			'rif'=>'required',
-			'codpais' => 'required',
             'cedula' => 'required'
         ]);
 		$paciente=Clientes::findOrFail($request->get('id'));

@@ -29,12 +29,11 @@
 			<div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">			
             <div class="form-group">
             	<label for="descripcion">Codigo</label>
-
                   <div class="input-group">
                     <div class="input-group-prepend">
                     </div>
-                    <input type="text" required name="codpais" value="{{old('codpais')}}" placeholder="+58" class="form-control">
-                  @if($errors->first('rif'))<P class='text-danger'>{{$errors->first('rif')}}</p>@endif
+                    <input type="text" required name="codpais" value="{{$cliente->codpais}}" placeholder="+58" class="form-control">
+                  
 				  </div>
             </div>
 		</div>	
@@ -75,7 +74,7 @@
            <div class="form-group">
              <label for="tipo_precio">Tipo de Precio </label><br>
         <label for="precio1"> Precio 1 </label> <input name="precio" type="radio" value="1" <?php if($cliente->tipo_precio==1){ echo "checked='checked'"; } ?>>
-				<label for="precio2"> Precio 2 </label> <input name="precio" type="radio"  <?php if($cliente->tipo_precio==2){ echo "checked='checked'"; } ?>value="2">
+				
            </div>
 	</div>
 
