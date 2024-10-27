@@ -390,9 +390,9 @@ public function recibo($id){
 public function show(Request $request, $id){
 
 			$ruta=$_SERVER["HTTP_REFERER"];
-			$c1= substr($ruta,34);		
+			$c1= substr($ruta,4);		
 			//dd($c1);
-		
+
 			$venta=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
             -> select ('v.idempresa','v.idventa','v.fecha_hora','p.nombre','p.cedula','p.telefono','p.direccion','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu')
@@ -407,15 +407,17 @@ public function show(Request $request, $id){
 			$recibo=DB::table('recibos as r')-> where ('r.idventa','=',$id)
             ->get();
 			//dd($retencion);
-			$empresa=DB::table('empresa')-> where('idempresa','=',$venta->idempresa)->first();
+			$rol=DB::table('roles')-> select('iduser')->where('iduser','=',$request->user()->id)->first();
+			$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 			$recibonc=DB::table('mov_notas as mov')-> where ('mov.iddoc','=',$id)-> where ('mov.tipodoc','=',"FAC")
             ->get();
 
             return view("ventas.venta.show",["ruta"=>$c1,"venta"=>$venta,"recibos"=>$recibo,"recibonc"=>$recibonc,"empresa"=>$empresa,"detalles"=>$detalles]);
 }
-public function fbs($id){
+public function fbs(Request $request, $id){
 
-			$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
+			$rol=DB::table('roles')-> select('iduser')->where('iduser','=',$request->user()->id)->first();
+			$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 			$venta=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
             -> select ('v.idventa','v.fecha_hora','v.fecha_emi','v.tasa','v.tasa','v.texe','v.base','v.total_iva','p.nombre','p.cedula','p.telefono','p.direccion','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu')
@@ -447,6 +449,7 @@ public function fbs($id){
         $paciente->idempresa=$request->get('idempresa');
         $paciente->cedula=$request->get('ccedula');
         $paciente->rif=$request->get('rif');
+        $paciente->codpais=$request->get('codpais');
         $paciente->telefono=$request->get('ctelefono');
         $paciente->status='A';
         $paciente->direccion=$request->get('cdireccion');
