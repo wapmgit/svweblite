@@ -16,7 +16,7 @@
 					<th>Nombre</th>
 					
 					<th>Telefono</th>
-					<th>Ult.</th>
+					<th>Vence</th>
 					<th>Opciones</th>
 					
 				</thead>
@@ -28,7 +28,7 @@
 				
 					<td>{{ $cat->telefono}}</td>
 						
-					<td><?php echo date("d-m-Y h:i:s a",strtotime($cat->lastact)); ?></td>
+					<td><?php echo date("d-m-Y",strtotime($cat->fechavence)); ?></td>
 					<td>
 						<a href="{{route('empresa',['id'=>$cat->idempresa])}}"><button class="btn btn-warning btn-sm">Editar</button></a>
                         

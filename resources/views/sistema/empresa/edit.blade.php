@@ -189,7 +189,7 @@
                     <td>Fecha Inicio</td>
                   
                     <td class="text-right py-0 align-middle">
- <input type="date" class="form-control" name="vencimiento" value="{{$empresa->fechavence}}">
+ <input type="date" class="form-control" name="vencimiento" value="{{$empresa->fechainicio}}">
                     </td>  </tr>
                 </tbody>
               </table>

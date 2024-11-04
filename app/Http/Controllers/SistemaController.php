@@ -196,13 +196,13 @@ class SistemaController extends Controller
     }
 		public function updatempresa(Request $request)
     {
-
+//dd($request);
         $emp=Empresa::findOrFail($request->get('idempresa'));
 		$tasa=$emp->tasaespecial;
         $emp->nombre=$request->get('nombre');
         $emp->rif=$request->get('rif');
         $emp->direccion=$request->get('direccion');
-        $emp->direccion=$request->get('direccion');
+        $emp->inicio=$request->get('vencimiento');
         $emp->uuid=$request->get('uuid');
         $emp->tasaespecial=$request->get('tasaajuste');
 		if($request->get('usaserie')){
