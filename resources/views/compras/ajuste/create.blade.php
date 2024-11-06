@@ -1,20 +1,29 @@
 ﻿@extends ('layouts.master')
 @section ('contenido')
+
 <?php
 $fserver=date('Y-m-d');
+$fechaini=$empresa->fechainicio;
 $fecha_a=$empresa->fechavence;
+$dato=$empresa->dato;
+$nivel=Auth::user()->nivel;
+
 function dias_transcurridos($fecha_a,$fserver)
 {
 $dias = (strtotime($fecha_a)-strtotime($fserver))/86400;
 //$dias = abs($dias); $dias = floor($dias);
 return $dias;
-} 
-$vencida=0;
-if (dias_transcurridos($fecha_a,$fserver) < 0){
+}
+$vencida=$cntvend=$cntcli=0;
+$diaslicencia=dias_transcurridos($fserver,$fechaini);
+$diasuso=($dato-$diaslicencia);
+if (dias_transcurridos($fserver,$fechaini)>$dato){
   $vencida=1;
   echo "<div class='alert alert-danger'>
-      <H2>LICENCIA DE USO DE SOFTWARE VENCIDA!!!</H2> contacte su Tecnico de soporte.
+      <H2 align='center'>LICENCIA DE USO DE SOFTWARE VENCIDA!!!</H2> Contacte su Tecnico de soporte.
       </div>";
+}if (($diasuso>0) and ($diasuso<10)){
+	  echo "<H5 align='center'><FONT color='red'>".$diasuso." Dias para Vencer Licencia de Uso del Software.</FONT> </H5>";
 };
 ?>
 <div class="row">
@@ -111,9 +120,9 @@ if (dias_transcurridos($fecha_a,$fserver) < 0){
 			</div>
 		</div>
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="guardar" align="right">
-            	    <div class="form-group">
+            	    <div class="form-group" <?php if($vencida==1){?>style="display: none"<?php } ?> >
                     <input name="_token" value="{{ csrf_token() }}" type="hidden" ></input>
-                        <button class="btn btn-primary btn-sm" type="button" id="btnguardar">Guardar</button>
+                        <button class="btn btn-primary btn-sm" type="button" id="btnguardar" >Guardar</button>
             	       <button class="btn btn-danger btn-sm" type="reset" id="btncancelar">Cancelar</button>
 					   <div style="display: none" id="loading">  <img src="{{asset('img/sistema/loading30.gif')}}"></div>
                     </div>

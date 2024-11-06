@@ -19,10 +19,10 @@ $diasuso=($dato-$diaslicencia);
 if (dias_transcurridos($fserver,$fechaini)>$dato){
   $vencida=1;
   echo "<div class='alert alert-danger'>
-      <H2>LICENCIA DE USO DE SOFTWARE VENCIDA!!!</H2> Contacte su Tecnico de soporte.
+      <H2 align='center'>LICENCIA DE USO DE SOFTWARE VENCIDA!!!</H2> Contacte su Tecnico de soporte.
       </div>";
 }if (($diasuso>0) and ($diasuso<10)){
-	  echo "<H5>".$diasuso." Dias para Vencer Licencia de Uso del Software.</H5>";
+	  echo "<H5 align='center'><FONT color='red'>".$diasuso." Dias para Vencer Licencia de Uso del Software.</FONT> </H5>";
 };
 $ceros=5;
 function add_ceros($numero,$ceros) {
@@ -91,7 +91,7 @@ $idv=0;
 						<input type="hidden" value="{{$empresa->tc}}" id="valortasa" name="tc" class="form-control">
 						<input type="hidden" value="{{$empresa->peso}}" id="valortasap" name="peso" class="form-control">
                     		 <input type="hidden" value="" id="nvendedor" name="nvendedor" class="form-control">
-						<label for="cliente">Cliente <a href="" data-target="#modalcliente" data-toggle="modal"><span class="label label-success"> <i class="fa fa-fw  fa-user-plus "> </i></span></a></label><?php if($cntvend==0){ echo "<span class='text-danger'>Debe Registrar Vendedor!!</span>";} ?>
+						<label for="cliente">Cliente <a href="" data-target="#modalcliente" data-toggle="modal"><span class="label label-success"> <i class="fa fa-fw  fa-user-plus "> </i></span></a></label><?php if($cntvend==0){ echo "<span class='text-danger'>Debe Registrar Cliente!!</span>";} ?>
                     	<select name="id_cliente" id="id_cliente" class="form-control selectpicker" data-live-search="true">						
                            @foreach ($personas as $per)
                            <option value="{{$per -> id_cliente}}_{{$per -> tipo_precio}}_{{$per -> comision}}_{{$per -> nombrev}}_{{$per -> tipo_cliente}}">{{$per -> cedula}}-{{$per -> nombre}}</option> 
