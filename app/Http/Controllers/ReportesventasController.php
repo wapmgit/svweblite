@@ -359,11 +359,12 @@ class ReportesventasController extends Controller
 	}
 	public function cuentascobrar(Request $request)	
 	{
+		
 			$rol=DB::table('roles')-> select('rcxc','iduser')->where('iduser','=',$request->user()->id)->first();	
 		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 		if ($rol->rcxc==1){
 		//$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();		
-		$vendedores=DB::table('vendedores')->get();  
+		$vendedores=DB::table('vendedores')->where('idempresa','=',$empresa->idempresa)->get();  
 			if($request->get('vendedor')==NULL){
 			$clientes=DB::table('venta as v')
 			->join('clientes as c','c.id_cliente','=','v.idcliente')
@@ -416,6 +417,7 @@ class ReportesventasController extends Controller
 	
 		public function cuentascobrarv()
 		{
+		
 			$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
 			$ventas=DB::table('venta as v')
 			->join('vendedores as ve','ve.id_vendedor','=','v.idvendedor')
@@ -639,16 +641,17 @@ class ReportesventasController extends Controller
     {
         if ($request)
         {
-			$rol=DB::table('roles')-> select('crearventa','anularventa')->where('iduser','=',$request->user()->id)->first();
+			$rol=DB::table('roles')-> select('crearventa','anularventa','iduser')->where('iduser','=',$request->user()->id)->first();
+			   $empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 			$corteHoy = date("Y-m-d");
 			$user=Auth::user()->name;
-			   $empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
             $query=trim($request->get('searchText'));
             $ventas=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
             -> join ('detalle_venta as dv','v.idventa','=','dv.idventa')
             -> select ('v.idventa','v.fecha_hora','p.nombre','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.devolu','v.estado','v.total_venta')		
 			->where('v.user','=',$user)
+			-> where ('v.idempresa',$empresa->idempresa)
 			 ->where('v.fecha_emi','like',$corteHoy)
             -> where ('p.nombre','LIKE','%'.$query.'%')
             -> orderBy('v.idventa','desc')

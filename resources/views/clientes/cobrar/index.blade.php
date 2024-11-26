@@ -2,14 +2,12 @@
 @section ('contenido')
 <?php
 $url = "https://web.whatsapp.com/";
-
 $urlparts= parse_url($url);
 $scheme = $urlparts['scheme'];
-
 if ($scheme === 'https') {
-    echo("$url es una URL valida");
+   // echo("$url es una URL valida");
 } else {
-    echo("$url no es una URL valida");
+ //   echo("$url no es una URL valida");
 }
 ?>
 	<div class="row">
@@ -17,6 +15,7 @@ if ($scheme === 'https') {
 		<h3>Cuentas por Cobrar </h3>
 		@include('clientes.cobrar.search')
 	</div>
+
 	</div>
  
 <div class="row">
@@ -57,7 +56,7 @@ if ($scheme === 'https') {
 					@if($rol->abonarcxc==1)<a href="{{route('showcxc',['id'=>$cat->id_cliente])}}"><button class="btn btn-info btn-xs">Abono</button></a>@endif
 					@if($rol->crearventa==1)<a href="{{route('facventa',['id'=>$cat->id_cliente])}}"><button class="btn btn-primary btn-xs">Facturar</button></a>@endif										
    <a href="https://api.whatsapp.com/send/?phone=<?php echo $cat->codpais.$cel; ?>&text=Hola%20,<?php echo $empresa->nombre ?>,%20te%20recuerda
-%20cuenta%20pendiente%20por%20<?php echo number_format((($cat->acumulado+$nd)-$nc), 2,',','.')." $";?>%20.%20Contactanos%20para%20mas%20detalles." target="_blank">
+%20cuenta%20pendiente%20por%20<?php echo number_format((($cat->acumulado+$nd)-$nc), 2,',','.')." $";?>%20.%20Contactanos%20para%20mas%20detalles.%20" target="_blank">
 <i class="fa-brands fa-whatsapp"></i>
    </a></div></td>
 				</tr>
@@ -76,6 +75,5 @@ if ($scheme === 'https') {
 @endsection
 @push('scripts')
 <script>
-  
 </script>
 @endpush

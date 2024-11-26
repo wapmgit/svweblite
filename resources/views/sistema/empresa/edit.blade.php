@@ -138,7 +138,13 @@
                       <label class="custom-control-label" for="customSwitch5"></label>
                     </div>
                     </td>
-</tr>                  <tr>
+</tr>             
+                  <tr>
+                    <td colspan="2">Mostrar: Direccion <input type="checkbox" name="mdir" <?Php if($empresa->mdireccion==1){ echo "checked"; }?>>
+                Telefono <input type="checkbox" name="mtel" <?Php if($empresa->mtel==1){ echo "checked"; }?> >    
+                Rif <input type="checkbox" name="mrif" <?Php if($empresa->mrif==1){ echo "checked"; }?>>
+                    Cobranza <input type="checkbox"  name="mcobro" <?Php if($empresa->mcobro==1){ echo "checked"; }?>> </td>
+</tr>       <tr>
                     <td>¿Usa Serie? <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><input type="text" size="5" name="usaserie" id="usaserie"  <?php if ($empresa->usaserie == 0){ echo "disabled"; }   ?>  class="form-control" value="{{$empresa->serie}}">
 					</div></td>     
                     <td class="text-right py-0 align-middle">

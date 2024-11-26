@@ -31,7 +31,7 @@ $cefe=0;?>
               <!-- Table row -->
               <div class="row">
 			   <div class="col-12 table-responsive">
-				<table width="100%">
+				<table width="100%" id="clientestable">
 					<thead style="background-color: #E6E6E6">
 						<th>Cliente</th>
 						<th>Cedula</th>
@@ -111,7 +111,16 @@ $(document).ready(function(){
   window.print(); 
   window.location="{{route('reportecxc')}}";
     });
+	$(function () {
+    $("#clientestable").DataTable({
+		"searching": false,
+		"bPaginate": false,
+		"bInfo":false,
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#clientestable_wrapper .col-md-6:eq(0)');
 
+  });
 });
 
 </script>

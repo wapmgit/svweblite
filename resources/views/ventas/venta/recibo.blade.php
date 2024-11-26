@@ -6,77 +6,104 @@ function add_ceros($numero,$ceros) {
   $numero=$numero;
 $digitos=strlen($numero);
   $recibo=" ";
-  for ($i=0;$i<8-$digitos;$i++){
+  for ($i=0;$i<5-$digitos;$i++){
     $recibo=$recibo."0";
   }
 return $insertar_ceros = $recibo.$numero;
 };
+$cntl=0;
 ?>   	 
-<div align="center">
-<div id="areaimprimir"  class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >
-			<div style="line-height:70%" width="90%">
-			<label><small><small><b>{{$empresa->nombre}}</b></small></small></br>
-			<small><small>{{$empresa->rif}}</small></small></br>
-			<small><small><small>{{$empresa->direccion}}</small></small></small></br>
-			<small><small>Telf:{{$empresa->telefono}}</small></small></br>
-					 
-			<small><small> <small>  {{$venta->cedula}} -> {{$venta->nombre}}</br>
-				{{$venta->direccion}}</small></small></small> </br>
-			<small><small>	Documento:  <?php $idv=$venta->num_comprobante; echo add_ceros($idv,$ceros); ?></small></small> </label>  
-			</div>    
-                  <table style="line-height:60%" id="detalles" border="0" width="95%">
+            <div  id="areaimprimir" >
+
+              <div class="row invoice-info">
+			</br>
+			<div  class="col-12 table-responsive">
+                  <table id="detalles" border="0" >
+				  <tR><td align="center"><font size="10"><b>{{$empresa->nombre}} <?php if($empresa->mrif==1){ echo $empresa->rif; }?></b></font></td></tR>
+				<?php if($empresa->mtel==1){?> <tR><td align="center"><font size="8"><b>Tel.: {{$empresa->telefono}}</b></font></td></tR><?php } ?>
+				 <?php if($empresa->mdireccion==1){?> <tR><td align="center"><font size="8"><b>{{$empresa->direccion}}</b></font></td></tR><?php } ?>
+				  <tR><td align="center"><font size="8"><b>{{$venta->cedula}} -> <b>{{$venta->nombre}}</b></br>
+				  {{$venta->direccion}} </br>
+				  				Documento:  <b>  <?php $idv=$venta->num_comprobante; echo add_ceros($idv,$ceros); ?> </b> Fecha: <b><?php echo date("d-m-Y",strtotime($venta->fecha_hora)); ?></b></font></td></tR>
+				  </table>
+              </div>
+			<div class="col-12 table-responsive"> 
+					   <div  align="center"> <font size="8"> <b>NOTA DE ENTREGA</b></font>  <hr class="class2"></div> 
+                  <table width="100%" >
                       <thead>                 
-                          <th width="5%"><font size="1"><small>Cant.</small></font></th>
-                          <th width="60%" align="center"><small><small>Descrip.</small></small></th>
-                          <th width="15%"><font size="1"><small><small>Precio</small></small></font></th>
-                          <th width="15%"><font size="1"><small><small>Subt.</small></small></font></th>
+                          <th ><font size="8">Cant.</font></th>
+                          <th align="center"><font size="8">Descrip.</font></th>
+                          <th ><font size="8">Precio.</font></th>
+                          <th ><font size="8">Subt.</font></th>
                       </thead>
                       <tfoot>                      
-                          <th colspan="2" align="center"><small><small>Bs: <?php echo number_format(($venta->total_venta*$empresa->tc), 2,',','.'); ?> </small></small></th>
-                          <th colspan="2" align="center"><small><small>$: <?php echo number_format($venta->total_venta, 2,',','.'); ?> </small></small></th>
+							  <tr >
+                          <th colspan="4"> <hr class="class1"> </th>  </tr >
+						  		  <tr >
+                          <th colspan="4"><div align="right"><font size="8" >Total $: <?php echo number_format($venta->total_venta, 2,',','.'); ?> </font></div></th>  </tr >
                           </tfoot>
                       <tbody>
                         @foreach($detalles as $det)
+						 <?php $cntl++; ?> 
                         <tr height="10px"> 
-						  <td><font size="1"><small><small>{{$det->cantidad}}</small></small></font></td>
-                          <td><font size="1"><small><small><small><?php echo strtolower($det->articulo);?><?php if($det->iva>0){echo "(G)"; }else { echo "(E)"; } ?></small></small></small></font></td>                       
-                          <td><font size="1"><small><small><?php echo number_format( $det->precio_venta, 2,',','.'); ?></small></small></font></td>
-                          <td><font size="1"><small><small><?php echo number_format( (($det->cantidad*$det->precio_venta)-$det->descuento), 2,',','.'); ?></small></small></font></td>
+						  <td><font size="8">{{$det->cantidad}}</font></td>
+                          <td><font size="7"><?php echo strtolower($det->articulo);?></font></td>                       
+                          <td><font size="8"><?php echo number_format( $det->precio_venta, 2,',','.'); ?></font></td>
+                          <td><font size="8"><?php echo number_format( (($det->cantidad*$det->precio_venta)-$det->descuento), 2,',','.'); ?></font></td>
                         </tr>
-                        @endforeach
+                     @endforeach
                       </tbody>
                   </table>
-                  <table id="desglose" style="line-height:80%" border="0"  width="100%">
+			   </div>
+
+		<div class="row">
+
+			<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+
+					 
+		<?php if($empresa->mtel==1){?>
+							 
+			<table  width="100%">
                       <thead>                  
-                          <td><font size="1"><small>Tipo</small></font></td>
-                          <td><font size="1"><small>Monto</small></font></td>
-                          <td><font size="1"><small>Monto$</small></font></td>                        
+                          <td><font size="6"><small>Tipo</small></font></td>
+                          <td><font size="6"><small>Monto</small></font></td>
+                          <td><font size="6"><small>Monto$</small></font></td>                        
                       </thead>                     
                       <tbody>                       
                         @foreach($recibos as $re) <?php  $acum=$acum+$re->monto;?>
                         <tr >
-                          <td><font size="1"><small>{{$re->idbanco}}</small></font></td>
-                          <td><font size="1"><small><?php echo number_format( $re->recibido, 2,',','.'); ?></small></font></td>
-						  <td><font size="1"><small><?php echo number_format( $re->monto, 2,',','.'); ?></small></font></td>                       
+                          <td><font size="6"><small>{{$re->idbanco}}</small></font></td>
+                          <td><font size="6"><small><?php echo number_format( $re->recibido, 2,',','.'); ?></small></font></td>
+						  <td><font size="6"><small><?php echo number_format( $re->monto, 2,',','.'); ?></small></font></td>                       
                         </tr>
                         @endforeach
                         <tfoot >                    
                           </tfoot>
                       </tbody>
                   </table>
-           
-                <div ><small><font size="1">
-                    <p><?php echo date("d-m-Y h:i:s a",strtotime($venta->fecha_hora)); ?></p></font></small>
-                </div>
+		<?php } ?>
+				  <?php for ( $i=0;$i<3;$i++){
+							 echo "</br>";
+							 
+							 } ?> 
+				  <div><P> <font size="8">Gracias por su compra..</font></p>
 </div>
+			
 </div>
-     <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+
+                
+				
+</div>  
+</div>  
+</div>  
+    
+<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                     <div class="form-group" align="center">
 					 <button type="button" id="regresar" class="btn btn-danger btn-xs" data-dismiss="modal">Regresar</button>
-                     <button type="button" id="imprimir" class="btn btn-primary btn-xs" onclick="printdiv('areaimprimir');" >Imprimir</button>
+                     <button type="button" id="imprimir" class="btn btn-primary btn-xs" onclick="printdiv('areaimprimir');"  >Imprimir</button>
                     </div>
-                </div>  
-			
+</div>  
+			<?php $ruta="recibo/".$venta->idventa.""; ?>
 @push ('scripts')
 <script>
 $(document).ready(function(){
@@ -89,7 +116,8 @@ $(document).ready(function(){
 		var originalcontenido = document.body.innerHTML;
 		document.body.innerHTML =printcontenido;
 	  	window.print();
-	  	window.location="{{route('newventa')}}";
+		window.location.href="/{{$ruta}}";
+	  
 	  	document.body.innerHTML=originalcontenido;
   }
   $('#regresar').on("click",function(){

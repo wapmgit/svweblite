@@ -33,7 +33,6 @@
                     <div class="input-group-prepend">
                     </div>
                     <input type="text" required name="codpais" value="{{$cliente->codpais}}" placeholder="+58" class="form-control">
-                  
 				  </div>
             </div>
 		</div>	
