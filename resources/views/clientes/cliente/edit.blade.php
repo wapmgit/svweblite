@@ -33,6 +33,7 @@
                     <div class="input-group-prepend">
                     </div>
                     <input type="text" required name="codpais" value="{{$cliente->codpais}}" placeholder="+58" class="form-control">
+				  @if($errors->first('codigo'))<P class='text-danger'>{{$errors->first('codigo')}}</p>@endif
 				  </div>
             </div>
 		</div>	
@@ -40,14 +41,16 @@
              <div class="form-group">
             	<label for="telefono">Telefono</label>
             	<input type="text" name="telefono" class="form-control" value="{{$cliente->telefono}}" placeholder="telefono...">
-            </div>
+@if($errors->first('telefono'))<P class='text-danger'>{{$errors->first('telefono')}}</p>@endif           
+		   </div>
 	</div>
 
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">			
               <div class="form-group">
             <label for="telefono">Direccion</label>
                 <input type="text" name="direccion" class="form-control" value="{{$cliente->direccion}}" placeholder="direccion...">
-           </div>
+@if($errors->first('direccion'))<P class='text-danger'>{{$errors->first('direccion')}}</p>@endif          
+		  </div>
 	</div>
 
 					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">		

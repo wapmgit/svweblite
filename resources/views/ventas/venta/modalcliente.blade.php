@@ -15,48 +15,48 @@
 				<div class="row">	
 					<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
 						 <div class="form-group">
-							<label for="nombre">Nombre</label>
+							<label for="nombre">*Nombre</label>
 							<input type="text" name="cnombre" id="cnombre" onchange="conMayusculas(this)" required value="" class="form-control" placeholder="Nombre...">
 						</div>
 					</div>
 					<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 					<div class="form-group">
-					<label for="descripcion">Cedula</label>
+					<label for="descripcion">*Cedula</label>
 					<input type="text" name="ccedula" onchange="conMayusculas(this)"  id="vidcedula" class="form-control"  maxlength="10" placeholder="V000000">
 				</div>
 				</div>
 				<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 					<div class="form-group">
-					<label for="descripcion">Rif</label>
+					<label for="descripcion">*Rif</label>
 					<input type="text" name="rif" onchange="conMayusculas(this)"  id="virif" class="form-control"  maxlength="12" placeholder="V00000-0">
 				</div>
 				</div>
 			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">			
             <div class="form-group">
-            	<label for="descripcion">Codigo</label>
+            	<label for="descripcion">*Codigo</label>
 
                   <div class="input-group">
                     <div class="input-group-prepend">
                     </div>
-                    <input type="text" required name="codpais" value="{{old('codpais')}}" placeholder="+58" class="form-control">
+                    <input type="text" required name="codpais"  id="codpais" value="{{old('codpais')}}" placeholder="+58" class="form-control">
                   </div>
             </div>
 		</div>	
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 					  <div class="form-group">
-					<label for="descripcion">Telefono</label>
+					<label for="descripcion">*Telefono</label>
 					<div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="fas fa-phone"></i></span>
                     </div>
-                    <input type="text" name="ctelefono" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                    <input type="text" name="ctelefono" id="telefono" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
                   </div>
 				</div>
 				</div>
 				<div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 					 <div class="form-group">
-				 <label for="direccion">Direccion</label>
-				<input type="text" name="cdireccion" class="form-control" placeholder="Direccion...">
+				 <label for="direccion">*Direccion</label>
+				<input type="text" name="cdireccion"  id="direccion" class="form-control" placeholder="Direccion...">
 				<input type="hidden" name="idempresa" class="form-control" value="{{$empresa->idempresa}}">
 			   </div>
 				</div>
