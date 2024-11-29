@@ -34,7 +34,7 @@
                     <div class="input-group-prepend">
                     </div>
                     <input type="text" required name="codpais" value="{{old('codpais')}}" required placeholder="+58" class="form-control">
-                  @if($errors->first('codigo'))<P class='text-danger'>{{$errors->first('codigo')}}</p>@endif
+                  @if($errors->first('codpais'))<P class='text-danger'>{{$errors->first('codpais')}}</p>@endif
 				  </div>
             </div>
 		</div>		
