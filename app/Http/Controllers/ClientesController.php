@@ -127,7 +127,7 @@ class ClientesController extends Controller
 			$this->validate($request,[
             'nombre' => 'required',
 			'rif'=>'required',
-			'codigo'=>'required',
+			'codpais'=>'required',
 			'telefono'=>'required',
 			'direccion'=>'required',
             'cedula' => 'required'
