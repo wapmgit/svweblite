@@ -42,6 +42,8 @@ return $insertar_ceros = $recibo.$numero;
 					<img src="{{asset('dist/img/logoempresa.png')}}" width="50%" height="80%" title="NKS">
 				</div>
 			</div>
+			@include('ventas.venta.modaldelete')
+			@include('ventas.venta.modaladd')
 	<div class="row">
 		<form action="{{route('devolucion')}}" method="POST" enctype="multipart/form-data" >         
         {{csrf_field()}}
@@ -60,7 +62,8 @@ return $insertar_ceros = $recibo.$numero;
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<table id="detalles" width="100%">
 			<thead style="background-color: #A9D0F5">                      
-			  <th>Articulo</th>
+			  <th>Articulo @if($rol->ajustarventa==1)<?php if($venta->total_venta==$venta->saldo){?>  <a href="" data-target="#modaldelete" data-toggle="modal"><i class="fa fa-eraser"></i> </a>&nbsp;
+			  <a href="" data-target="#modaladd" data-toggle="modal"><i class="fa fa-plus"></i> </a><?php } ?> @endif</th>
 			  <th>Cantidad</th>
 			  <th>Descuento</th>
 			  <th>Precio venta</th>
@@ -74,7 +77,8 @@ return $insertar_ceros = $recibo.$numero;
 			<tbody>
 			@foreach($detalles as $det)
 			<tr >
-			  <td><input type="hidden" name="idarticulo[]" value="{{$det->idarticulo}}">{{$det->articulo}}</td>
+			  <td>
+			  <input type="hidden" name="idarticulo[]" value="{{$det->idarticulo}}">{{$det->articulo}}</td>
 			   <td> <?php 
 						    if(($det->cantidad>0)and ($venta->devolu==0)){
 						  ?>
@@ -140,6 +144,12 @@ $(document).ready(function(){
     $('#procesa').click(function(){
   document.getElementById('procesa').style.display="none";
     });
+	$('#btnadd').on("click",function(){		
+		document.getElementById('btnadd').style.display="none"; 
+	});
+	$('#btndelete').on("click",function(){ 
+		document.getElementById('btndelete').style.display="none"; 
+	});
     });
 	function abrirdiv(ida,iddet,precio,cnt,na){
 //alert(na);

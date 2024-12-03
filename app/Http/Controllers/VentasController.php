@@ -209,11 +209,11 @@ catch(\Exception $e)
 	}
  public function showdevolucion(Request $request, $id)
     {   
-			$rol=DB::table('roles')-> select('anularventa','iduser')->where('iduser','=',$request->user()->id)->first();
+			$rol=DB::table('roles')-> select('anularventa','iduser','ajustarventa')->where('iduser','=',$request->user()->id)->first();
 			 $empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 		$venta=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
-            -> select ('v.tasa','v.idventa','v.fecha_hora','v.devolu','p.cedula','p.nombre','p.telefono','p.direccion','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta')
+            -> select ('v.tasa','v.saldo','v.idventa','v.fecha_hora','v.devolu','p.cedula','p.nombre','p.telefono','p.direccion','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta')
             ->where ('v.idventa','=',$id)
             -> first();
 
@@ -224,8 +224,15 @@ catch(\Exception $e)
             ->get();
 			$recibo=DB::table('recibos as r')-> where ('r.idventa','=',$id)
             ->get();
-		
-            return view("ventas.venta.devolucion",["venta"=>$venta,"detalles"=>$detalles,"recibo"=>$recibo,"empresa"=>$empresa]);
+			
+		 $articulos =DB::table('articulos as art')
+        -> select(DB::raw('CONCAT(art.codigo," ",art.nombre) as articulo'),'art.idarticulo','art.stock','art.costo','art.precio1 as precio_promedio','art.precio2 as precio2','art.iva','art.serial')
+        -> where('art.estado','=','Activo')
+        -> where('art.idempresa','=',$empresa->idempresa)
+        -> where ('art.stock','>','0')
+        ->groupby('articulo','art.idarticulo')
+        -> get();
+            return view("ventas.venta.devolucion",["rol"=>$rol,"listarticulos"=>$articulos,"venta"=>$venta,"detalles"=>$detalles,"recibo"=>$recibo,"empresa"=>$empresa]);
       
     }
 public function devolucion(Request $request){
@@ -599,6 +606,44 @@ public function fbs(Request $request, $id){
     $ventaf->anulado=1;
     $ventaf->update();
     return Redirect::to('correlativof');
+}
+	public function deletearticulo(Request $request){
+//dd($request);
+    $dev=DetalleVentas::findOrFail($request->idarticulo);
+	$valor=$dev->precio_venta*$dev->cantidad;
+    $dev->cantidad=0;
+    $dev->precio_venta=0;
+    $dev->update();
+	$ajv=Ventas::findOrFail($dev->idventa);
+	$ajv->total_venta=$ajv->total_venta-$valor;
+	$ajv->saldo=$ajv->saldo-$valor;
+	 $ajv->update();
+	
+      return Redirect::to('showdevolucion/'.$ajv->idventa);
+}
+public function addarticuloventa(Request $request){
+//dd($request);
+		$dev=Articulos::findOrFail($request->pidarticulo);
+		$valor=$dev->precio1*$request->cantidad;
+		
+	$ajv=Ventas::findOrFail($request->idventa);
+	$ajv->total_venta=$ajv->total_venta+$valor;
+	$ajv->saldo=$ajv->saldo+$valor;
+	 $ajv->update();
+	
+	$detalle=new DetalleVentas();
+            $detalle->idventa=$request->idventa;
+            $detalle->idarticulo=$request->pidarticulo;
+            $detalle->costoarticulo=$dev->costo;
+            $detalle->cantidad=$request->cantidad;
+            $detalle->descuento=0;
+            $detalle->precio_venta=$dev->precio1;
+			 $detalle->fecha_emi=$ajv->fecha_emi;	
+            $detalle->save();
+			
+
+	
+      return Redirect::to('showdevolucion/'.$ajv->idventa);
 }
 
 }

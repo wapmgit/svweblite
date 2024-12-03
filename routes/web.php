@@ -115,6 +115,8 @@ Route::post('anulforma', [ventasController::class, 'anulforma'])->name('anulform
 Route::post('anularecibo', [ventasController::class, 'anular'])->name('anularecibo');
 Route::post('validarcventa', [ventasController::class, 'validar'])->name('validarcventa');
 Route::post('ventacxc', [ventasController::class, 'vcxc'])->name('ventacxc');
+Route::post('deletearticulo', [ventasController::class, 'deletearticulo'])->name('deletearticulo');
+Route::post('addarticuloventa', [ventasController::class, 'addarticuloventa'])->name('addarticuloventa');
 //gastos
 Route::get('gastos', [GastosController::class, 'index'])->name('gastos');
 Route::get('newgasto', [GastosController::class, 'create'])->name('newgasto');

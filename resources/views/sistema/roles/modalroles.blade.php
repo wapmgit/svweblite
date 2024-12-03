@@ -164,6 +164,12 @@
 					  <input type="checkbox" name="op16" class="minimal" @if($q->abonarcxc==1) checked @endif ></label>
 					</div>
 				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+						<label>Ajustar Venta: </label><label>
+						<input type="checkbox" name="op61" class="minimal" @if($q->ajustarventa==1) checked @endif ></label>
+						</div>
+						</div>
 				<!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 					 <div class="form-group">
 					 <label>Crear Pedidos: </label><label>
