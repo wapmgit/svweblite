@@ -14,9 +14,10 @@ return $insertar_ceros = $recibo.$numero;
 $cntser=0;
 ?>
 <style type="text/css">
-.class1{
-	width: 100%;
-	border: 2px solid #000000;
+hr{
+	height: 3px;
+	background-color: black;
+	
 }
 </style>
             <div class="invoice p-3 mb-3">
@@ -40,7 +41,7 @@ $cntser=0;
 			</tr>
 			<tr><td>{{$venta->rif}} -> {{$venta->nombre}}</td><td>{{$venta->telefono}}</td><td>{{$venta->direccion}}</td><td>{{$venta->control}}</td>
 			</tr>
-			<tr><td colspan="4"><hr/ class="class1"></td></tr>
+			<tr><td colspan="4"><hr/></td></tr>
 		</table>
 		
 	</div>
