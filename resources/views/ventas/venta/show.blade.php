@@ -13,6 +13,12 @@ return $insertar_ceros = $recibo.$numero;
 };
 $cntser=0;
 ?>
+<style type="text/css">
+.class1{
+	width: 100%;
+	border: 2px solid #000000;
+}
+</style>
             <div class="invoice p-3 mb-3">
               <!-- title row -->
               <div class="row">
@@ -32,9 +38,11 @@ $cntser=0;
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<table width="100%"><tr><td width="30%"><strong>Cliente</strong></td><td width="20%"><strong>Telefono</strong></td><td width="30%"><strong>Direccion</strong></td><td width="20%"><strong># Control</strong></td>
 			</tr>
-			<tr><td>{{$venta->cedula}} -> {{$venta->nombre}}</td><td>{{$venta->telefono}}</td><td>{{$venta->direccion}}</td><td>{{$venta->control}}</td>
+			<tr><td>{{$venta->rif}} -> {{$venta->nombre}}</td><td>{{$venta->telefono}}</td><td>{{$venta->direccion}}</td><td>{{$venta->control}}</td>
 			</tr>
-		</table></br>
+			<tr><td colspan="4"><hr/ class="class1"></td></tr>
+		</table>
+		
 	</div>
 
 </div>
@@ -50,15 +58,11 @@ $cntser=0;
                           <th>Precio</th>
                           <th>Subtotal</th>
                       </thead>
-                      <tfoot>                      
-                          <th colspan="4"><div align="right">TOTAL: </div></th>
-                          <th ><b><font size="4"><?php echo " $ ".number_format($venta->total_venta, 2,',','.'); ?> </b></font></th>
-                          </tfoot>
-                      <tbody>
+                    
                         @foreach($detalles as $det)
 						<?php if ($det->cantidad>0){?>
                         <tr >
-                          <td>{{$det->articulo}} <?php if($det->iva>0){echo "(G)"; }else { echo "(E)"; } ?></td>
+                          <td>{{$det->articulo}}</td>
                           <td>{{$det->cantidad}}</td>
                           <td>{{$det->unidad}}</td>
                           <td><?php echo number_format( $det->precio_venta, 2,',','.'); ?></td>
@@ -67,8 +71,15 @@ $cntser=0;
 							<?php } ?>
                         @endforeach
                       </tbody>
+					   <tfoot>                      
+                          <th colspan="4"><div align="right">TOTAL: </div></th>
+                          <th ><b><font size="4"><?php echo " $ ".number_format($venta->total_venta, 2,',','.'); ?> </b></font></th>
+                          </tfoot> 
+                         
+                      <tbody>
             </table>
-	
+	 <tfoot> 
+						   <th colspan="5"><hr/ class="class1"></th> </tfoot>
         </div>                   
 				<?php if(count($recibos)>0){?>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><h6 align="center">Desglose de pago</h6>

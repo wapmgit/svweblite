@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-</head>
+ </head>
      @if(Auth::user()->nivel=="A")
 <body class="hold-transition sidebar-mini layout-fixed">
 @else
@@ -333,12 +333,12 @@
                   <p>Corte de Caja</p>
                 </a>
               </li>
-            <!--   <li class="nav-item">
+            <li class="nav-item">
                 <a href="{{route('detalleingresos')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Detalle de Ingresos</p>
                 </a>
-              </li> -->
+              </li> 
               <li class="nav-item">
                 <a href="{{route('reportecxc')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -677,6 +677,7 @@
 <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+ 
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)

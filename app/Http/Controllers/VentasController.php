@@ -402,7 +402,7 @@ public function show(Request $request, $id){
 
 			$venta=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
-            -> select ('v.idempresa','v.idventa','v.fecha_hora','p.nombre','p.cedula','p.telefono','p.direccion','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu')
+            -> select ('v.idempresa','v.idventa','v.fecha_hora','p.nombre','p.rif','p.cedula','p.telefono','p.direccion','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu')
             ->where ('v.idventa','=',$id)
             -> first();
             $detalles=DB::table('detalle_venta as dv')
@@ -427,7 +427,7 @@ public function fbs(Request $request, $id){
 			$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 			$venta=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
-            -> select ('v.idventa','v.fecha_hora','v.fecha_emi','v.tasa','v.tasa','v.texe','v.base','v.total_iva','p.nombre','p.cedula','p.telefono','p.direccion','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu')
+            -> select ('v.idventa','v.fecha_hora','v.fecha_emi','v.tasa','v.tasa','v.texe','v.base','v.total_iva','p.nombre','p.cedula','p.rif','p.telefono','p.direccion','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu')
             ->where ('v.idventa','=',$id)
             -> first();
 			//dd($venta);

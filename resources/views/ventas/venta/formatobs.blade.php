@@ -52,14 +52,14 @@ function truncar($numero, $digitos)
 						<?php $cntline++; ?>
                         <tr >
 						     <td>{{$det->codigo}}-{{$det->idarticulo}}</td>
-                          <td>{{$det->articulo}} <?php if($det->iva>0){echo "(G)"; 
+                          <td>{{$det->articulo}} <?php if($det->iva>0){
 						  $aux=($det->precio_venta/(($det->iva/100)+1));
 						  $aux=truncar($aux,2);
 						  $cto=truncar(($aux*$venta->tasa),2);						
 						  $des=truncar(($det->descuento*$venta->tasa),2);
 						   $subbs=($cto*$det->cantidad)-$des;
 						   $acumsub=$acumsub+$subbs;
-						  }else { echo "(E)"; $cto=truncar(($det->precio_venta*$venta->tasa),2); 
+						  }else {  $cto=truncar(($det->precio_venta*$venta->tasa),2); 
 						    $des=truncar(($det->descuento*$venta->tasa),2);
 						    $subbs=($cto*$det->cantidad)-$des;
 						   $acumsub=$acumsub+$subbs;
