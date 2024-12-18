@@ -147,7 +147,7 @@ hr{
                     <p>           <label for="num_comprobante">Fecha: </label><?php echo " ".date("d-m-Y h:i:s a",strtotime($venta->fecha_hora)); ?></p>
                 </div>
             </div> 
-			<input type="hidden" name="ruta" id="ruta" value="{{$ruta}}"></input>
+			<input type="hidden" name="ruta" id="ruta" value="<?php if($ruta==1){ $ruta="ventas"; }else{ $ruta="edocuenta/".$venta->id_cliente; } ?>"></input>
 		@if(Auth::user()->nivel=="A")
 			<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                     <div class="form-group" align="center">

@@ -395,7 +395,7 @@ $(document).ready(function(){
 	document.getElementById('Cenviar').style.display="none";
 	
 	$("#Cenviar").on("click",function(){ 
-	if(($("#codpais").val()!= "")&($("#telefono").val()!= "")&($("#direccion").val(total)!= "") ){
+	if(($("#codpais").val()!= "")&($("#telefono").val()!= "")&($("#direccion").val()!= "") ){
 		document.getElementById('Cenviar').style.display="none";	
          var form1= $('#formulariocliente');
          var url1 = '{{route("almacenacliente")}}';

@@ -22,7 +22,7 @@
 					<th>Opciones</th>
 				</thead>
                @foreach ($ventas as $ven)
-               <?php 
+               <?php $link=1;
 				$newdate=date("d-m-Y h:i:s a",strtotime($ven->fecha_hora));
 					?>
 				<tr>
@@ -40,7 +40,7 @@
                       <span class="sr-only"></span>
                     </button>
                     <div class="dropdown-menu" role="menu">
-                      <a class="dropdown-item" href="{{route('tcarta',['id'=>$ven->idventa])}}">Diseño Carta</a>
+                      <a class="dropdown-item" href="{{route('tcarta',['id'=>$ven->idventa.'-'.$link])}}">Diseño Carta</a>
                       <a class="dropdown-item" href="{{route('recibo',['id'=>$ven->idventa])}}">Modo Tikect</a>
                        <?php if ($ven->flibre==1){?>   <a class="dropdown-item" href="{{route('fbs',['id'=>$ven->idventa])}}">Diseño Bs</a><?php } ?>
                     </div>

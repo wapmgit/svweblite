@@ -374,7 +374,7 @@ catch(\Exception $e)
     DB::rollback();
 } */
 
-  return Redirect::to('tcarta/'.$request -> get('idventa'));
+  return Redirect::to('fbs/'.$request -> get('idventa'));
 }
 public function recibo($id){
 
@@ -395,10 +395,35 @@ public function recibo($id){
             return view("ventas.venta.recibo",["venta"=>$venta,"recibos"=>$recibo,"empresa"=>$empresa,"detalles"=>$detalles]);
 }
 public function show(Request $request, $id){
+//dd($id);
+	$dato=explode("-",$id);
+    $id=$dato[0];
+    $ruta=$dato[1];
+	//dd($ruta);
 
-			$ruta=$_SERVER["HTTP_REFERER"];
-			$c1= substr($ruta,4);		
-			//dd($c1);
+			$venta=DB::table('venta as v')
+            -> join ('clientes as p','v.idcliente','=','p.id_cliente')
+            -> select ('v.idempresa','v.idventa','p.id_cliente','v.fecha_hora','p.nombre','p.rif','p.cedula','p.telefono','p.direccion','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu')
+            ->where ('v.idventa','=',$id)
+            -> first();
+			//dd($venta);
+            $detalles=DB::table('detalle_venta as dv')
+            -> join('articulos as a','dv.idarticulo','=','a.idarticulo')
+            -> select('a.idarticulo','a.nombre as articulo','a.iva','a.unidad','dv.cantidad','dv.descuento','dv.precio_venta')
+            -> where ('dv.idventa','=',$id)
+            ->get();
+			
+			$recibo=DB::table('recibos as r')-> where ('r.idventa','=',$id)
+            ->get();
+			//dd($retencion);
+			$rol=DB::table('roles')-> select('iduser')->where('iduser','=',$request->user()->id)->first();
+			$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
+			$recibonc=DB::table('mov_notas as mov')-> where ('mov.iddoc','=',$id)-> where ('mov.tipodoc','=',"FAC")
+            ->get();
+
+            return view("ventas.venta.show",["ruta"=>$ruta,"venta"=>$venta,"recibos"=>$recibo,"recibonc"=>$recibonc,"empresa"=>$empresa,"detalles"=>$detalles]);
+}
+public function fbs(Request $request, $id){
 
 			$venta=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
@@ -418,34 +443,7 @@ public function show(Request $request, $id){
 			$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 			$recibonc=DB::table('mov_notas as mov')-> where ('mov.iddoc','=',$id)-> where ('mov.tipodoc','=',"FAC")
             ->get();
-
-            return view("ventas.venta.show",["ruta"=>$c1,"venta"=>$venta,"recibos"=>$recibo,"recibonc"=>$recibonc,"empresa"=>$empresa,"detalles"=>$detalles]);
-}
-public function fbs(Request $request, $id){
-
-			$rol=DB::table('roles')-> select('iduser')->where('iduser','=',$request->user()->id)->first();
-			$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
-			$venta=DB::table('venta as v')
-            -> join ('clientes as p','v.idcliente','=','p.id_cliente')
-            -> select ('v.idventa','v.fecha_hora','v.fecha_emi','v.tasa','v.tasa','v.texe','v.base','v.total_iva','p.nombre','p.cedula','p.rif','p.telefono','p.direccion','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu')
-            ->where ('v.idventa','=',$id)
-            -> first();
-			//dd($venta);
-            $detalles=DB::table('detalle_venta as dv')
-            -> join('articulos as a','dv.idarticulo','=','a.idarticulo')
-            -> select('a.idarticulo','dv.idarticulo','a.nombre as articulo','a.unidad','a.codigo','a.iva','dv.cantidad','dv.descuento','dv.precio_venta')
-            -> where ('dv.idventa','=',$id)
-            ->get();
-			
-			$recibo=DB::table('recibos as r')-> where ('r.idventa','=',$id)
-            ->get();
-			$seriales=DB::table('seriales as se')-> where ('se.idventa','=',$id)
-            ->get();
-			//dd($seriales);
-			$recibonc=DB::table('mov_notas as mov')-> where ('mov.iddoc','=',$id)-> where ('mov.tipodoc','=',"FAC")
-            ->get();
-
-            return view("ventas.venta.formatobs",["seriales"=>$seriales,"venta"=>$venta,"recibos"=>$recibo,"recibonc"=>$recibonc,"empresa"=>$empresa,"detalles"=>$detalles]);
+            return view("ventas.venta.formatobs",["venta"=>$venta,"recibos"=>$recibo,"recibonc"=>$recibonc,"empresa"=>$empresa,"detalles"=>$detalles]);
 }
  public function almacena(Request $request)
     {	

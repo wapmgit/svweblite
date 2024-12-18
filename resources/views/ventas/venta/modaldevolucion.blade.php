@@ -30,7 +30,7 @@
 					<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
             		 <div class="form-group">
             			<label for="nombre">Nuevo Precio</label>
-            			<input type="number" step="any" name="precio" id="idprecio" min="1" required value="" class="form-control">
+            			<input type="number" step="any" name="precio" id="idprecio" min="0.01" required value="" class="form-control">
 
             		</div>
             	</div>
