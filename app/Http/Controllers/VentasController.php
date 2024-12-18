@@ -204,7 +204,7 @@ catch(\Exception $e)
 	if($empresa->tikect==1){
 		  return Redirect::to('recibo/'.$venta->idventa);
 	}else{
-	return Redirect::to('tcarta/'.$venta->idventa);
+	return Redirect::to('tcarta/'.$venta->idventa.'-1');
 	}
 	}
  public function showdevolucion(Request $request, $id)
