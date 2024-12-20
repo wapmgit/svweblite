@@ -306,10 +306,11 @@ return Redirect::to('showcompra/'.$ingreso->idcompra."-1");
 }
 	public function almacena(Request $request)
     {	
+	
 		if($request->ajax()){	
 		$paciente=new Proveedores;
         $paciente->nombre=$request->get('cnombre');
-        $paciente->idempresa=$request->get('idempresa');
+        $paciente->idempresa=$request->get('empresa');
         $paciente->rif=$request->get('rif');
         $paciente->telefono=$request->get('ctelefono');
         $paciente->estatus='A';
@@ -364,16 +365,20 @@ return Redirect::to('showcompra/'.$ingreso->idcompra."-1");
 		}
     }
 	public function facturar($idproveedor){
-		$categorias=DB::table('categoria')->where('condicion','=','1')->get();
-		$contador=DB::table('articulos')->select('idarticulo')->limit('1')->orderby('idarticulo','desc')->first();		
-		$empresa=DB::table('empresa')->join('sistema','sistema.idempresa','=','empresa.idempresa')->first();
-		$monedas=DB::table('monedas')->get();
+		$proveedor=Proveedores::findOrFail($idproveedor);
+		$categorias=DB::table('categoria')->where('idempresa',$proveedor->idempresa)->where('condicion','=','1')->get();
+		$contador=DB::table('articulos')->select('idarticulo')->where('idempresa',$proveedor->idempresa)->limit('1')->orderby('idarticulo','desc')->first();		
+		$empresa=DB::table('empresa')->join('sistema','sistema.idempresa','=','empresa.idempresa')
+		->where('empresa.idempresa',$proveedor->idempresa)->first();
+		$monedas=DB::table('monedas')->where('idempresa',$proveedor->idempresa)->get();
         $personas=DB::table('proveedores')
         -> where ('idproveedor','=',$idproveedor)
         -> where('estatus','=','A')->get();
+		
         $articulos =DB::table('articulos as art')
         -> select(DB::raw('CONCAT(art.codigo,"-",art.nombre," - ",stock," - ",costo,"-",iva) as articulo'),'art.idarticulo','art.costo','art.serial')
-        -> where('art.estado','=','Activo')
+        ->where('art.idempresa',$proveedor->idempresa)
+		-> where('art.estado','=','Activo')
         -> get();
         return view("compras.ingreso.create",["cnt"=>$contador,"monedas"=>$monedas,"personas"=>$personas,"articulos"=>$articulos,"categorias"=>$categorias,"empresa"=>$empresa]);
     }
