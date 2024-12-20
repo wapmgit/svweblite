@@ -398,12 +398,12 @@
                   <p>Cuentas por Pagar</p>
                 </a>
               </li>
-              <!-- <li class="nav-item">
+               <li class="nav-item">
                 <a href="{{route('detallegresos')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Detalle de Pagos</p>
                 </a>
-              </li> -->
+              </li> 
               <li class="nav-item">
                 <a href="{{route('comprasarticulo')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

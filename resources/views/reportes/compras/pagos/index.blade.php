@@ -30,7 +30,7 @@ $cefe=0;?>
                 <div class="col-12 table-responsive">
       <table width="100%">
       <thead style="background-color: #E6E6E6" >
-	  <thead><th colspan="9" >Egresos por Pago Compras/Gastos</th></thead>
+	  <thead><th colspan="9" >Egresos por Pago Compras</th></thead>
 	  <th id="campo">Recibo</th>
 	  <th>Usuario</th>
 		<th>Proveedor</th>
@@ -59,60 +59,8 @@ $cefe=0;?>
         </tr>
 			@include('reportes.compras.pagos.modal')
         @endforeach
-		   @foreach ($gastos as $cob)
-		 <?php  $tcobranza=$tcobranza+$cob->monto; ?> 
-        <tr>
-		<td><?php if ($cob->monto>0){?>
-<a href="" data-target="#modal-delete-{{$cob->idrecibo}}" data-toggle="modal" ><button class="btn btn-danger btn-xs" >X</button></a>	
-		<?php } ?>
-		{{$cob->idrecibo}}</td>
-		<td>{{$cob->vendedor}}</td>
-		<td>{{$cob->nombre}}</td>
-		<td>G:{{$cob->documento}}</td>
-          <td><?php  echo$cob->idbanco; ?></td>
-          <td><?php echo number_format($cob->recibido, 2,',','.'); ?></td>
-             <td><?php  echo number_format($cob->monto, 2,',','.')." $"; ?></td>
-			 <td>{{$cob->referencia}}</td>
-			 <td><?php echo date("d-m-Y h:i:s a",strtotime($cob->fecha)); ?></td>
-        </tr>
-			@include('reportes.compras.pagos.modalg')
-        @endforeach
 		<tr><td colspan="6"><strong>Total Egresos</strong></td><td colspan="3"><strong><?php  echo number_format($tcobranza, 2,',','.'); ?> $</strong></td></tr>
       </table>
-	  			<table width="100%">
-					<thead><th colspan="9" >Egresos por Pago Notas de Debito</th></thead>
-					<thead style="background-color: #E6E6E6" >
-						<th id="campo">Recibo</th>
-						<th>Usuario</th>
-						<th>Porveedor</th>
-						<th>Documento</th>
-						<th>Moneda</th>
-						<th>Recibido</th>
-						<th>Monto</th>
-						<th>Referencia</th>
-						<th>Fecha Rec.</th>
-					</thead>
-					@foreach ($egresosnd as $ingnd)
-						<?php $tingnd=$tingnd+$ingnd->monto;  ?> 
-					<tr>
-						<td><?php if ($ingnd->monto>0){?>
-						<a href="" data-target="#modal-deletend-{{$ingnd->idrecibo}}" data-toggle="modal" ><button class="btn btn-danger btn-xs" >X</button></a>	
-						<?php } ?>
-						{{$ingnd->idrecibo}}</td>
-						<td>{{$ingnd->vendedor}}</td>
-						<td>{{$ingnd->nombre}}</td>
-						<td>N/D-{{$ingnd->num_comprobante}}</td>
-						<td><?php  echo $ingnd->idbanco; ?></td>
-						<td><?php echo number_format($ingnd->recibido, 2,',','.'); ?></td>
-						<td><?php  echo number_format($ingnd->monto, 2,',','.')." $"; ?></td>
-						<td>{{$ingnd->referencia}}</td>
-						<td><?php echo date("d-m-Y h:i:s a",strtotime($ingnd->fecha)); ?></td>
-					</tr>
-							@include('reportes.compras.pagos.modalnd')
-					@endforeach
-					<tr>    
-						<td colspan="6"><strong>Total Egresos N/D</strong></td><td colspan="3"><strong><?php  echo number_format($tingnd, 2,',','.'); ?> $</strong></td></tr>
-				</table>
 	  </div>
 	  </div>
 

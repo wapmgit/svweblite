@@ -384,6 +384,7 @@ return Redirect::to('showcompra/'.$ingreso->idcompra."-1");
     }
 	public function anular(Request $request){
 		
+		//dd($request);
 		$recibo=Comprobantes::findOrFail($request->get('id'));
 	
 		if($request->get('tiporecibo')==0){

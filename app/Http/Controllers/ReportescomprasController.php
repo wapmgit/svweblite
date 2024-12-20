@@ -183,13 +183,12 @@ class ReportescomprasController extends Controller
 	}
 	public function pagos(Request $request)
     {   
-		$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
+		$rol=DB::table('roles')-> select('rdetallec','iduser')->where('iduser','=',$request->user()->id)->first();	
+		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();	
 		if ($request)
         {				
-			$rol=DB::table('roles')-> select('rdetallec')->where('iduser','=',$request->user()->id)->first();	
 			if ($rol->rdetallec==1){
 			$corteHoy = date("Y-m-d");
-            $empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
             $query=trim($request->get('searchText'));
 			if (($query)==""){$query=$corteHoy; }
              $query2=trim($request->get('searchText2'));
@@ -200,6 +199,7 @@ class ReportescomprasController extends Controller
 			->join('compras','compras.idcompra','=','co.idcompra' )
 			->join('proveedores as p','p.idproveedor','=','compras.idproveedor')
            -> select('p.nombre','co.referencia','compras.num_comprobante','co.idbanco','co.idpago','co.idrecibo','co.monto','co.recibido','co.fecha_comp as fecha','compras.user as vendedor')
+			-> where('p.idempresa','=',$empresa->idempresa)
 			-> where('compras.estatus','=',0)
             -> whereBetween('co.fecha_comp', [$query, $query2])
             ->get();
@@ -217,7 +217,10 @@ class ReportescomprasController extends Controller
             -> whereBetween('re.fecha_comp', [$query, $query2])
 			-> groupby('re.idrecibo')
             ->get();			
-            $desglose=DB::table('comprobante')->select(DB::raw('sum(recibido) as recibido'),DB::raw('sum(monto) as monto'),'idbanco')
+            $desglose=DB::table('comprobante')
+			->join('compras as co','co.idcompra','=','comprobante.idcompra')
+			->select(DB::raw('sum(recibido) as recibido'),DB::raw('sum(monto) as monto'),'idbanco')
+			-> where('co.idempresa','=',$empresa->idempresa)
             -> whereBetween('fecha_comp', [$query, $query2])
             ->groupby('idpago','idbanco')
             ->get();
