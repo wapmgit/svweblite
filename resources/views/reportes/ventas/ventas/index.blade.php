@@ -28,8 +28,8 @@ $cefe=0;?>
               <!-- Table row -->
               <div class="row">
                 <div class="col-12 table-responsive">
-					<table width="100%">
-					<thead style="background-color: #E6E6E6">
+					<table width="100%"  id="PuntosCanjeados">
+					<thead>
 					<th>Item </th>
 					<th>Cliente </th>
 					<th>Vendedor </th>
@@ -39,6 +39,7 @@ $cefe=0;?>
 					<th>Fecha Fac.</th>
 					<th>Usuario</th>
 					</thead>
+					<tbody>
 						<?php $ctra= 0; $cche=0; $cdeb=0; $credito=0; $contado=0; $count=0;?>
 					@foreach ($datos as $q)
 						<?php $count++; 
@@ -59,6 +60,7 @@ $cefe=0;?>
 								<td><strong><?php echo number_format($acum, 2,',','.')." $"; ?></strong></td>
 								<td colspan="2"></td>
 							</tr>
+							</tbody>
 					</table>
                 </div>
                 <!-- /.col -->
@@ -125,6 +127,7 @@ $cefe=0;?>
               </div>
 				<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                     <div class="form-group" align="center">
+					<button onclick="htmlExcel('PuntosCanjeados', 'Reporte_ventas')" id="expor" class="btn btn-warning btn-sm"> XLS</button>
                      <button type="button" id="imprimir" class="btn btn-primary btn-sm" data-dismiss="modal">Imprimir</button>
                     </div>
                 </div>
@@ -143,12 +146,42 @@ $(document).ready(function(){
     $('#imprimir').click(function(){
   //  alert ('si');
   document.getElementById('imprimir').style.display="none";
+  document.getElementById('expor').style.display="none";
   window.print(); 
   window.location="{{route('resumenventas')}}";
     });
 
 });
+	function htmlExcel(idTabla, nombreArchivo = '') {
+	  let linkDescarga;
+	  let tipoDatos = 'application/vnd.ms-excel';
+	  let tablaDatos = document.getElementById(idTabla);
+	  let tablaHTML = tablaDatos.outerHTML.replace(/ /g, '%20');
 
+	  // Nombre del archivo
+	  nombreArchivo = nombreArchivo ? nombreArchivo + '.xls' : 'Reporte_ventas.xls';
+
+	  // Crear el link de descarga
+	  linkDescarga = document.createElement("a");
+
+	  document.body.appendChild(linkDescarga);
+
+	  if (navigator.msSaveOrOpenBlob) {
+		let blob = new Blob(['\ufeff', tablaHTML], {
+		  type: tipoDatos
+		});
+		navigator.msSaveOrOpenBlob(blob, nombreArchivo);
+	  } else {
+		// Crear el link al archivo
+		linkDescarga.href = 'data:' + tipoDatos + ', ' + tablaHTML;
+
+		// Setear el nombre de archivo
+		linkDescarga.download = nombreArchivo;
+
+		//Ejecutar la función
+		linkDescarga.click();
+	  }
+	}
 </script>
 
 @endpush

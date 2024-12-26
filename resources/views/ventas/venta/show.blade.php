@@ -14,11 +14,12 @@ return $insertar_ceros = $recibo.$numero;
 $cntser=0;
 ?>
 <style type="text/css">
-hr{
-	height: 3px;
-	background-color: black;
-	
-}
+ hr {
+        height: 3px;
+        background-color: black;
+        margin: 10px auto;
+      }
+ 
 </style>
             <div class="invoice p-3 mb-3">
               <!-- title row -->
@@ -41,7 +42,7 @@ hr{
 			</tr>
 			<tr><td>{{$venta->rif}} -> {{$venta->nombre}}</td><td>{{$venta->telefono}}</td><td>{{$venta->direccion}}</td><td>{{$venta->control}}</td>
 			</tr>
-			<tr><td colspan="4"><hr/></td></tr>
+			<tr><td colspan="4"><hr></td></tr>
 		</table>
 		
 	</div>
@@ -80,7 +81,7 @@ hr{
                       <tbody>
             </table>
 	 <tfoot> 
-						   <th colspan="5"><hr/ class="class1"></th> </tfoot>
+						   <th colspan="5"><hr></th> </tfoot>
         </div>                   
 				<?php if(count($recibos)>0){?>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><h6 align="center">Desglose de pago</h6>
