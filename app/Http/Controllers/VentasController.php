@@ -356,7 +356,9 @@ public function devolucion(Request $request){
 		$detalleventa->precio_venta=$request -> get('precio');
 		$detalleventa->update();
 		
-				
+			$articulo=Articulos::findOrFail($idar);
+            $articulo->stock=($articulo->stock+$nc);
+            $articulo->update();
 		$kar=new Kardex;
 		$mytime=Carbon::now('America/Caracas');
 		$kar->fecha=$mytime->toDateTimeString();
