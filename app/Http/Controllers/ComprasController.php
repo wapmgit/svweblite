@@ -314,12 +314,12 @@ return Redirect::to('showcompra/'.$ingreso->idcompra."-1");
         $paciente->rif=$request->get('rif');
         $paciente->telefono=$request->get('ctelefono');
         $paciente->estatus='A';
-        $paciente->tpersona=$request->get('tpersona');
+        $paciente->tpersona=1;
         $paciente->direccion=$request->get('cdireccion');
         $paciente->contacto=$request->get('contacto');
         $paciente->save();
 	
-		$personas=DB::table('proveedores')-> where('rif','=',$request->get('rif'))->get();
+		$personas=DB::table('proveedores')-> where('idproveedor','=',$paciente->idproveedor)->get();
            return response()->json($personas);
 		}
     }
@@ -352,6 +352,7 @@ return Redirect::to('showcompra/'.$ingreso->idcompra."-1");
         $articulo->stock="0";
         $articulo->estado='Activo';
         $articulo->utilidad=$request->get('utilidad');
+        $articulo->unidad=$request->get('unidad');
         $articulo->precio1=$request->get('precio1');
         $articulo->costo=$request->get('costo');
         $articulo->iva=$request->get('impuesto');
@@ -359,7 +360,7 @@ return Redirect::to('showcompra/'.$ingreso->idcompra."-1");
 
 		$articulos =DB::table('articulos as art')
         -> select(DB::raw('CONCAT(art.codigo,"-",art.nombre," - ",stock," - ",costo,"-",iva) as articulo'),'art.idarticulo','art.costo','art.serial')
-        -> where('art.codigo','=',$request->get('codigo'))
+        -> where('art.idarticulo','=',$articulo->idarticulo)
         -> get();
            return response()->json($articulos);
 		}
