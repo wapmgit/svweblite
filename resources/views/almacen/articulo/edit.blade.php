@@ -83,7 +83,7 @@
                   <div class="col-lg-3 col-sm-3 col-md-6 col-xs-12">
                         <div class="form-group">
                               <label for="precio1">Precio</label>
-                              <input type="text" name="precio1" id="precio1" step="0.01"   class="form-control" value="{{$articulo->precio1}}" placeholder=" precio BSF">
+                              <input type="text" name="precio1" id="precio1" step="0.01"   class="form-control" value="{{$articulo->precio1}}" placeholder=" precio $">
                  </div> 
                  </div>
  			<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12" align="center">
