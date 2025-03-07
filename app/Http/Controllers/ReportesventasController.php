@@ -218,7 +218,7 @@ class ReportesventasController extends Controller
 			 -> join('venta as ve','ve.idventa','=','d.idventa')		 
             -> select(DB::raw('sum(ve.total_venta ) as totaldev'))
 			->where('ve.idempresa','=',$empresa->idempresa)
-			 -> where ('v.user','=',$user)
+			 -> where ('ve.user','=',$user)
             ->whereBetween('ve.fecha_emi', [$query, $query2])
             ->get();
 			//dd($devolucion);
