@@ -18,6 +18,7 @@ $idv=0;
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<h3>Nuevo Articulo</h3><?php if(count($categorias)==0){ echo "<P class='text-danger'><span class='text-danger'>¡ Debe Registrar Grupo de inventario !</span></p>";} ?>
 			<input type="hidden" name="cnt" id="cnt" value="<?php if($cnt<>NULL){ echo add_ceros($cnt->idarticulo,$ceros);}else{echo add_ceros(0,$ceros); } ?>"></input>
+			<input type="hidden" name="idempresa" id="idempresa" value="{{$idempresa}}"></input>
 		</div>
 	</div>
      <form action="{{route('guardararticulo')}}" method="POST" id="formulario" enctype="multipart/form-data" >         
@@ -40,9 +41,8 @@ $idv=0;
             			</select>
             	       				
             		</div>
-            </div>
-
-            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+            </div>   
+	   <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
             	 <div class="form-group">
             			<label for="codigo">Codigo</label> <i class="fa fa-fw fa-exchange" title="Generar Codigo" id="generar"></i>
             			<input type="text" name="codigo" id="codigo" required value="{{old('codigo')}}" class="form-control" placeholder="Codigo...">
@@ -52,7 +52,7 @@ $idv=0;
 			 				<div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
             	 <div class="form-group">
             			<label for="stock">Unidad </label>          
-                  <input type="text" name="unidad"  value="{{old('unidad')}}" class="form-control" placeholder="Und, Caja, Bto...">         			
+                  <input type="text" name="unidad" id="unidad" value="{{old('unidad')}}" class="form-control" placeholder="Und, Caja, Bto...">         			
             		</div>
             </div>
 
@@ -118,15 +118,31 @@ $(document).ready(function(){
         var data2 = form2.serialize();
     $.post(url2,data2,function(result2){  
       var resultado2=result2;
+	     existemp=resultado2[0].length;
+         existe=resultado2[1].length;
          console.log(resultado2); 
-         rows=resultado2.length; 
-      if (rows > 0){
-            var nombre=resultado2[0].nombre;
-          var codigo=resultado2[0].codigo; 
-          var descripcion=resultado2[0].descripcion;   
-          alert ('Codigo ya existe!!, Nombre: '+nombre+' Codigo: '+codigo+' descripcion: '+descripcion);   
+      if (existemp > 0){
+            var nombre=resultado2[0][0].nombre;
+          var codigo=resultado2[0][0].codigo;   
+          alert ('Codigo ya existe!!, Nombre: '+nombre+' Codigo: '+codigo);   
            $("#codigo").val("");
-}    
+           $("#codigo").focus();
+		}    
+      if (existe > 0){
+            var nombre=resultado2[1][0].nombre;
+          var impuesto=resultado2[1][0].iva; 
+          var unidad=resultado2[1][0].unidad; 
+          var costo=resultado2[1][0].costo; 
+          var util=resultado2[1][0].utilidad; 
+          var precio=resultado2[1][0].precio1; 
+			
+           $("#nombre").val(nombre);
+           $("#unidad").val(unidad);
+           $("#impuesto").val(impuesto);
+           $("#costo").val(costo);
+		   $("#utilidad").val(util);
+			$("#precio1").val(precio); 
+		} 
           });
      });
       	 $('#btnguardar').click(function(){   
@@ -139,7 +155,9 @@ $(document).ready(function(){
 		  dato=document.getElementById('idcategoria').value.split('_');
 		idc=dato[0];
 		cat=$("#cnt").val();
-		$("#codigo").val('00'+idc+'00'+cat);		
+		emp=$("#idempresa").val();
+		
+		$("#codigo").val(emp+'0'+idc+'00'+cat);		
 	});
 		$("#idcategoria").on("change",function(){
 		
@@ -220,6 +238,8 @@ $("#impuesto").change(actprecio);
   function conMayusculas(field) {
             field.value = field.value.toUpperCase()
 }
+
+
  		</script>
 			@endpush  
 @endsection

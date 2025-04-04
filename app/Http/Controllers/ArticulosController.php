@@ -46,7 +46,7 @@ class ArticulosController extends Controller
 			$contador=DB::table('articulos')->select('idarticulo')->where('idempresa',$empresa->idempresa)->limit('1')->orderby('idarticulo','desc')->first();		
 			$categorias=DB::table('categoria')->where('idempresa',$empresa->idempresa)->where('condicion','=','1')->get();
 //dd($contador);
-			return view("almacen.articulo.create",["categorias"=>$categorias,"cnt"=>$contador]);
+			return view("almacen.articulo.create",["categorias"=>$categorias,"cnt"=>$contador,"idempresa"=>$empresa->idempresa]);
 		} else { 
 		return view("reportes.mensajes.noautorizado");
 		}
@@ -193,7 +193,10 @@ class ArticulosController extends Controller
 		->where('codigo','=',$request->get('codigo'))
 		->where('idempresa','=',$empresa->idempresa)
 		->get();
-         return response()->json($result);
+		$articulo=DB::table('articulos')
+		->where('codigo','=',$request->get('codigo'))
+		->get();
+         return response()->json([$result,$articulo]);
      }
       
       }
