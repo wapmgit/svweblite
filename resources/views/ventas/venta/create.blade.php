@@ -106,15 +106,17 @@ $idv=0;
 						<label for="serie_comprobante">Fecha Emision</label>
 							<input type="date" name="fecha_emi" <?php if ($nivel=="L"){?> readonly <?php }  ?>  id="fecha_emi" value="<?php echo $fserver;?>" class="form-control control-sm">
 							<input type="hidden" name="tipo_comprobante" class="form-control" value="FAC">
-						</div></td><td><div class="form-group">
-							<label for="serie_comprobante">#Control</label>
-							<input type="hidden" style="background-color:#edefef" name="serie_comprobante" value="{{$empresa->serie}}" size="8" class="form-control"placeholder="serie del comprobante" > 
-							<input type="text" style="background-color:#edefef" name="control" value="00-" size="8" class="form-control" placeholder="Num de Control" > 
-						</div>	</td><td>	<div class="form-group">
+						</div></td><td>	<div class="form-group">
 							<label for="num_comprobante">Documento</label>
-						 <input type="text" name="num_comprobante" style="background-color:#edefef"value="<?php echo add_ceros($idv,$ceros); ?>" class="form-control" placeholder="numero del comprobante" > 
+						 <input type="text" name="num_comprobante" size="8" style="background-color:#edefef" value="<?php echo add_ceros($idv,$ceros); ?>" class="form-control" placeholder="numero del comprobante" > 
 						 <input type="hidden" name="comision" style="background-color:#edefef" id="comision"  value="" class="form-control">
-						</div></td></tr>
+						</div></td>
+						<td><div class="form-group">
+							<label for="serie_comprobante">Observacion</label>
+							<input type="hidden" style="background-color:#edefef" name="serie_comprobante" value="{{$empresa->serie}}" size="8" class="form-control"placeholder="serie del comprobante" > 
+							<input type="hidden" style="background-color:#edefef" name="control" value="00-" class="form-control" placeholder="Num de Control" > 
+							<input type="text"  name="obs" value="" class="form-control" maxlength="30" placeholder="Observacion" > 
+						</div>	</td></tr>
 					</table>		
 				</div>	
             </div>

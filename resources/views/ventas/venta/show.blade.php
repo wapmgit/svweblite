@@ -42,7 +42,7 @@ $cntser=0;
 			</tr>
 			<tr><td>{{$venta->rif}} -> {{$venta->nombre}}</td><td>{{$venta->telefono}}</td><td>{{$venta->direccion}}</td><td>{{$venta->control}}</td>
 			</tr>
-			<tr><td colspan="4"><hr></td></tr>
+			<tr><td colspan="4"><?php if($venta->obs != NULL) { echo "<b>Obs.:</b> ".$venta->obs; }?></td></tr>
 		</table>
 		
 	</div>

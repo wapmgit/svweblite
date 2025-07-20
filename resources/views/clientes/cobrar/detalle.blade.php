@@ -35,6 +35,7 @@ return $insertar_ceros = $recibo.$numero;
 			</tr>
 			<tr><td>{{$venta->cedula}} -> {{$venta->nombre}}</td><td>{{$venta->telefono}}</td><td>{{$venta->direccion}}</td><td>{{$venta->tipo_comprobante}} {{$venta->serie_comprobante}} <?php $idv=$venta->num_comprobante; echo add_ceros($idv,$ceros); ?></td>
 			</tr>
+			<tr><td colspan="4"><?php if($venta->obs != NULL) { echo "<b>Obs.:</b> ".$venta->obs; }?></td></tr>
 		</table></br>
 	</div>
 

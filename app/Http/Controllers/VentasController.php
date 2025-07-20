@@ -123,6 +123,7 @@ class VentasController extends Controller
     $venta->estado='Credito';} else { $venta->estado='Contado';}
     $venta->devolu='0';
     $venta->comision=$request->get('comision');
+    $venta->obs=$request->get('obs');
 	$venta->montocomision=($request->get('total_venta')*($request->get('comision')/100));
 	$venta->user=$user;
    $venta-> save();
@@ -405,7 +406,7 @@ public function show(Request $request, $id){
 
 			$venta=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
-            -> select ('v.idempresa','v.idventa','p.id_cliente','v.fecha_hora','p.nombre','p.rif','p.cedula','p.telefono','p.direccion','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu')
+            -> select ('v.idempresa','v.idventa','p.id_cliente','v.fecha_hora','p.nombre','p.rif','p.cedula','p.telefono','p.direccion','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu','v.obs')
             ->where ('v.idventa','=',$id)
             -> first();
 			//dd($venta);
