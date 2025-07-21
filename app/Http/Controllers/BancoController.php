@@ -252,22 +252,16 @@ class BancoController extends Controller
 		//dd($banco);
 		
              $query=trim($request->get('searchText'));
-			
+		//	dd($query);
                 if (($query)==""){
-					$query=$corteHoy; 
-				 $fbanco = date_create($query);
-				   date_add($fbanco, date_interval_create_from_date_string('-1 day'));
-				   $fbanco=date_format($fbanco, 'Y-m-d');
-				
-				}else{
-					 $fbanco = date_format($query, 'Y-m-d');
+					$query=$corteHoy; 			
 				}
 				$query2=trim($request->get('searchText2'));
 				if (($query2)==""){$query2=$corteHoy; }
              
          $query2 = date_create($query2);
          $query = date_create($query);
-		 // $fbanco = date_format($query, 'Y-m-d');
+		  $fbanco = date_format($query, 'Y-m-d');
             date_add($query2, date_interval_create_from_date_string('1 day'));
             $query2=date_format($query2, 'Y-m-d');
 
