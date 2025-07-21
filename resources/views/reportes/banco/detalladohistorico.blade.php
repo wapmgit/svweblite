@@ -57,7 +57,7 @@ $cefe=0;
 		      <th>SALDO</th>		         
         </thead>
 		        <?php $ctra= 0; $cche=0; $cdeb=0;$i=0; $saldoanterior=0; $credito=0; $contado=0; $count=0; $tcompras=0;?>
-		<tr><td></td><td></td><td></td><td></td><td></td><td><?php $saldoanterior=($mingreso-$megreso);  echo number_format( ($mingreso-$megreso), 2,',','.'); ?></td></tr>
+		<tr><td></td><td></td><td></td><td></td><td></td><td><?php $saldoanterior=($megreso-$mingreso);  echo number_format( ($megreso-$mingreso), 2,',','.'); ?></td></tr>
                @foreach ($movimiento as $q) 
         <?php $newdate=date("d-m-Y h:i:s a",strtotime($q->fecha_mov)); ?>
 		<tr >@include('reportes.banco.modal')
@@ -75,7 +75,7 @@ $cefe=0;
 		     if ($q->tipo_mov == "DEP"){ $acumhaber=$acumhaber+ $q->monto;   echo $q->tipo_mov."  ->  ".number_format($q->monto, 2,',','.'); }
              if ($q->tipo_mov == "N/C"){ $acumhaber=$acumhaber+ $q->monto;   echo $q->tipo_mov."  ->  ".number_format($q->monto, 2,',','.'); ?>@if($rol->anularopbanco==1)<a href="" data-target="#modal-{{$q->id_mov}}" data-toggle="modal"><i class="fa-solid fa-trash" style="color:red"></i></a>@endif<?php }	  
 		 ?> </td>
-          <td><?php $credito=(($acumhaber+$saldoanterior) - $acumdebe);
+          <td><?php $credito=($acumdebe-($acumhaber+$saldoanterior));
 echo number_format($credito, 2,',','.');
 		  ?></td>
 
