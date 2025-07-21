@@ -73,11 +73,9 @@ $idv=0;
    @include('bancos.banco.debito')
    <div class="title-card-categoria-app"><h4 align="center">RECIBIR</h4></div>
       <div class="card-categoria-app" align="center">     
-    @if($rol->newndbanco==1)  <a href="" data-target="#modaldebito" data-toggle="modal">
+   <a href="" data-target="#modaldebito" data-toggle="modal">
         <img  src="/img/banco/compras.png" width="80" height="80">
-        <div class="footer-card-categoria-app"></div>   </a> @else		
-        <img  src="/img/banco/compras.png" width="80" height="80" id="noaccesnd">
-        <div class="footer-card-categoria-app"></div>@endif
+        <div class="footer-card-categoria-app"></div>   </a> 
         <a href="{{route('consultaban',['id'=>'DEB'.$banco->idbanco])}}"><img  src="/img/banco/lupa.png"  width="25" height="25"></a>
     </div> <!-- final de la card -->
 </div>
@@ -85,11 +83,9 @@ $idv=0;
   @include('bancos.banco.modalcredito')
     <div class="title-card-categoria-app"><h4 align="center">ENTREGAR</h4></div>
       <div class="card-categoria-app" align="center">     
-        @if($rol->newncbanco==1) <a href="" data-target="#modalcredito" data-toggle="modal">
+        <a href="" data-target="#modalcredito" data-toggle="modal">
         <img  src="/img/banco/compras.png" width="80" height="80">
-        <div class="footer-card-categoria-app"></div>   </a>@else
-			<img  src="/img/banco/compras.png" width="80" height="80" id="noaccesnc">
-        <div class="footer-card-categoria-app"></div> @endif
+        <div class="footer-card-categoria-app"></div>   </a>
         <a href="{{route('consultaban',['id'=>'CRE'.$banco->idbanco])}}"><img  src="/img/banco/lupa.png"  width="25" height="25"></a>
     </div> <!-- final de la card -->
 </div>
