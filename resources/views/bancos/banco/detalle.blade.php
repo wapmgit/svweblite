@@ -8,13 +8,14 @@
         <th width="3%">#Mov</th>
         <th width="10%">Fecha</th>
 		<th width="8%">N&uacute;mero</th>
-        <th>Clasificador</th>
+        <th>Identificacion</th>
 		<th>Concepto</th>
-		<th width="25%">Beneficiario</th>
-        <th>Tipo</th>
+		<th width="10%">Tipo</th>
+        <th>Moneda</th>
         <th>Monto</th>
+        <th>Tasa</th>
 		<?Php echo "<th align='center'> Ref $</th>";  ?>
-        <th>Usuario</th>
+  
 		</thead>
         <TBODY>
         <?php $tcompras=0; ?>
@@ -25,15 +26,19 @@
           <td><small><?php  echo $fecha=date_format(date_create($q->fecha_mov),'d-m-Y h:i:s');?></small></td>
           <td> <small> <a href="{{route('showrecibo',['id'=>$q->id_mov])}}"> <strong>{{ $q->numero}}</strong></a></small></td>
 
-          <td><small>{{ $q->descrip}}</small></td>
+         
 		  <td><small>{{ $q->concepto}}</small></td>
 		  <td><small>{{ $q->identificacion}}</small></td>
           <td><small>{{ $q->tipo_mov}}</small></td>
+		   <td><small>{{ $q->tipodoc}}</small></td>
+		        <td><small><?php
+			echo number_format(($q->tasadolar),'2','.',','); ?></small></td>
+		   <td><small>{{ $q->ced}}</small></td>
+		   
           <td><small><?php
 			echo number_format(($q->monto),'2','.',','); ?></small></td>	
-	<td align="center"><small> <?php
-		echo number_format(($q->tasadolar),'2','.',','); ?> </small></td> 
-          <td><small>{{  $q->user}}</small></td>
+
+         
 				</tr> @endforeach
  
 			</TBODY>
@@ -41,13 +46,14 @@
            <th>#Mov</th>
          <th>Fecha</th>
           <th>N&uacute;mero</th>
-          <th>Clasificador</th>
+          <th>identificacion</th>
           <th>Concepto</th>
-          <th>Beneficiario</th>
-            <th>Tipo</th>
+          <th>tipo</th>
+            <th>moneda</th>
+          <th>Tasa</th>
           <th>Monto</th>
 		<?Php	 echo "<th align='center'>Ref $</th>"; ?>
-          <th>Usuario</th>
+        
       </TFOOT>
 			</table>
 

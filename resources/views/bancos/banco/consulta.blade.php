@@ -7,11 +7,11 @@
         <thead >
           <th>Fecha</th>
           <th>N&uacute;mero</th>
-          <th>Clasificador</th>
+          <th>Identificacion</th>
           <th>Concepto</th>
-          <th>Beneficiario</th>
-          <th>Tipo</th>
-          <th>Monto</th>
+          <th>Moneda</th>
+          <th>monto</th>
+          <th>Monto$</th>
           <th>Usuario</th>
         </thead>
         <TBODY>
@@ -21,10 +21,10 @@
         <tr> 
           <td><?php  echo $fecha=date_format(date_create($q->fecha_mov),'d-m-Y h:i:s');?></td>
          <td>  <a href="{{route('showrecibo',['id'=>$q->id_mov])}}"> <strong>{{ $q->numero}}</strong></a></td>
-          <td>{{ $q->descrip}}</td>
+          <td>{{ $q->identificacion}}</td>
           <td>{{ $q->concepto}}</td>
-          <td>{{ $q->nombre}}</td>
-          <td>{{ $q->tipo_mov}}</td>
+          <td>{{ $q->tipodoc}}</td>
+          <td>{{ $q->ced}}</td>
           <td>{{ $q->monto }}</td>  
           <td>{{ $q->user}}</td>
         </tr> @endforeach

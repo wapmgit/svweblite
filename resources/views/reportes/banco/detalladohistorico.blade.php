@@ -49,9 +49,9 @@ $cefe=0;
 <label ></label>
       <table class="table table-striped table-bordered table-condensed table-hover">
         <thead>
-          <th>FECHA</th>      
-          <th>CUENTA DE CLASIFICACION</th>     
-          <th>DESCRIPCION</th>  
+          <th>Fecha</th>      
+          <th>Identificacion</th>     
+          <th>Concepto</th>  
           <th>DEBE</th>  
           <th>HABER</th>
 		      <th>SALDO</th>		         
@@ -62,7 +62,7 @@ $cefe=0;
         <?php $newdate=date("d-m-Y h:i:s a",strtotime($q->fecha_mov)); ?>
 		<tr >@include('reportes.banco.modal')
           <td><small><?php echo $newdate; ?></small></td> 
-        <td><small>{{ $q->descrip }}</small></td>
+        <td><small>{{ $q->identificacion }}</small></td>
         <td>{{ $q->concepto }}-> <a href="{{route('showrecibo',['id'=>$q->id_mov])}}"> <strong>{{ $q->numero}}</strong></a></td>  
           <td>	  
 		<?php 

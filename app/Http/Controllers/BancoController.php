@@ -74,20 +74,12 @@ class BancoController extends Controller
         $categoria=new Banco;
         $categoria->codigo=$request->get('codigo');
         $categoria->nombre=$request->get('nombre');
-        $categoria->cuentaban=$request->get('cuenta');
-        $categoria->tipocta=$request->get('tipoc');
-        $categoria->titular=$request->get('titular');
-        $categoria->email=$request->get('mail');
+        $categoria->cuentaban=$request->get('telefono');
+        $categoria->tipocta=0;
+        $categoria->titular=$request->get('nombre');
+        $categoria->email=0;
         $categoria->save();
 		
-		  $idm = $request -> get('pidserial');
-        $cont = 0;
-            while($cont < count($idm)){  
-        $articulo=Monedas::findOrFail($idm[$cont]);
-        $articulo->idbanco=$categoria->idbanco;
-        $articulo->update();
-            $cont=$cont+1;
-            }
        return Redirect::to('bancos');
     }
 	    public function show(Request $request,$id)
@@ -113,6 +105,7 @@ class BancoController extends Controller
     }
 	   public function adddebito(Request $request)
     {    
+	//dd($request);
 	     $empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
 		$idcliente=explode("_",$request->get('cliente'));
 		$user=Auth::user()->name;
@@ -120,50 +113,19 @@ class BancoController extends Controller
         $mov->idbanco=$request->get('idbanco');
         $mov->clasificador=$request->get('clasificador');
         $mov->tipo_mov="N/D";
+        $mov->tipodoc=$request->get('moneda');
         $mov->numero=$request->get('numero');
         $mov->concepto=$request->get('concepto');
-        $mov->idbeneficiario=$idcliente[0];	
-		$mov->identificacion=$idcliente[1];
-		$mov->ced=$idcliente[2];
-		$mov->tipo_per=$idcliente[3];
+        $mov->idbeneficiario=0;	
+		$mov->identificacion=$request->get('persona');
+		$mov->ced=$request->get('recibido');
+		$mov->tipo_per=0;
         $mov->monto=$request->get('monto');
 		$mov->tasadolar=$empresa->tasa_banco;
         $mytime=Carbon::now('America/Caracas');
         $mov->fecha_mov=$request->get('fecha');
         $mov->user=Auth::user()->name;
         $mov->save();
-	if (isset($_POST["cxc"])) {
-		$contador=DB::table('notasadm')->select(DB::raw('count(idnota) as doc'))->where('tipo','=',1)->first();
-		if ($contador==NULL){$numero=0;}else{$numero=$contador->doc;}
-        $paciente=new Notasadm;
-        $paciente->tipo=1;
-		$paciente->ndocumento=$numero+1;
-        $paciente->idcliente=$idcliente[0];
-        $paciente->descripcion=$request->get('concepto');
-        $paciente->referencia=$request->get('numero');
-        $paciente->monto=$request->get('monto');
-		$mytime=Carbon::now('America/Caracas');
-		$paciente->fecha=$mytime->toDateTimeString();
-        $paciente->pendiente=$request->get('monto');
-		$paciente->usuario=Auth::user()->name;
-        $paciente->save();
-	} 
-		if (isset($_POST["ncp"])) {
-		$contador=DB::table('notasadmp')->select(DB::raw('count(idnota) as doc'))->where('tipo','=',2)->first();
-		if ($contador==NULL){$numero=0;}else{$numero=$contador->doc;}
-        $paciente=new Notasadmp;
-        $paciente->tipo=2;
-		$paciente->ndocumento=$numero+1;
-        $paciente->idproveedor=$idcliente[0];
-        $paciente->descripcion=$request->get('concepto');
-        $paciente->referencia=$request->get('numero');
-        $paciente->monto=$request->get('monto');
-		$mytime=Carbon::now('America/Caracas');
-		$paciente->fecha=$mytime->toDateTimeString();
-        $paciente->pendiente=$request->get('monto');
-		$paciente->usuario=Auth::user()->name;
-        $paciente->save();
-	} 
 	return Redirect::to('showbanco/'.$request->get('idbanco'));
    
     }
@@ -178,50 +140,20 @@ class BancoController extends Controller
         $mov->idbanco=$request->get('idbanco');
         $mov->clasificador=$request->get('clasificador');
         $mov->tipo_mov="N/C";
+        $mov->tipodoc=$request->get('moneda');
         $mov->numero=$request->get('numero');
         $mov->concepto=$request->get('concepto');
-        $mov->idbeneficiario=$idcliente[0];	
-		$mov->identificacion=$idcliente[1];
-		$mov->ced=$idcliente[2];
-		$mov->tipo_per=$idcliente[3];
+        $mov->idbeneficiario=0;	
+		$mov->identificacion=$request->get('persona');
+		$mov->ced=$request->get('recibido');
+		$mov->tipo_per=0;
         $mov->monto=$request->get('monto');
 		$mov->tasadolar=$empresa->tasa_banco;
         $mytime=Carbon::now('America/Caracas');
         $mov->fecha_mov=$request->get('fecha');
         $mov->user=Auth::user()->name;
         $mov->save();
-	if (isset($_POST["cxc"])) {
-			$contador=DB::table('notasadm')->select(DB::raw('count(idnota) as doc'))->where('tipo','=',2)->first();
-		if ($contador==NULL){$numero=0;}else{$numero=$contador->doc;}
-        $paciente=new Notasadm;
-        $paciente->tipo=2;
-		$paciente->ndocumento=$numero+1;
-        $paciente->idcliente=$idcliente[0];
-        $paciente->descripcion=$request->get('concepto');
-        $paciente->referencia=$request->get('numero');
-        $paciente->monto=$request->get('monto');
-		$mytime=Carbon::now('America/Caracas');
-		$paciente->fecha=$mytime->toDateTimeString();
-        $paciente->pendiente=$request->get('monto');
-		$paciente->usuario=Auth::user()->name;
-        $paciente->save();
-	} 
-		if (isset($_POST["ndp"])) {
-				$contador=DB::table('notasadmp')->select(DB::raw('count(idnota) as doc'))->where('tipo','=',1)->first();
-		if ($contador==NULL){$numero=0;}else{$numero=$contador->doc;}
-        $paciente=new Notasadmp;
-        $paciente->tipo=1;
-		$paciente->ndocumento=$numero+1;
-        $paciente->idproveedor=$idcliente[0];
-        $paciente->descripcion=$request->get('concepto');
-        $paciente->referencia=$request->get('numero');
-        $paciente->monto=$request->get('monto');
-		$mytime=Carbon::now('America/Caracas');
-		$paciente->fecha=$mytime->toDateTimeString();
-        $paciente->pendiente=$request->get('monto');
-		$paciente->usuario=Auth::user()->name;
-        $paciente->save();
-	} 
+
 	return Redirect::to('showbanco/'.$request->get('idbanco'));
    
     }
@@ -275,7 +207,6 @@ class BancoController extends Controller
 	$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
        $banco=DB::table('bancos')->where('idbanco','=',$id)->first();
         $movimiento=DB::table('mov_ban as mov')
-        ->join('ctascon','idcod','=','mov.clasificador')
         ->where('idbanco','=',$id)
 		->where('mov.estatus','=',0)
         ->get();
@@ -293,13 +224,11 @@ class BancoController extends Controller
 
         $banco=DB::table('bancos')->where('idbanco','=',$data2)->first();
         $movimiento=DB::table('mov_ban')
-        ->join('ctascon','ctascon.idcod','=','mov_ban.clasificador')
-        ->select('mov_ban.id_mov','mov_ban.tipo_mov','mov_ban.numero','mov_ban.concepto','mov_ban.monto','mov_ban.fecha_mov','mov_ban.user','ctascon.descrip','mov_ban.identificacion as nombre','mov_ban.ced as cedula')
         ->where('mov_ban.estatus','=',0)
 		->where('idbanco','=',$data2)
         ->where('tipo_mov','=',$data)
         ->paginate(50);
-     // dd($id);
+  
         return view("bancos.banco.consulta",["banco"=>$banco,"movimiento"=>$movimiento,"detalle"=>$nombre,"empresa"=>$empresa]);
     }
 		public function recibo($id)
@@ -322,18 +251,22 @@ class BancoController extends Controller
          $banco=DB::table('bancos')->select('nombre','idbanco')-> where('idbanco','=',$id)->first(); 
 		//dd($banco);
              $query=trim($request->get('searchText'));
-                if (($query)==""){$query=$corteHoy; }
+                if (($query)==""){$query=$corteHoy; 
+				 $fbanco = date_create($query);
+				   date_add($fbanco, date_interval_create_from_date_string('-1 day'));
+				   $fbanco=date_format($fbanco, 'Y-m-d');
+				
+				}
 				$query2=trim($request->get('searchText2'));
 				if (($query2)==""){$query2=$corteHoy; }
              
          $query2 = date_create($query2);
          $query = date_create($query);
-		  $fbanco = date_format($query, 'Y-m-d');
+		 // $fbanco = date_format($query, 'Y-m-d');
             date_add($query2, date_interval_create_from_date_string('1 day'));
             $query2=date_format($query2, 'Y-m-d');
 
             $mov=DB::table('mov_ban as mv')
-			->join('ctascon as cta','mv.clasificador','=','cta.idcod')
             ->where('mv.idbanco','=',$id)
 			->where('mv.estatus','=',0)
             -> whereBetween('mv.fecha_mov', [$query, $query2])
@@ -343,10 +276,10 @@ class BancoController extends Controller
 	 $saldo=DB::table('mov_ban')
 	 ->select('tipo_mov',DB::raw('SUM(monto) as tmonto' ))
 	 ->where('idbanco','=',$id)
-	  -> whereBetween('fecha_mov', ['2023-12-01', $fbanco])
+	  -> whereBetween('fecha_mov', ['2024-12-01', $fbanco])
 	  	 ->where('mov_ban.estatus','=',0)
 	 ->groupby('tipo_mov')->get();
-	 // dd($saldo);
+	  //dd($saldo);
         return view('reportes.banco.detalladohistorico',["rol"=>$rol,"saldo"=>$saldo,"movimiento"=>$mov,"empresa"=>$empresa,"banco"=>$banco]);
             
     }

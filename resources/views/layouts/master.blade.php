@@ -470,12 +470,12 @@
                 </a>
 				</li>
             </ul>
-          </li>      
-		 <!-- <li class="nav-item">
+          </li>  @if(Auth::user()->id==8)   
+		  <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-table"></i>
               <p>
-                Banco
+                Cuentas
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -483,23 +483,12 @@
               <li class="nav-item">
                 <a href="{{route('bancos')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Banco</p>
-                </a>
-              </li>
-				<li class="nav-item">
-                <a href="{{route('ctascon')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Cuentas Clasificacion</p>
-                </a>
-              </li>
-			<li class="nav-item">
-                <a href="{{route('resumenbancos')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Resumen Bancos</p>
+                  <p>Usuarios</p>
                 </a>
               </li>
             </ul>
-          </li>
+          </li> 
+		  @endif<!--
 		  		  <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-table"></i>
@@ -535,7 +524,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+        <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-table"></i>
               <p>

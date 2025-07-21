@@ -20,13 +20,12 @@ $idv=0;
 			  @endforeach
 <div class="row">             
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center" style="background-color: #E6E6E6">
-<h3>MODULO DE BANCO</h3>
+<h3>CAJA</h3>
 <table class="table table-striped table-bordered table-condensed table-hover">
   <tr style="background-color: #E6E6E6">
      <td><label>Codigo:</label> {{$banco->codigo}} <?php $bco=$banco->codigo; ?>  </td> 
     <td><label>Banco:</label> {{$banco->nombre}} </td>
-    <td>  <label> N° Cuenta:</label> {{$banco->cuentaban}} </td>
-    <td><label>Titular:</label> {{$banco->titular}}</td>
+    <td>  <label> Telefono:</label> {{$banco->cuentaban}} </td>
   </tr>
 
 </table>
@@ -43,8 +42,8 @@ $idv=0;
                                   if ($mov->tipo_mov == "N/D") $megreso=$megreso+$mov->monto; 
                                     if ($mov->tipo_mov == "PPR") $megreso=$megreso+$mov->monto;?>
                               @endforeach 
-     <td align="center"><label>Ingresos:</label> <h4><?php echo number_format( $mingreso, 2,',','.'); ?></h4></td>
-    <td align="center"><label>Egresos:</label> <h4><?php echo number_format( $megreso, 2,',','.'); ?></h4> </td>
+     <td align="center"><label>Recibido:</label> <h4><?php echo number_format( $megreso, 2,',','.'); ?></h4></td>
+    <td align="center"><label>Entregado:</label> <h4><?php echo number_format( $mingreso, 2,',','.'); ?></h4> </td>
     <td align="center">
 	<form action="{{route('movimientos')}}" method="POST" enctype="multipart/form-data" >         
 {{csrf_field()}}
@@ -58,7 +57,7 @@ $idv=0;
 </div>
   <div class="input-group">
   
-    <label><button type="submit" class="btn btn-primary"><h4><?php echo number_format( ($mingreso-$megreso), 2,',','.'); ?> </h4></button></label>
+    <label><button type="submit" class="btn btn-primary"><h4><?php echo number_format( ($megreso-$mingreso), 2,',','.'); ?> </h4></button></label>
   
     </div>
 </form>
@@ -70,9 +69,9 @@ $idv=0;
 </table>
 </div>
 
-<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" >
+<div class="col-lg-4 col-md-4 col-sm-4  col-xs-12" >
    @include('bancos.banco.debito')
-   <div class="title-card-categoria-app"><h4 align="center">NOTA DEBITO</h4></div>
+   <div class="title-card-categoria-app"><h4 align="center">RECIBIR</h4></div>
       <div class="card-categoria-app" align="center">     
     @if($rol->newndbanco==1)  <a href="" data-target="#modaldebito" data-toggle="modal">
         <img  src="/img/banco/compras.png" width="80" height="80">
@@ -82,9 +81,9 @@ $idv=0;
         <a href="{{route('consultaban',['id'=>'DEB'.$banco->idbanco])}}"><img  src="/img/banco/lupa.png"  width="25" height="25"></a>
     </div> <!-- final de la card -->
 </div>
-<div class="col-lg-3 col-md-3 col-sm-6  col-xs-12" >
+<div class="col-lg-4 col-md-4 col-sm-4  col-xs-12" >
   @include('bancos.banco.modalcredito')
-    <div class="title-card-categoria-app"><h4 align="center">NOTA CREDITO</h4></div>
+    <div class="title-card-categoria-app"><h4 align="center">ENTREGAR</h4></div>
       <div class="card-categoria-app" align="center">     
         @if($rol->newncbanco==1) <a href="" data-target="#modalcredito" data-toggle="modal">
         <img  src="/img/banco/compras.png" width="80" height="80">
@@ -94,20 +93,8 @@ $idv=0;
         <a href="{{route('consultaban',['id'=>'CRE'.$banco->idbanco])}}"><img  src="/img/banco/lupa.png"  width="25" height="25"></a>
     </div> <!-- final de la card -->
 </div>
-<div class="col-lg-3 col-md-3 col-sm-6  col-xs-12" >
-  @include('bancos.banco.modaldeposito')
-    <div class="title-card-categoria-app"><h4 align="center">TRANSFERENCIA </h4></div>
-      <div class="card-categoria-app" align="center">     
-      @if($rol->transferenciabanco==1) <a href="" data-target="#modaldeposito" data-toggle="modal">
-        <img  src="/img/banco/barra.png" width="80" height="80">
-        <div class="footer-card-categoria-app"></div>   </a>@else
-			<img  src="/img/banco/barra.png" width="80" height="80" id="noaccestrans">
-        <div class="footer-card-categoria-app"></div>@endif
-    <a href="{{route('consultaban',['id'=>'TRA'.$banco->idbanco])}}"><img  src="/img/banco/lupa.png"  width="25" height="25"></a>
-    </div>  
-</div>
-<div class="col-lg-3 col-md-3 col-sm-6  col-xs-12" >
-    <div class="title-card-categoria-app"><h4 align="center">DETALLE SALDO</h4></div>
+<div class="col-lg-4 col-md-4 col-sm-4  col-xs-12" >
+    <div class="title-card-categoria-app"><h4 align="center">DETALLE</h4></div>
       <div class="card-categoria-app" align="center">     
       <a href="{{route('detallebanco',['id'=>$banco->idbanco])}}">
         <img  src="/img/banco/compras.png" width="80" height="80">
@@ -117,11 +104,6 @@ $idv=0;
 </div>
 </div>
  <p></p><p></p>
-<div class="row" style="background-color: #E6E6E6">
-
-      @include('bancos.banco.search')
-
-</div>
  @push ('scripts')
 <script>
 $(document).ready(function(){
