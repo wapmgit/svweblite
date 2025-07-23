@@ -105,28 +105,47 @@ class BancoController extends Controller
     }
 	   public function adddebito(Request $request)
     {    
-	//dd($request);
-	     $empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
-		$idcliente=explode("_",$request->get('cliente'));
-		$user=Auth::user()->name;
+			$contador=DB::table('mov_ban')->select(DB::raw('count(idbanco) as nmov'))->where('idbanco','=',$request->get('banco'))->limit('1')->orderby('id_mov','desc')->first();	    
+			$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
+			 $user=Auth::user()->name;
+			 try{
+			DB::beginTransaction();
+			$obs = $request -> get('concepto');
+			$fecha = $request -> get('fecha');
+			$moneda = $request -> get('moneda');
+			$cant = $request -> get('cantidad');
+			$monto = $request -> get('monto');
+
+			$cont = 0;
+            while($cont < count($monto)){
+		
          $mov=new MovBancos;
-        $mov->idbanco=$request->get('idbanco');
-        $mov->clasificador=$request->get('clasificador');
+        $mov->idbanco=$request->get('banco');
+        $mov->clasificador=0;
         $mov->tipo_mov="N/D";
-        $mov->tipodoc=$request->get('moneda');
-        $mov->numero=$request->get('numero');
-        $mov->concepto=$request->get('concepto');
+        $mov->tipodoc=$moneda[$cont];
+        $mov->numero=$request->get('banco')."-".$contador->nmov."-".$cont;
+        $mov->concepto=$obs[$cont];
         $mov->idbeneficiario=0;	
-		$mov->identificacion=$request->get('persona');
-		$mov->ced=$request->get('recibido');
+		$mov->identificacion=0;
+		$mov->ced=$cant[$cont];
 		$mov->tipo_per=0;
-        $mov->monto=$request->get('monto');
+        $mov->monto=$monto[$cont];
 		$mov->tasadolar=$empresa->tasa_banco;
         $mytime=Carbon::now('America/Caracas');
-        $mov->fecha_mov=$request->get('fecha');
+        $mov->fecha_mov=$fecha[$cont];
         $mov->user=Auth::user()->name;
         $mov->save();
-	return Redirect::to('showbanco/'.$request->get('idbanco'));
+		$cont=$cont+1;
+					}
+
+		DB::commit();
+		}
+		catch(\Exception $e)
+		{
+				DB::rollback();
+		}
+	return Redirect::to('showbanco/'.$request->get('banco'));
    
     }
 		   public function addcredito(Request $request)
@@ -216,6 +235,7 @@ class BancoController extends Controller
     }
 	public function consulta($var1)
     {    
+	//dd($var1);
 	$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
     $data=substr($var1, 0, 3);
     $data2=substr($var1, 3, 2);
@@ -227,6 +247,7 @@ class BancoController extends Controller
         ->where('mov_ban.estatus','=',0)
 		->where('idbanco','=',$data2)
         ->where('tipo_mov','=',$data)
+        ->orderby('id_mov','DESC')
         ->paginate(50);
   
         return view("bancos.banco.consulta",["banco"=>$banco,"movimiento"=>$movimiento,"detalle"=>$nombre,"empresa"=>$empresa]);
@@ -449,4 +470,17 @@ $id=$request->get('id');
 		return view("reportes.mensajes.noautorizado");
 			} 
 		}
+	public function recibir(Request $request, $id)
+    {   $rol=DB::table('roles')-> select('iduser')->where('iduser','=',$request->user()->id)->first();
+     $empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')
+		 ->join('sistema','sistema.idempresa','=','empresa.idempresa')
+		->where('id','=',$rol->iduser)->first();
+            $banco=DB::table('bancos')
+            ->where('idbanco','=',$id)
+           ->first();
+          //dd($mov);
+
+        return view('bancos.banco.recibir',["banco"=>$banco,"empresa"=>$empresa]);
+            
+    }
 }

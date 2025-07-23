@@ -7,7 +7,6 @@
         <thead >
           <th>Fecha</th>
           <th>N&uacute;mero</th>
-          <th>Identificacion</th>
           <th>Concepto</th>
           <th>Moneda</th>
           <th>monto</th>
@@ -19,9 +18,9 @@
                @foreach ($movimiento as $q)
                <?php  $tcompras=($tcompras+$q->monto);?>
         <tr> 
-          <td><?php  echo $fecha=date_format(date_create($q->fecha_mov),'d-m-Y h:i:s');?></td>
+          <td><?php  echo $fecha=date_format(date_create($q->fecha_mov),'d-m-Y');?></td>
          <td>  <a href="{{route('showrecibo',['id'=>$q->id_mov])}}"> <strong>{{ $q->numero}}</strong></a></td>
-          <td>{{ $q->identificacion}}</td>
+
           <td>{{ $q->concepto}}</td>
           <td>{{ $q->tipodoc}}</td>
           <td>{{ $q->ced}}</td>
@@ -33,11 +32,10 @@
       <TFOOT>
          <th>Fecha</th>
           <th>N&uacute;mero</th>
-          <th>Clasificador</th>
           <th>Concepto</th>
-          <th>Beneficiario</th>
-            <th>Tipo</th>
+          <th>Moneda</th>        
           <th>Monto</th>
+		  <th>Monto$</th>
           <th>Usuario</th>
       </TFOOT>
       </table>

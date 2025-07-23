@@ -73,7 +73,7 @@ $idv=0;
    @include('bancos.banco.debito')
    <div class="title-card-categoria-app"><h4 align="center">RECIBIR</h4></div>
       <div class="card-categoria-app" align="center">     
-   <a href="" data-target="#modaldebito" data-toggle="modal">
+   <a href="{{route('recibir',['id'=>$banco->idbanco])}}">
         <img  src="/img/banco/compras.png" width="80" height="80">
         <div class="footer-card-categoria-app"></div>   </a> 
         <a href="{{route('consultaban',['id'=>'DEB'.$banco->idbanco])}}"><img  src="/img/banco/lupa.png"  width="25" height="25"></a>

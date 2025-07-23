@@ -3,7 +3,7 @@ role="dialog" tabindex="-1" id="modaldebito">
 <?php $fserver=date('Y-m-d'); ?>
 <form action="{{route('adddebito')}}" method="POST" id="formdebito" enctype="multipart/form-data" >         
 {{csrf_field()}}
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">Entrada </h4>

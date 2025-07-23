@@ -202,6 +202,7 @@ Route::get('resumen', [ReportesarticulosController::class, 'resumen'])->name('re
 //banco
 Route::get('bancos', [BancoController::class, 'index'])->name('bancos');
 Route::get('editbanco/{id}', [BancoController::class, 'edit'])->name('editbanco');
+Route::get('recibir/{id}', [BancoController::class, 'recibir'])->name('recibir');
 Route::get('updatebanco', [BancoController::class, 'update'])->name('updatebanco');
 Route::post('almacenarbanco', [BancoController::class, 'store'])->name('almacenarbanco');
 Route::post('adddebito', [BancoController::class, 'adddebito'])->name('adddebito');
