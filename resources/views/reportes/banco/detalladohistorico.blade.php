@@ -68,14 +68,14 @@ $cefe=0;
 		<?php 
 		 if ($q->tipo_mov == "PAG"){  $acumdebe=$acumdebe+ $q->monto; echo $q->tipo_mov."  ->  ".number_format($q->monto, 2,',','.');} 
          if ($q->tipo_mov == "TRA") {  $acumdebe=$acumdebe+ $q->monto;  echo $q->tipo_mov."  ->  ".number_format($q->monto, 2,',','.'); }
-         if ($q->tipo_mov == "N/D")  { $acumdebe=$acumdebe+ $q->monto;  echo $q->tipo_mov."  ->  ".number_format($q->monto, 2,',','.');  ?>@if($rol->anularopbanco==1) <a href="" data-target="#modal-{{$q->id_mov}}" data-toggle="modal"><i class="fa-solid fa-trash" style="color:red"></i></a>@endif<?php }
+         if ($q->tipo_mov == "N/C")  { $acumdebe=$acumdebe+ $q->monto;  echo $q->tipo_mov."  ->  ".number_format($q->monto, 2,',','.');  ?>@if($rol->anularopbanco==1) <a href="" data-target="#modal-{{$q->id_mov}}" data-toggle="modal"><i class="fa-solid fa-trash" style="color:red"></i></a>@endif<?php }
          if ($q->tipo_mov == "PPR") {  $acumdebe=$acumdebe+ $q->monto;   echo $q->tipo_mov."  ->  ".number_format($q->monto, 2,',','.'); ?> @if($rol->anularopbanco==1)<a href="" data-target="#modal-{{$q->id_mov}}" data-toggle="modal"><i class="fa-solid fa-trash" style="color:red"></i></a>@endif <?php  }
  ?></td> 
  		  <td><?php 
 		     if ($q->tipo_mov == "DEP"){ $acumhaber=$acumhaber+ $q->monto;   echo $q->tipo_mov."  ->  ".number_format($q->monto, 2,',','.'); }
-             if ($q->tipo_mov == "N/C"){ $acumhaber=$acumhaber+ $q->monto;   echo $q->tipo_mov."  ->  ".number_format($q->monto, 2,',','.'); ?>@if($rol->anularopbanco==1)<a href="" data-target="#modal-{{$q->id_mov}}" data-toggle="modal"><i class="fa-solid fa-trash" style="color:red"></i></a>@endif<?php }	  
+             if ($q->tipo_mov == "N/D"){ $acumhaber=$acumhaber+ $q->monto;   echo $q->tipo_mov."  ->  ".number_format($q->monto, 2,',','.'); ?>@if($rol->anularopbanco==1)<a href="" data-target="#modal-{{$q->id_mov}}" data-toggle="modal"><i class="fa-solid fa-trash" style="color:red"></i></a>@endif<?php }	  
 		 ?> </td>
-          <td><?php $credito=($acumdebe-($acumhaber+$saldoanterior));
+          <td><?php $credito=(($acumhaber+$saldoanterior)-$acumdebe);
 echo number_format($credito, 2,',','.');
 		  ?></td>
 
