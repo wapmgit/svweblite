@@ -24,8 +24,9 @@
           <td>{{ $q->concepto}}</td>
           <td>{{ $q->tipodoc}}</td>
           <td>{{ $q->ced}}</td>
-          <td>{{ $q->monto }}</td>  
+          <td>{{ $q->monto }} <a href="" data-target="#modal-{{$q->id_mov}}" data-toggle="modal"><i class="fa-solid fa-trash" style="color:red"></i></a></td>  
           <td>{{ $q->user}}</td>
+		  @include('reportes.banco.modal')
         </tr> @endforeach
  
       </TBODY>
