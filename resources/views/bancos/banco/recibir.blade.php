@@ -56,6 +56,7 @@ if (dias_transcurridos($fserver,$fechaini)>$dato){
 				                              <option value="Bs">Bolivares </option>                 
 				                              <option value="Ps">Pesos </option>                 
 				                              <option value="Eu">Dolares </option>                 
+				                              <option value="Dt">USDT </option>                 
 				                              <option value="Eu">Euro </option>                 
 				                              </select>
 			</div>
