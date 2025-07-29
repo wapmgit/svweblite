@@ -54,7 +54,8 @@ role="dialog" tabindex="-1" id="modaldebito">
 										  <select name="moneda" class="form-control selectpicker" data-live-search="true">				                  
 				                              <option value="Bs">Bolivares </option>                 
 				                              <option value="Ps">Pesos </option>                 
-				                              <option value="Eu">Dolares </option>                 
+				                              <option value="Ds">Dolares </option>                 
+				                              <option value="Dt">USDT </option>                 
 				                              <option value="Eu">Euro </option>                 
 				                              </select>
 									</div>
