@@ -248,6 +248,7 @@ Route::get('acercade', [SistemaController::class, 'info'])->name('acercade');
 Route::get('sininternet', [SistemaController::class, 'sininternet'])->name('sininternet');
 Route::get('empresa', [SistemaController::class, 'empresa'])->name('empresa');
 Route::post('updatempresa', [SistemaController::class, 'updatempresa'])->name('updatempresa');
+Route::get('balance', [SistemaController::class, 'balance'])->name('balance');
 // monedas
 Route::get('monedas', [MonedasController::class, 'index'])->name('monedas');
 Route::get('newmoneda', [MonedasController::class, 'create'])->name('newmoneda');

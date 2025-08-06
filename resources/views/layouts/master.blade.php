@@ -439,12 +439,12 @@
                   <p>Existencia Cero</p>
                 </a>
               </li>
-			 <!-- 	<li class="nav-item">
-                <a href="{{route('resumen')}}" class="nav-link">
+			 	<li class="nav-item">
+             <a href="{{route('balance')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Resumen Gerencial</p>
+                  <p>Balance Ing./Egre.</p>
                 </a>
-              </li> -->
+              </li>
 				<li class="nav-item">
                 <a href="{{route('catalogo')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
