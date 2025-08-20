@@ -26,7 +26,7 @@
                	<a class="nav-link" href="{{ route('logout') }}"
         onclick="event.preventDefault();
         document.getElementById('logout-form').submit();">
-                    NKS-Software V1.0.1
+                   Software de Control de inventario V1.0.1
                 </a>
 				<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
 				@csrf
@@ -75,7 +75,7 @@
                 </div>
             </div>
         </nav>
-<div><div align="center" class="py-2">   <img src="{{asset('dist/img/nks.jpg')}}" class="img-circle" width="200" height="150" title="NKS"></div></div>
+<div><div align="center" class="py-2">   <img src="{{asset('dist/img/logosistemas.png')}}" width="50" height="100" title="NKS"></div></div>
         <main class="py-2">
             @yield('content')
         </main>
