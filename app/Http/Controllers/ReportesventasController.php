@@ -342,7 +342,7 @@ class ReportesventasController extends Controller
 				-> where('venta.idempresa','=',$empresa->idempresa)				
 				-> where('venta.devolu','=',0)				
 				-> whereBetween('re.fecha', [$query, $query2])
-				->groupby('re.idpago','idbanco')
+				->groupby('re.idpago','idbanco','tiporecibo')
 				->get();
 				$ingresosnd=DB::table('recibos as re')
 				-> join('notasadm as n','n.idnota','=','re.idnota')
