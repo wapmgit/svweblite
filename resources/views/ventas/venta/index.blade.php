@@ -59,7 +59,7 @@
 					<th>Usuario</th>
 					<th>Condicion</th>
 					<th>Opciones</th>
-				</tfood>
+				</tfoot>
 			</table>
 		</div>
 		{{$ventas->render()}}

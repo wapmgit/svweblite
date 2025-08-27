@@ -7,6 +7,10 @@
 			<button type="submit" class="btn btn-info btn-sm">Buscar</button>
 		</span>
 	</div>
+	  <input type="radio" id="huey" name="busca" value="a.nombre" checked />
+    <label for="huey">Nombre</label>
+	  <input type="radio" id="dewey" name="busca" value="a.codigo" />
+    <label for="dewey">Codigo</label>
 </div>
 
 </form>

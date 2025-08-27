@@ -61,11 +61,20 @@ $idv=0;
             			<input type="text" name="stock" required value="0"  class="form-control" disabled >
             		</div>
             </div>
-			 				<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+		<div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
             	 <div class="form-group">
-            			<label for="stock">Unidad </label>          
-                  <input type="text" name="unidad"  value="{{old('unidad')}}" class="form-control" placeholder="Und, Caja, Bto...">         			
-            		</div>
+            			<label for="stock">Unidad </label>                           
+            		<select name="unidad" class="form-control">          			            			
+            				<option value="UND">Unidad</option>
+            				<option value="BTO">Bulto</option>
+            				<option value="SCO">Saco</option>
+            				<option value="CJA">Caja</option>
+            				<option value="kg">Kg</option>
+            				<option value="DISP">Display</option>
+            				<option value="PR">Par</option>
+            				<option value="LTR">Litros</option>           				
+            			</select>
+					</div>
             </div>
 
                  <div class="col-lg-3 col-sm-3 col-md-3 col-xs-6">

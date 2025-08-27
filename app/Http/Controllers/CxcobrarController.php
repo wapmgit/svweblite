@@ -32,6 +32,7 @@ $this->middleware('auth');
 		$rol=DB::table('roles')-> select('abonarcxc','crearventa','iduser')->where('iduser','=',$request->user()->id)->first();
 			$query=trim($request->get('searchText'));
 			 $empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$request->user()->id)->first();
+		
 			$pacientes=DB::table('venta as v')
 			->join('clientes as c','c.id_cliente','=','v.idcliente')
 			->join('vendedores as ve','ve.id_vendedor','=','c.vendedor')

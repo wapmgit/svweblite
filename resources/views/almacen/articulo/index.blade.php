@@ -5,7 +5,7 @@
 </div>
 <div class="row" id="principal">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<h3> Articulos 
+		<h3> Articulos
 		@if($rol->newarticulo==1)<a href="{{route('newarticulo')}}"><button class="btn btn-primary btn-sm">Nuevo</button></a>@endif</h3>
 		@include('almacen.articulo.search')
 	</div>

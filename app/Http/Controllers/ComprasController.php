@@ -356,6 +356,8 @@ return Redirect::to('showcompra/'.$ingreso->idcompra."-1");
         $articulo->precio1=$request->get('precio1');
         $articulo->costo=$request->get('costo');
         $articulo->iva=$request->get('impuesto');
+			$mytime=Carbon::now('America/Caracas');
+			$articulo->created_at=$mytime->toDateTimeString();
 		$articulo->save();
 
 		$articulos =DB::table('articulos as art')

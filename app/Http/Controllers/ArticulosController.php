@@ -24,12 +24,17 @@ class ArticulosController extends Controller
 			$rol=DB::table('roles')-> select('newarticulo','editarticulo','web','iduser')->where('iduser','=',$request->user()->id)->first();
           $empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
             $query=trim($request->get('searchText'));
-			
+			if ($request->get('busca')){
+				$busca=$request->get('busca');				
+			}else{
+				$busca="a.nombre";
+			}
+			///dd($request);
             $articulos=DB::table('articulos as a')
 			-> join('categoria as c','a.idcategoria','=','c.idcategoria')
 			-> select ('a.idarticulo','a.nombre','a.precio1','a.codigo','a.stock','c.nombre as categoria','a.descripcion','a.imagen','a.estado')
              ->where('a.idempresa','=',$empresa->idempresa)
-			->where('a.nombre','LIKE','%'.$query.'%')
+			-> where ($busca,'LIKE','%'.$query.'%')
             //->orwhere('a.codigo','LIKE','%'.$query.'%')
             ->where('a.estado','=','Activo')           
             ->orderBy('a.idarticulo','desc')
