@@ -648,7 +648,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-<strong>Copyright &copy; 2015-2024 <a href="#">Corporación de Sistemas NKS</a>.</strong> All rights reserved.
+<strong>Copyright &copy; 2015-2024 <a href="#">W&W Sistemas</a>.</strong> All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0.1
     </div>
