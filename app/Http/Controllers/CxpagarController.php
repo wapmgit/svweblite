@@ -41,7 +41,16 @@ $this->middleware('auth');
 			->groupby('p.idproveedor')
 			->where('i.saldo','>',0)
 			->paginate(20);
-		return view('proveedores.pagar.index',["rol"=>$rol,"proveedores"=>$proveedores,"searchText"=>$query]);
+			$gastos=DB::table('gastos as g')
+			->join('proveedores as p','p.idproveedor','=','g.idpersona')
+			->select(DB::raw('SUM(g.saldo) as tpendiente'),'p.idproveedor','p.nombre','p.rif','p.telefono')
+			->where('g.idempresa',$empresa->idempresa)
+			->where('p.nombre','LIKE','%'.$query.'%')
+			->groupby('p.idproveedor')
+			->where('g.saldo','>',0)
+			->where('g.estatus','=',0)
+			->paginate(20);
+		return view('proveedores.pagar.index',["rol"=>$rol,"proveedores"=>$proveedores,"gastos"=>$gastos,"searchText"=>$query]);
 		}
 	}
 	public function show(Request $request, $historia)
@@ -57,8 +66,14 @@ $this->middleware('auth');
 			->where('i.idproveedor','=',$historia)
 			->where('i.saldo','>',0)
 		   ->paginate(20);
+		   	$gastos=DB::table('gastos as g')
+			->join('proveedores as p','p.idproveedor','=','g.idpersona')
+			->where('g.idpersona','=',$historia)
+			->where('g.saldo','>',0)
+			->where('g.estatus','=',0)
+		   ->paginate(20);
 	
-     return view('proveedores.pagar.show',["monedas"=>$monedas,"datos"=>$datos,"proveedor"=>$proveedor,"empresa"=>$empresa]);	
+     return view('proveedores.pagar.show',["gastos"=>$gastos,"monedas"=>$monedas,"datos"=>$datos,"proveedor"=>$proveedor,"empresa"=>$empresa]);	
 	}
 	public function store (Request $request)
     {

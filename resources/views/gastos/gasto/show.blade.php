@@ -30,35 +30,21 @@ return $insertar_ceros = $recibo.$numero;
 
               </div>
 			  <div class="row">	
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<table width="100%"><tr><td width="30%"><strong>Rif -> Proveedor</strong></td><td width="20%"><strong>Telefono</strong></td><td width="30%"><strong>Direccion</strong></td><td width="20%"><strong>Documento</strong></td>
+			</tr>
+			<tr><td>{{$gasto->rif}} -> {{$gasto->nombre}} </td><td>{{$gasto->telefono}}</td><td>{{$gasto->direccion}}</td><td>{{$gasto->documento}}  {{$gasto->control}} </td>
+			</tr>
+			</table></br>
+		</div>	
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group">
-                    	<label for="concepto">Razon: </label> {{$gasto->nombre}} {{$gasto->rif}}
+                    	<label for="concepto">Descripcion:</label> {{$gasto->descripcion}}
                     </div>
-                </div>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="form-group">
-                    	<label for="concepto">Direccion: </label> {{$gasto->direccion}} <b>Telefono: </b> {{$gasto->telefono}}
-                    </div>
-                </div>
+	</div>
           
 	</div>
 <div class="row">
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <div class="form-group">
-                    	<label for="concepto">Documento: </label> {{$gasto->documento}}
-                    </div>
-	</div>
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                	<label for="monto">Nro Control: </label>{{$gasto->control}} <b> Fecha: </b> <?php echo date("d-m-Y",strtotime($gasto->fecha)); ?>
-                     <p></p>
-                </div>
-	</div>	
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group">
-                    	<label for="concepto">Descripcion: </label> {{$gasto->descripcion}}
-                    </div>
-	</div>
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 	<table width="100%" border="1"><tr><td><label for="costo">Base Imponible:</label>  {{$gasto->base}}</td>
 	<td><label for="costo">Impuesto:</label>  {{$gasto->iva}}</td>
@@ -100,7 +86,7 @@ return $insertar_ceros = $recibo.$numero;
                   </table>
 				  </div>
 	</div>
- </div>
+ 
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-group">
                     <label for="num_comprobante">Usuario: {{$gasto->usuario}}</label>

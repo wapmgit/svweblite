@@ -24,11 +24,12 @@ class GastosController extends Controller
     {
         if ($request)
         {
-		$rol=DB::table('roles')-> select('creargasto','anulargasto')->where('iduser','=',$request->user()->id)->first();
-            $empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
+		$rol=DB::table('roles')-> select('creargasto','anulargasto','iduser')->where('iduser','=',$request->user()->id)->first();
+			$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
             $query=trim($request->get('searchText'));
             $gasto=DB::table('gastos as g')->join('proveedores as p','p.idproveedor','=','g.idpersona')
 			->select('g.*','p.nombre','p.rif')
+			 -> where ('g.idempresa',$empresa->idempresa)
             -> where ('p.nombre','LIKE','%'.$query.'%')
             -> orderBy('g.idgasto','desc')
             ->paginate(20);
@@ -37,12 +38,15 @@ class GastosController extends Controller
         }
     }
 	public function create(Request $request){
-		$rol=DB::table('roles')-> select('creargasto')->where('iduser','=',$request->user()->id)->first();	
+			$rol=DB::table('roles')-> select('creargasto','iduser')->where('iduser','=',$request->user()->id)->first();
+			$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')
+				->join('sistema','sistema.idempresa','=','empresa.idempresa')
+				->where('id','=',$rol->iduser)->first();
 			if ($rol->creargasto==1){
-			$monedas=DB::table('monedas')->get();
+			$monedas=DB::table('monedas')->where('idempresa',$empresa->idempresa)->get();
 			$personas=DB::table('proveedores')
-			-> where('estatus','=','A')->get();
-			$empresa=DB::table('empresa')->join('sistema','sistema.idempresa','=','empresa.idempresa')->first();
+				-> where('estatus','=','A')->where('idempresa',$empresa->idempresa)->get();
+			
 			return view("gastos.gasto.create",["monedas"=>$monedas,"personas"=>$personas,"empresa"=>$empresa]);
 		} else { 
 			return view("reportes.mensajes.noautorizado");
@@ -51,9 +55,12 @@ class GastosController extends Controller
 	public function store(Request $request){
 		
 		$user=Auth::user()->name;
+		$rol=DB::table('roles')-> select('crearcompra','iduser')->where('iduser','=',$request->user()->id)->first();	
+		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 try{
     DB::beginTransaction();
 			$ajuste=new Gastos;
+			$ajuste->idempresa=$empresa->idempresa;
 			$ajuste->idpersona=$request->get('idproveedor');
 			$ajuste->documento=$request->get('documento');
 			$ajuste->control=$request->get('control');
@@ -93,28 +100,7 @@ try{
 				$mytime=Carbon::now('America/Caracas');
 				$recibo->fecha_comp=$mytime->toDateTimeString();						
 				$recibo->save();
-							$mon=Monedas::findOrFail($idpago[$contp]);
-							if($mon->idbanco>0){
-								    $mov=new MovBancos;
-									$mov->idbanco=$mon->idbanco;
-									$mov->clasificador=4;
-									$mov->tipodoc="GAST";
-									$mov->docrelacion=$ajuste->idgasto;
-									$mov->iddocumento=$recibo->idrecibo;
-									$mov->tipo_mov="N/D";
-									$mov->numero="GAST-".$ajuste->idgasto." Rec-".$recibo->idrecibo;
-									$mov->concepto="Gastos";
-									$mov->idbeneficiario= $ajuste->idpersona;	
-									$mov->identificacion="";
-									$mov->ced="";
-									$mov->tipo_per="P";
-									$mov->monto=$denomina[$contp];
-									$mov->tasadolar=$request->get('tc');
-									$mytime=Carbon::now('America/Caracas');
-									$mov->fecha_mov=$mytime->toDateTimeString();	
-									$mov->user=Auth::user()->name;
-									$mov->save();
-							}
+						
 				$contp=$contp+1;
 			  } 
 			 // dd($recibo);
@@ -131,7 +117,7 @@ return Redirect::to('gastos');
 		$data=explode("-",$id);
 		$id=$data[0];
 		$ruta=$data[1];
-		$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
+		
 		$gasto=DB::table('gastos as g')
             -> join ('proveedores as p','p.idproveedor','=','g.idpersona')
             -> select ('g.*','p.nombre','p.rif','p.telefono','p.direccion')
@@ -140,6 +126,7 @@ return Redirect::to('gastos');
             $comprobante=DB::table('comprobante as co')
             -> where ('co.idgasto','=',$id)
             ->get();
+			$empresa=DB::table('empresa')-> where('idempresa','=',$gasto->idempresa)->first();
             return view("gastos.gasto.show",["ruta"=>$ruta,"gasto"=>$gasto,"comprobante"=>$comprobante,"empresa"=>$empresa]);
 	}
 	public function destroy($id){
@@ -162,18 +149,7 @@ return Redirect::to('gastos');
 					 $recibo->referencia='Anulado';
 					 $recibo->monto='0';
 					 $recibo->recibido='0';
-					 $recibo->update();
-				$mbanco=DB::table('mov_ban')->where('tipodoc','=',"GAST")->where('iddocumento','=',$recibo->idrecibo)->first();
-				if($mbanco!= NULL){	
-					$delmov=MovBancos::findOrFail($mbanco->id_mov);
-					$montobanco=$delmov->monto;
-					$idbanco=$delmov->idbanco;
-					$delmov->monto=0;
-					$delmov->concepto="Anul.".$delmov->docrelacion."Rec".$delmov->iddocumento."M:".$montobanco;
-					$delmov->estatus=1;
-					$delmov->update();	
-				}
-					 
+					 $recibo->update();					 
 		}
 			 	
 		return Redirect::to('gastos');

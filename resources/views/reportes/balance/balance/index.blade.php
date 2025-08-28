@@ -74,8 +74,18 @@ $acumpa=0; $countpa=0; $acumga=0; $countga=0; $tcobro=0; $tpagos=0; $countndp=0;
 					@foreach ($pagos as $pa)
 						<?php $countpa++; $acumpa=$acumpa+$pa->monto; ?>
 				<tr>
-				<td><small>{{$pa->nombre}}</small></td>
+				<td><small><small>{{$pa->nombre}}</small></small></td>
 				<td>{{$pa->num_comprobante}}</td>
+				<td>{{$pa->idbanco}}</td>
+				<td><?php echo number_format( ($pa->monto), 2,',','.')." $"; ?></td>
+				<td><?php echo number_format( ($pa->recibido), 2,',','.')." $"; ?></td>
+				</tr>
+				@endforeach
+					@foreach ($gastos as $pa)
+						<?php $countpa++; $acumpa=$acumpa+$pa->monto; ?>
+				<tr>
+				<td><small><small>{{$pa->nombre}}</small></small></td>
+				<td>{{$pa->referencia}}</td>
 				<td>{{$pa->idbanco}}</td>
 				<td><?php echo number_format( ($pa->monto), 2,',','.')." $"; ?></td>
 				<td><?php echo number_format( ($pa->recibido), 2,',','.')." $"; ?></td>
@@ -115,6 +125,13 @@ $acumpa=0; $countpa=0; $acumga=0; $countga=0; $tcobro=0; $tpagos=0; $countndp=0;
 		<th>Pagado</th>
 		<th>Monto</th> </thead>
          @foreach ($desglosep as $cob) <?php $tpagos=$tpagos+$cob->monto;?>	
+        <tr>
+          <td><?php  echo$cob->idbanco; ?></td>
+          <td><?php echo number_format($cob->recibido, 2,',','.'); ?></td>
+          <td><?php  echo number_format($cob->monto, 2,',','.')." $"; ?></td>
+        </tr>
+        @endforeach
+	@foreach ($desglosepg as $cob) <?php $tpagos=$tpagos+$cob->monto;?>	
         <tr>
           <td><?php  echo$cob->idbanco; ?></td>
           <td><?php echo number_format($cob->recibido, 2,',','.'); ?></td>

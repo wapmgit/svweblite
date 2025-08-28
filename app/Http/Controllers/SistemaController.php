@@ -316,7 +316,13 @@ class SistemaController extends Controller
             -> whereBetween('re.fecha', [$query, $query2])
 			-> groupby('re.idpago','re.idpago','re.idbanco')
             ->get();
-
+			$gastos=DB::table('comprobante as co')
+			->join('gastos','gastos.idgasto','=','co.idgasto' )
+			->join('proveedores as p','p.idproveedor','=','gastos.idpersona')
+           -> select('p.nombre','co.referencia','gastos.documento','co.idbanco','co.idpago','co.idrecibo','co.monto','co.recibido','co.fecha_comp as fecha')
+            -> where ('gastos.idempresa',$empresa->idempresa)
+			-> whereBetween('co.fecha_comp', [$query, $query2])
+            ->get();
 			//de los egresos
 			$pagos=DB::table('comprobante as co')
 			->join('compras','compras.idcompra','=','co.idcompra' )
@@ -335,8 +341,15 @@ class SistemaController extends Controller
             -> whereBetween('co.fecha_comp', [$query, $query2])
             ->groupby('co.idpago','co.idbanco')
             ->get();
+			 $desglosepg=DB::table('comprobante as co')
+			 ->join('gastos','gastos.idgasto','=','co.idgasto' )
+			 ->select(DB::raw('sum(co.recibido) as recibido'),DB::raw('sum(co.monto) as monto'),'co.idbanco')
+			 ->where('gastos.idempresa',$empresa->idempresa)
+            -> whereBetween('co.fecha_comp', [$query, $query2])
+            ->groupby('co.idpago','co.idbanco')
+            ->get();
 			if ($rol->rgerencial==1){
-        return view('reportes.balance.balance.index',["ingresos"=>$ingresos,"desglosep"=>$desglosep,"pagos"=>$pagos,"cobranza"=>$cobranza,"empresa"=>$empresa,"rol"=>$rol,"searchText"=>$query,"searchText2"=>$query2]);
+        return view('reportes.balance.balance.index',["desglosepg"=>$desglosepg,"gastos"=>$gastos,"ingresos"=>$ingresos,"desglosep"=>$desglosep,"pagos"=>$pagos,"cobranza"=>$cobranza,"empresa"=>$empresa,"rol"=>$rol,"searchText"=>$query,"searchText2"=>$query2]);
 			} else { 
 	return view("reportes.mensajes.noautorizado");
 	}

@@ -256,12 +256,12 @@
                   <p>Ventas</p>
                 </a>
               </li>
-              <!-- <li class="nav-item">
+             <li class="nav-item">
                 <a href="{{route('gastos')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gastos</p>
                 </a>
-              </li> -->
+              </li> 
               <li class="nav-item">
                 <a href="{{route('ajustes')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

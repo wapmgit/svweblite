@@ -127,7 +127,7 @@
 					  <input type="checkbox" name="op12" class="minimal" @if($q->anularventa==1) checked @endif ></label>
 					</div>
 				</div>
-				<!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 					 <div class="form-group">
 					 <label>Crear Gasto: </label><label>
 					  <input type="checkbox" name="op13" class="minimal" @if($q->creargasto==1) checked @endif ></label>
@@ -139,7 +139,7 @@
 					 <label>Anular Gasto: </label><label>
 					  <input type="checkbox" name="op14" class="minimal"@if($q->anulargasto==1) checked @endif ></label>
 					</div>
-				</div> -->
+				</div> 
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 					 <div class="form-group">
 					 <label>Abonar Compras: </label><label>

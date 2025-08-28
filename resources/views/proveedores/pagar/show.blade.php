@@ -79,9 +79,24 @@ $acum=0; $acum2=0; $acumn=0; $count=0; $contdoc=0; $link=1; $p=1;?>
 					<a href="{{route('showdetallecompra',['id'=>$cat->idingreso])}}"><button class="btn btn-success btn-xs">Detalle</button></a></td>
 				</tr>
 									
-				@endforeach
-				
+				@endforeach				
 				@include('proveedores.pagar.modal')
+				@foreach ($gastos as $cat)
+               <?php 
+               $acum2=$cat->monto+$acum2; 
+			   $acum=$cat->saldo+$acum; 
+			   
+               ?>
+				<tr>
+					<td>Gasto->{{ $cat->idgasto}}</td>
+					<td>{{ $cat->documento}}</td>
+					<td><?php echo date("d-m-Y",strtotime($cat->fecha)); ?></td>
+					<td><?php echo number_format($cat->monto, 2,',','.')." $"; ?></td>
+					<td><?php echo number_format($cat->saldo, 2,',','.')." $"; ?></td>			
+					<td><a href="javascript:abrirespecialg({{$cat->idgasto}},{{$cat->saldo}});"><button  id="abono" class="btn btn-info btn-xs">Abono</button></a></td>					
+		
+				</tr>	
+				@endforeach
 				<tr>
 				<td><strong>TOTAL:</strong></td>
 					<td></td>
@@ -434,6 +449,7 @@ function abrirespecial2(idventa,saldo){
 	  $("#total_venta").val(saldo); 
 	  $("#pidpago").val('100');
 	}
+	
 	function abrirespecialg(idventa,saldo){  
       $('#divdesglose').fadeIn("fast");
       $("#divtotal").val(saldo);
