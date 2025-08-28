@@ -62,7 +62,7 @@ $acumpa=0; $countpa=0; $acumga=0; $countga=0; $tcobro=0; $tpagos=0; $countndp=0;
 	<div class="col-6 table-responsive">
 				<table width="100%">
 				<thead style="background-color: #E6E6E6">
-						<th colspan="5">Egresos por Compras</th>							
+						<th colspan="5">Egresos por Compras/Gastos</th>							
 					</thead>
 					<thead style="background-color: #E6E6E6">
 						<th>Proveedor</th>
