@@ -61,6 +61,7 @@ $idv=0;
             				<option value="DISP">Display</option>
             				<option value="PR">Par</option>
             				<option value="LTR">Litros</option>           				
+            				<option value="MTR">Metro</option>           				
             			</select>
 					</div>
             </div>

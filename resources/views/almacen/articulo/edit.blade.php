@@ -62,6 +62,7 @@
             				<option <?php if($articulo->unid=="DISP"){ echo "selected"; } ?> value="DISP">Display</option>
             				<option <?php if($articulo->unid=="PR"){ echo "selected"; } ?> value="PR">Par</option>
             				<option <?php if($articulo->unid=="LTR"){ echo "selected"; } ?>  value="LTR">Litros</option>		
+            				<option <?php if($articulo->unid=="MTR"){ echo "selected"; } ?>  value="MTR">Metro</option>		
             			</select>            	
 				</div>
             </div>
