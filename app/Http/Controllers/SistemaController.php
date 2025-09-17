@@ -218,6 +218,7 @@ class SistemaController extends Controller
 			$emp->logo=$img;
 			}
 		if($request->get('tikect')=="on"){$emp->tikect=1;}else{$emp->tikect=0;}
+		if($request->get('negativo')=="on"){$emp->negativo=1;}else{$emp->negativo=0;}
 		if($request->get('web')=="on"){$emp->web=1;}else{$emp->web=0;}
 		if($request->get('tasaes')=="on"){$emp->tespecial=1;}else{$emp->tespecial=0;}
 		if($request->get('formal')=="on"){$emp->fl=1;}else{$emp->fl=0;}

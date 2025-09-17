@@ -179,7 +179,16 @@
                   </tr>
                 </thead>
                 <tbody>
-
+				<tr>
+                    <td>Facturar sin Existencia</td>
+                 
+                    <td class="text-right py-0 align-middle">
+					<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                      <input type="checkbox" name="negativo" <?Php if($empresa->negativo==1) echo "checked"; ?> class="custom-control-input" id="customSwitch7">
+                      <label class="custom-control-label" for="customSwitch7"></label>
+                    </div>
+                    </td>
+					</tr> 
                   <tr>
                     <td>Modo Licencia</td>
                  

@@ -53,6 +53,7 @@ $idv=0;
 			<input type="hidden" value="{{$empresa->tc}}" id="valortasa" name="tc"></input>
 			<input type="hidden" value="{{$empresa->peso}}" id="valortasap" name="peso"></input>
 			<input type="hidden" value="{{$empresa->fl}}" id="usafl" ></input>
+			<input type="hidden" value="{{$empresa->negativo}}" id="negativo" ></input>
         </div>
 			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 			<h4 id="nombrevendedor"></h4>
@@ -534,7 +535,11 @@ function trunc (x, posiciones = 0) {
         cantidad= $("#pcantidad").val();
         descuento=$("#pdescuento").val();
         precio_venta=$("#pprecio_venta").val();
-        stock=$("#pstock").val();
+        vnegativo=$("#negativo").val();
+		if(vnegativo==1){
+		stock=cantidad;
+		}else{
+        stock=$("#pstock").val();}
 		costoarticulo=datosarticulo[4];
 		alicuota=datosarticulo[5];
 		mserial=datosarticulo[6];

@@ -60,6 +60,7 @@ class VentasController extends Controller
 		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')
 		 ->join('sistema','sistema.idempresa','=','empresa.idempresa')
 		->where('id','=',$rol->iduser)->first();
+		
 		if ($rol->crearventa==1){
 		$monedas=DB::table('monedas')->where('idempresa',$empresa->idempresa)->get();
 		$vendedor=DB::table('vendedores')->where('idempresa',$empresa->idempresa)->get();
@@ -67,13 +68,21 @@ class VentasController extends Controller
 
 		 	$contador=DB::table('venta')->select(DB::raw('count(idventa) as idventa'))->where('idempresa',$empresa->idempresa)->get();
     //  dd($contador);
+	if($empresa->negativo==0){
         $articulos =DB::table('articulos as art')
         -> select(DB::raw('CONCAT(art.codigo," ",art.nombre) as articulo'),'art.idarticulo','art.stock','art.costo','art.precio1 as precio_promedio','art.precio2 as precio2','art.iva','art.serial')
         -> where('art.estado','=','Activo')
         -> where('art.idempresa','=',$empresa->idempresa)
         -> where ('art.stock','>','0')
         ->groupby('articulo','art.idarticulo')
-        -> get();
+	-> get();}else{
+		  $articulos =DB::table('articulos as art')
+        -> select(DB::raw('CONCAT(art.codigo," ",art.nombre) as articulo'),'art.idarticulo','art.stock','art.costo','art.precio1 as precio_promedio','art.precio2 as precio2','art.iva','art.serial')
+        -> where('art.estado','=','Activo')
+        -> where('art.idempresa','=',$empresa->idempresa)
+        ->groupby('articulo','art.idarticulo')
+		-> get();
+		}
 		//dd($articulos);
 		   $seriales =DB::table('seriales')->where('estatus','=',0)->get();
      if ($contador==""){$contador=0;}
