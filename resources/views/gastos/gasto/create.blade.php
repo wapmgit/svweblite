@@ -69,25 +69,25 @@ if (dias_transcurridos($fecha_a,$fserver) < 0){
 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <div class="form-group">
                         <label for="costo">Base Imponible</label>
-                        <input type="number" name="base" id="bi" step="0.001" class ="form-control" min="1" value="0">
+                        <input type="number" name="base" id="bi" step="0.0001" class ="form-control" min="1" value="0">
                     </div>
      </div>
 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <div class="form-group">
                         <label for="costo">Impuesto</label>
-                        <input type="number" name="iva" id="iva" step="0.001" class ="form-control"  min="0" value="0" >
+                        <input type="number" name="iva" id="iva" step="0.0001" class ="form-control"  min="0" value="0" >
                     </div>
 	</div>
 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <div class="form-group">
                         <label for="costo">Exento</label>
-                        <input type="number" name="exento" id="exe" step="0.001" class ="form-control" min="0" value="0">
+                        <input type="number" name="exento" id="exe" step="0.0001" class ="form-control" min="0" value="0">
                     </div>
 	</div>
 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <div class="form-group">
                         <label for="costo">Total</label>
-                        <input type="number" name="monto" id="pcosto" step="0.001" class ="form-control"  placeholder="Total">
+                        <input type="number" name="monto" id="pcosto" step="0.0001" class ="form-control"  placeholder="Total">
                     </div>
 	</div>
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="guardar" align="right">
