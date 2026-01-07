@@ -87,7 +87,7 @@ $idv=0;
 	<form action="{{route('guardarventa')}}" method="POST" id="formventa" enctype="multipart/form-data" >         
         {{csrf_field()}}
             <div class="row" style="background-color:#edefef">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="form-group">
 						<input type="hidden" value="{{$empresa->tc}}" id="valortasa" name="tc" class="form-control">
 						<input type="hidden" value="{{$empresa->peso}}" id="valortasap" name="peso" class="form-control">
@@ -102,7 +102,7 @@ $idv=0;
                     </div>
                 </div>
                 
-				<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 					<table><tr><td>	<div class="form-group">
 						<label for="serie_comprobante">Fecha Emision</label>
 							<input type="date" name="fecha_emi" <?php if ($nivel=="L"){?> readonly <?php }  ?>  id="fecha_emi" value="<?php echo $fserver;?>" class="form-control control-sm">
@@ -113,9 +113,12 @@ $idv=0;
 						 <input type="hidden" name="comision" style="background-color:#edefef" id="comision"  value="" class="form-control">
 						</div></td>
 						<td><div class="form-group">
+							<label for="serie_comprobante">Control</label>							
+							<input type="text" style="background-color:#edefef" name="control" value="00" class="form-control" placeholder="Num de Control" > 							
+						</div>	</td>
+						<td><div class="form-group">
 							<label for="serie_comprobante">Observacion</label>
 							<input type="hidden" style="background-color:#edefef" name="serie_comprobante" value="{{$empresa->serie}}" size="8" class="form-control"placeholder="serie del comprobante" > 
-							<input type="hidden" style="background-color:#edefef" name="control" value="00-" class="form-control" placeholder="Num de Control" > 
 							<input type="text"  name="obs" value="" class="form-control" maxlength="30" placeholder="Observacion" > 
 						</div>	</td></tr>
 					</table>		
@@ -340,9 +343,10 @@ $(document).ready(function(){
 		}
     })
     $('#guardar').click(function(){
+		 limpiar();
 		var auxmonto=$("#divtotal").val();
 		auxmonto=parseFloat(auxmonto.replace(/,/g, ""))
-                    .toFixed(2);
+                    .toFixed(3);
 		$("#resta").val(auxmonto);
 		$("#divtotal").val(auxmonto);
 		$('#divarticulos').fadeOut("fast");
@@ -507,7 +511,7 @@ function trunc (x, posiciones = 0) {
           console.log(resultadoc);
 		  		rows=resultadoc.length; 			
 			if(rows>0){
-				var ms=resultadoc[0].monto.toFixed(2);
+				var ms=resultadoc[0].monto.toFixed(3);
         $("#cxc").html("$: " + ms);
 			}else{ $("#cxc").html("$: 0");
 }
@@ -549,26 +553,26 @@ function trunc (x, posiciones = 0) {
 
                 if (cantidad <= stock){
 					if(alicuota>0){subexe[cont]=0;
-						base[cont]=trunc(((precio_venta)/((alicuota/100)+1)), 2);
-						auxb=trunc((base[cont]*vdolar),2);	
-						base[cont]=trunc((cantidad*auxb),2);						
-						subiva[cont]=trunc((base[cont]*(alicuota/100)), 2);						
-						totalbase=trunc((totalbase+base[cont]),2);
-						subiva[cont]=trunc(subiva[cont],2);
-						}else{subiva[cont]=0; base[cont]=0; subexe[cont]=trunc(((precio_venta*vdolar)*cantidad),2);}				
+						base[cont]=trunc(((precio_venta)/((alicuota/100)+1)), 3);
+						auxb=trunc((base[cont]*vdolar),3);	
+						base[cont]=trunc((cantidad*auxb),3);						
+						subiva[cont]=trunc((base[cont]*(alicuota/100)), 3);						
+						totalbase=trunc((totalbase+base[cont]),3);
+						subiva[cont]=trunc(subiva[cont],3);
+						}else{subiva[cont]=0; base[cont]=0; subexe[cont]=trunc(((precio_venta*vdolar)*cantidad),3);}				
 					
-				totaliva=trunc((totaliva+subiva[cont]),2);
+				totaliva=trunc((totaliva+subiva[cont]),3);
 				totalexe=parseFloat(totalexe)+parseFloat(subexe[cont]);
                 subtotal[cont]=((cantidad*precio_venta)-descuento);
-                total=parseFloat(total)+parseFloat(subtotal[cont].toFixed(2));
+                total=parseFloat(total)+parseFloat(subtotal[cont].toFixed(3));
 
               var fila='<tr class="selected" id="fila'+cont+'" ><td><button class="btn btn-warning btn-xs"  onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" readonly="true" style="width: 60px" value="'+cantidad+'"></td><td><input type="number" readonly="true"  style="width: 80px" name="precio_venta[]" value="'+precio_venta+'"></td><td><input type="number"  name="descuento[]" readonly="true" style="width: 80px" value="'+descuento+'"></td><td>'+subtotal[cont].toFixed(2)+'<input type="hidden" name="costoarticulo[]" readonly="true" value="'+costoarticulo+'"></td></tr>';
               cont++;
               limpiar();
 		
 			  var auxmbs=(parseFloat(total)*parseFloat(vdolar));
-				$("#total").html(" $  : " + total.toFixed(2));			  
-				$("#muestramonto").html(" $  : " + total.toFixed(2));
+				$("#total").html(" $  : " + total.toFixed(3));			  
+				$("#muestramonto").html(" $  : " + total.toFixed(3));
 				$("#muestramontobs").html(" Bs  : " + auxmbs.toFixed(2));
 				$("#divtotal").val(total);
 				$("#tdeuda").val(total);
@@ -603,7 +607,7 @@ function trunc (x, posiciones = 0) {
 		totaliva=(parseFloat(totaliva) - parseFloat(subiva[index]));
 		totalbase=(parseFloat(totalbase) - parseFloat(base[index]));
 		totalexe=(parseFloat(totalexe) - parseFloat(subexe[index]));
-        total=(total-subtotal[index]).toFixed(2);
+        total=(total-subtotal[index]).toFixed(3);
         $("#total").html(total);
 		//alert(totalexe);
         $("#texe").val(totalexe);
@@ -614,8 +618,8 @@ function trunc (x, posiciones = 0) {
 		$("#muestramontobs").html("Bs  : " + (mon_tasad*vdolar).toLocaleString('de-DE', { style: 'decimal',  decimal: '2' }));
 		if(total<0){total=0;}
         $("#total_venta").val(total);
-        $("#total_iva").val(totaliva.toFixed(2));
-        $("#totalbase").val(totalbase.toFixed(2));
+        $("#total_iva").val(totaliva.toFixed(3));
+        $("#totalbase").val(totalbase.toFixed(3));
         $("#tdeuda").val(total);
         $("#fila" + index).remove();
         evaluar();
@@ -658,11 +662,11 @@ function trunc (x, posiciones = 0) {
 				$("#preferencia").val(""); 				
 				}  
 			if (tipom==1){ 
-				$("#resta").val((debe*valort).toFixed(2));  
+				$("#resta").val((debe*valort).toFixed(3));  
 				$("#preferencia").val('Tc: '+valort);
 			}
 			if (tipom==2){   
-				$("#resta").val((debe/valort).toFixed(2));  
+				$("#resta").val((debe/valort).toFixed(3));  
 				$("#preferencia").val('Tc: '+valort); 
 				}  
 				$("#pmonto").attr('placeholder','Monto '+moneda);
@@ -693,7 +697,7 @@ function trunc (x, posiciones = 0) {
 					$("#total_abono").text(pagototal/valort);
 				    denomina=pmonto;
 					pmonto=(pmonto/valort);		
-					acumpago[contp]=(pmonto.toFixed(2)); 
+					acumpago[contp]=(pmonto.toFixed(3)); 
 			}  
 				if (tipom==2){ 
 			    var pesoresta =$("#resta").val();   
@@ -701,21 +705,21 @@ function trunc (x, posiciones = 0) {
 				$("#total_abono").text(pagototal*valort);
 				    denomina=pmonto;
 					pmonto=pmonto*valort;		
-					acumpago[contp]=(pmonto.toFixed(2)); 
+					acumpago[contp]=(pmonto.toFixed(3)); 
 			}            
 			pagototal=parseFloat(pagototal)+parseFloat(acumpago[contp]); 
 			//alert(pagototal);
 			tventa=$("#divtotal").val();
 			tresta=(parseFloat(tventa)-parseFloat(pagototal));
-            $("#resta").val(tresta.toFixed(2));
-            $("#tdeuda").val(tresta.toFixed(2));	
+            $("#resta").val(tresta.toFixed(3));
+            $("#tdeuda").val(tresta.toFixed(3));	
             var fila='<tr  id="filapago'+contp+'"><td align="center"><span onclick="eliminarpago('+contp+');"><i class="fa fa-fw fa-eraser"></i></span></td><td><input type="hidden" name="tidpago[]" value="'+idpago+'"><input type="hidden" name="tidbanco[]" value="'+tpago+'">'+tpago+'</td><td><input type="hidden" name="denominacion[]" value="'+denomina+'">'+denomina+'</td><td><input type="hidden" name="tmonto[]" value="'+pmonto+'">'+pmonto.toLocaleString('de-DE', { style: 'decimal',  decimal: '2' })+'</td><td><input type="hidden" name="tref[]" value="'+pref+'">'+pref+'</td></tr>';
             contp++;
             document.getElementById('bt_pago').style.display="none";
 			$("#pidpago").val('100');
 			$("#pmonto").attr('placeholder','Esperando Seleccion');
-			$("#total_abono").text(pagototal.toFixed(2));
-			$("#totala").val(pagototal.toFixed(2));
+			$("#total_abono").text(pagototal.toFixed(3));
+			$("#totala").val(pagototal.toFixed(3));
 			if($("#resta").val()== 0){ 		document.getElementById('procesa').style.display=""; $("#procesa").attr("accesskey","p"); }
 			//  alert($("#totala").val());
            limpiarpago();		
@@ -745,8 +749,8 @@ $("#pidpago").focus();
 		$("#totala").val(nc);
         pagototal=(parseFloat(pagototal)-parseFloat(total));
         $("#filapago" + index).remove();
-        $("#total_abono").text(nc.toFixed(2));
-		$("#totala").val(nc.toFixed(2));
+        $("#total_abono").text(nc.toFixed(3));
+		$("#totala").val(nc.toFixed(3));
 		document.getElementById('procesa').style.display="none"; 
 		if($("#tdeuda").val()==0){
 				document.getElementById('cfl').style.display="";

@@ -56,7 +56,7 @@ $this->middleware('auth');
 			$cliente=Clientes::findOrFail($historia);
 			$datos=DB::table('venta as v')
 			->join('clientes as c','c.id_cliente','=','v.idcliente')
-			->select('v.tasa','v.base','v.texe','v.total_iva as ivabs','v.flibre','v.mret','v.total_venta','c.id_cliente','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.fecha_hora','v.fecha_emi','v.saldo','v.idventa')
+			->select('v.tasa','v.control','v.base','v.texe','v.total_iva as ivabs','v.flibre','v.mret','v.total_venta','c.id_cliente','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.fecha_hora','v.fecha_emi','v.saldo','v.idventa')
 			->where('v.idcliente','=',$historia)
 			->where('v.saldo','>',0)
 		   ->get();

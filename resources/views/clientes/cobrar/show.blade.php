@@ -79,7 +79,7 @@ function truncar($numero, $digitos){
 					<td>{{$cat->tipo_comprobante}}<?php if(($cliente->retencion > 0)and ($cat->tipo_comprobante=="FAC") and ($cat->flibre==0)){?>
 				 <a href="" data-target="#modalfl{{$cat->idventa}}" data-toggle="modal"><i class="fa fa-fw fa-paste" title="Convertir Forma Libre"></i></a>	<?php
 					}?></td>
-					<td>{{$cat->serie_comprobante}}-{{$cat->num_comprobante}}</td>
+					<td>{{$cat->serie_comprobante}}-{{$cat->num_comprobante}} C{{$cat->control}}</td>
 					<td><?php echo date("d-m-Y h:i:s a",strtotime($cat->fecha_hora)); ?></td>
 					<td><?php echo date("d-m-Y",strtotime($cat->fecha_emi)); ?></td>
 					<td><?php echo number_format($cat->total_venta, 2,',','.')." $"; ?> </td>
