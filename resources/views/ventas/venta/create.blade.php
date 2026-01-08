@@ -157,8 +157,8 @@ $idv=0;
 				</div>
 				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                     <div class="form-group">
-                        <label for="descuento">Descuento</label>
-                        <input type="number" value="0" name="pdescuento" id="pdescuento" class ="form-control" placeholder="Descuento" min="0">
+                        <label for="descuento">Descto. %</label>
+                        <input type="number" value="0" name="pdescuento" id="pdescuento" class ="form-control" placeholder="Descuento %" min="0">
                         <input type="hidden" value="0" name="pcostoarticulo" id="pcostoarticulo"  class ="form-control" >
                     </div>
 				</div>
@@ -177,13 +177,14 @@ $idv=0;
 							  <th>Supr</th>
 							  <th>Articulo</th>
 							  <th>Cantidad</th>
+							  <th align="center">Precio</th>
 							  <th>Precio Venta</th>
-							   <th>Descuento</th>
+							   <th>Descto.%</th>
 							  <th>SubTotal</th>
 							
 						  </thead>
 						  <tfoot style="background-color: #A9D0F5"> 
-						  <th colspan="4">Total</th>
+						  <th colspan="5">Total</th>
 							 
 							  <th style="display: none">Exe:<input type="number" style="width: 70px" readonly  name="totalexe" id="texe">Bs</th>
 							  <th style="display: none">Iva:<input type="number" style="width: 70px" readonly  name="total_iva" id="total_iva">Bs</th> 
@@ -538,7 +539,13 @@ function trunc (x, posiciones = 0) {
         articulo= $("#pidarticulo option:selected").text();
         cantidad= $("#pcantidad").val();
         descuento=$("#pdescuento").val();
-        precio_venta=$("#pprecio_venta").val();
+		pdesc=((100-descuento)/100);
+        var precio=$("#pprecio_venta").val();       
+		if(descuento>0){
+		precondesc= trunc((precio*pdesc),2);
+		precio_venta=precondesc; }else{
+			precio_venta=precio;
+		}
         vnegativo=$("#negativo").val();
 		if(vnegativo==1){
 		stock=cantidad;
@@ -563,10 +570,10 @@ function trunc (x, posiciones = 0) {
 					
 				totaliva=trunc((totaliva+subiva[cont]),3);
 				totalexe=parseFloat(totalexe)+parseFloat(subexe[cont]);
-                subtotal[cont]=((cantidad*precio_venta)-descuento);
+                subtotal[cont]=((cantidad*precio_venta));
                 total=parseFloat(total)+parseFloat(subtotal[cont].toFixed(3));
 
-              var fila='<tr class="selected" id="fila'+cont+'" ><td><button class="btn btn-warning btn-xs"  onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" readonly="true" style="width: 60px" value="'+cantidad+'"></td><td><input type="number" readonly="true"  style="width: 80px" name="precio_venta[]" value="'+precio_venta+'"></td><td><input type="number"  name="descuento[]" readonly="true" style="width: 80px" value="'+descuento+'"></td><td>'+subtotal[cont].toFixed(2)+'<input type="hidden" name="costoarticulo[]" readonly="true" value="'+costoarticulo+'"></td></tr>';
+              var fila='<tr class="selected" id="fila'+cont+'" ><td><button class="btn btn-warning btn-xs"  onclick="eliminar('+cont+');">X</button></td><td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td><td><input type="number" name="cantidad[]" readonly="true" style="width: 60px" value="'+cantidad+'"></td><td><input type="number" name="precio[]" readonly="true" style="width: 60px" value="'+precio+'"></td><td><input type="number" readonly="true"  style="width: 80px" name="precio_venta[]" value="'+precio_venta+'"></td><td><input type="number"  name="descuento[]" readonly="true" style="width: 80px" value="'+descuento+'"></td><td>'+subtotal[cont].toFixed(2)+'<input type="hidden" name="costoarticulo[]" readonly="true" value="'+costoarticulo+'"></td></tr>';
               cont++;
               limpiar();
 		

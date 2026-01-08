@@ -68,7 +68,7 @@ $cntser=0;
                           <td>{{$det->cantidad}}</td>
                           <td>{{$det->unidad}}</td>
                           <td><?php echo number_format( $det->precio_venta, 2,',','.'); ?></td>
-                          <td><?php echo number_format( (($det->cantidad*$det->precio_venta)-$det->descuento), 2,',','.'); ?></td>
+                          <td><?php echo number_format( (($det->cantidad*$det->precio_venta)), 2,',','.'); ?></td>
                         </tr>
 							<?php } ?>
                         @endforeach

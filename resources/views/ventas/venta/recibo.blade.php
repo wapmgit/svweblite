@@ -49,7 +49,7 @@ $cntl=0;
 						  <td><font size="8">{{$det->cantidad}}</font></td>
                           <td><font size="7"><?php echo strtolower($det->articulo);?></font></td>                       
                           <td><font size="8"><?php echo number_format( $det->precio_venta, 2,',','.'); ?></font></td>
-                          <td><font size="8"><?php echo number_format( (($det->cantidad*$det->precio_venta)-$det->descuento), 2,',','.'); ?></font></td>
+                          <td><font size="8"><?php echo number_format( (($det->cantidad*$det->precio_venta)), 2,',','.'); ?></font></td>
                         </tr>
                      @endforeach
                       </tbody>
