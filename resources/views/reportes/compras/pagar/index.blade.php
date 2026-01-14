@@ -46,6 +46,16 @@ $cefe=0;?>
 								<td><?php $count++; $total=$total+$cat->acumulado; echo number_format( $cat->acumulado, 2,',','.')." $"; ?></td>
 							</tr>
 							@endforeach
+							 @foreach ($gastos as $cat)						
+							<tr>
+								<td>{{ $cat->nombre}} *Gasto*</td>
+								<td>{{ $cat->contacto}}</td>
+								<td>{{ $cat->rif}}</td>
+								<td>{{ $cat->telefono}}</td>
+								<td>{{ $cat->direccion}}</td>
+								<td><?php $count++; $total=$total+$cat->acumulado; echo number_format( $cat->acumulado, 2,',','.')." $"; ?></td>
+							</tr>
+							@endforeach
 							<tr><td>Documentos: <?php echo $count+$count2; ?></td>
 							<td colspan="3"></td><td><strong>Total:</strong></td><td><strong><?php echo number_format( $total, 2,',','.')." $"; ?></strong></td>
 							</tr>

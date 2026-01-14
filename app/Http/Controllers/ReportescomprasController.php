@@ -175,8 +175,15 @@ class ReportescomprasController extends Controller
 			->where('i.estatus','<>',"Anulada")
 			->orderby('p.nombre','ASC')
 			->get();
-			
-			return view('reportes.compras.pagar.index',["compras"=>$compras,"empresa"=>$empresa]);
+			$gastos=DB::table('gastos as g')
+			->join('proveedores as p','p.idproveedor','=','g.idpersona')
+			->select(DB::raw('SUM(g.saldo) as acumulado'),'p.nombre','p.rif','p.telefono','p.direccion','p.contacto')
+			->where('g.idempresa',$empresa->idempresa)
+			->groupby('p.idproveedor')
+			->where('g.saldo','>',0)
+			->where('g.estatus','=',0)
+			->paginate(20);
+			return view('reportes.compras.pagar.index',["compras"=>$compras,"gastos"=>$gastos,"empresa"=>$empresa]);
 			   } else { 
 			return view("reportes.mensajes.noautorizado");
 			}
