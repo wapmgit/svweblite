@@ -72,6 +72,7 @@ $cntser=0;
                         </tr>
 							<?php } ?>
                         @endforeach
+						<?Php if($venta->descuento>0){ ?><tr><td colspan="3"></td><td> Descto. </td><td>-{{$venta->descuento}}</td></tr><?php } ?>
                       </tbody>
 					   <tfoot>                      
                           <th colspan="4"><div align="right">TOTAL: </div></th>

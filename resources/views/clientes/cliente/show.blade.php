@@ -84,7 +84,7 @@ return $insertar_ceros = $recibo.$numero;
 					<th>Fecha</th>
 					<th>Condicion</th>
 					<th>Monto Doc.</th>
-					<th>Des. %</th>
+					<th>Descto.</th>
 					<th>Monto Des.</th>
 					<th>Saldo</th>						
 				</thead>
@@ -96,7 +96,7 @@ return $insertar_ceros = $recibo.$numero;
 				<tr>
 				<td class="filap1"> <a  href="{{route('tcarta',['id'=>$cat->idventa.'-'.$link])}}"><i class="fa fa-fw fa-eye" title="Ver Documento"></i></a></td>
 					<td> <?php if($cat->devolu==1){echo "*DEV";}?>             
-					{{ $cat->serie_comprobante}}<?php $idv=$cat->idventa; echo add_ceros($idv,$ceros); ?>
+					{{ $cat->serie_comprobante}}<?php $idv=$cat->idventa; echo add_ceros($idv,$ceros); ?> C{{$cat->control}}
 					</td>
 					<td></td><td></td>
 					<td><small><?php echo date("d-m-Y h:i:s a",strtotime($cat->fecha_hora)); ?></small></td>

@@ -50,6 +50,7 @@ $idv=0;
 			<button type="button" > <a id="calculo" href="" data-target="#modal_tasas" data-toggle="modal"> Referencia Monetaria </a></button>
 			@include('ventas.venta.modal_tasas')
 			@include('ventas.venta.modalcliente')
+			@include('ventas.venta.modaldscto')
 			<input type="hidden" value="{{$empresa->tc}}" id="valortasa" name="tc"></input>
 			<input type="hidden" value="{{$empresa->peso}}" id="valortasap" name="peso"></input>
 			<input type="hidden" value="{{$empresa->fl}}" id="usafl" ></input>
@@ -207,7 +208,9 @@ $idv=0;
 			@include('ventas.venta.modalseriales')			
 			<div class ="row" id="divdesglose" style="display: none">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<h3 align="center">TOTAL <input type="number" id="divtotal" value="" disabled ><span id="pasapago" title="haz click para hacer cobro total">RESTA</span> <input type="number" id="resta" disabled value="">
+					<h3 align="center">TOTAL <input type="number" id="divtotal" value="" disabled >
+					<span id="pasapago" title="haz click para hacer cobro total">RESTA</span> 
+					<input type="number" id="resta" disabled value=""><a  id="linkdscto" href="" data-target="#modaldscto" data-toggle="modal"> Dscto. </a>
 					<input type="hidden" name="tdeuda" id="tdeuda" value=""  >		
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -247,11 +250,13 @@ $idv=0;
 
 						  </thead>
 							<tfoot> 
-							<th></th>
-							  <th></th>
+							<th colspan="2"><span id="mdesapli" style="display: none"></span></th>
 							
 							  <th colspan="2"><h3>Total $</h3></th>
-							  <th><h3 id="total_abono">$.  0.00</h3></th><input type="hidden" name="totala" id="totala" value="0.00">
+							  <th><h3 id="total_abono">$.  0.00</h3></th>
+							  <input type="hidden" name="totala" id="totala" value="0.00">
+							  <input type="hidden" name="tvorg" id="tvorg" value="0.00">
+							  	<input type="hidden" class="form-control"  name="mdsctoventa" id="mdsctoventa">
 							  </tfoot>
 							<tbody></tbody>
 						</table>
@@ -345,7 +350,7 @@ $(document).ready(function(){
     })
     $('#guardar').click(function(){
 		 limpiar();
-		var auxmonto=$("#divtotal").val();
+		var auxmonto=$("#tvorg").val();
 		auxmonto=parseFloat(auxmonto.replace(/,/g, ""))
                     .toFixed(3);
 		$("#resta").val(auxmonto);
@@ -371,9 +376,10 @@ $(document).ready(function(){
 		$("#dvp").html(mon_tasap.toLocaleString('de-DE', { style: 'decimal',  decimal: '2' }));
 	})
     $('#regresar').click(function(){	
-		pagototal=0;	 $("#resta").val($("#total_venta").val());
+		pagototal=0;	
+		$("#resta").val($("#tvorg").val());
 	   $("#total_abono").text("0.0");
-	   $("#tdeuda").val($("#total_venta").val());
+	   $("#tdeuda").val($("#tvorg").val());
 	   $("#total").val(0);
 	   $("#totala").val(0);
 	    $("#total_iva").val(0);
@@ -381,6 +387,14 @@ $(document).ready(function(){
        $('#divarticulos').fadeIn("fast");
 		for(var i=0;i<10;i++){
 		$("#filapago" + i).remove(); acumpago[i]=0;}
+			$("#mdsctoventa").val(0);	
+			$("#mdscto").val(0);
+			$("#tvcondscto").val(0);
+			$("#tvdscto").val(0);	
+			$("#modo").val('0');
+			document.getElementById('linkdscto').style.display="";	
+			document.getElementById('mdesapli').style.display="none";	
+			$("#pidpago").val('100');
 	})
    $('#btncancelar').click(function(){	
    	totalexe=0;
@@ -457,6 +471,72 @@ $(document).ready(function(){
 			}   
 		});
 	});
+	$('#modo').change(function(){
+		$("#mdsctoventa").val(0);	
+		$("#mdscto").val(0);
+		$("#tvcondscto").val(0);
+		$("#tvdscto").val($("#divtotal").val());
+		
+		
+	});
+		$('#btn-closedscto').click(function(){
+		$("#mdsctoventa").val(0);	
+		$("#mdscto").val(0);
+		$("#tvcondscto").val(0);
+		$("#tvdscto").val(0);	
+		$("#modo").val('0');	
+		$("#resta").val($("#divtotal").val());		
+	});
+		$('#btn-dscto').click(function(){
+			document.getElementById('mdesapli').style.display="";	
+			$("#mdesapli").html(" Descto. $"+$("#mdsctoventa").val());
+			var nmventa=$("#tvcondscto").val();
+				$("#divtotal").val(nmventa);
+				$("#tdeuda").val(nmventa);
+				$("#resta").val(nmventa);
+				$("#total_venta").val(nmventa);	
+				document.getElementById('linkdscto').style.display="none";	
+	});
+	
+	$('#mdscto').change(function(){
+		var modo=$("#modo").val();
+		if(modo==0){alert('Seleccione Modo de Descuento');}
+		if(modo==1){
+			var tvdscto=$("#tvdscto").val();
+			var mdscto=$("#mdscto").val();
+			pdescg=((100-mdscto)/100);
+
+			if(mdscto>0){
+		precondescg= trunc((tvdscto*pdescg),2);
+		$("#total_venta").val(precondescg);
+		$("#resta").val(precondescg);
+		$("#tdeuda").val(precondescg);
+		$("#tvcondscto").val(precondescg);
+		var mdesg=trunc((parseFloat(tvdscto)-parseFloat(precondescg)),2);
+		$("#mdsctoventa").val(mdesg);		
+		}else{
+			alert('Descuento debe ser mayor que cero!');
+		}
+		}
+		if(modo==2){
+			var tvdscto=$("#tvdscto").val();
+			var mdscto=$("#mdscto").val();
+			if(tvdscto>mdscto){
+		precondescg=parseFloat(tvdscto)-parseFloat(mdscto);
+		$("#total_venta").val(precondescg);
+		$("#resta").val(precondescg);
+		$("#tdeuda").val(precondescg);
+		$("#tvcondscto").val(precondescg);
+		$("#mdsctoventa").val(mdscto);		
+			}else{
+		$("#mdsctoventa").val(0);	
+		$("#mdscto").val(0);
+		$("#tvcondscto").val(0);
+				alert('Descuento no Puede ser Mayor Total Venta')
+			}
+		}
+	});
+	
 });
 function trunc (x, posiciones = 0) {
   var s = x.toString()
@@ -588,6 +668,7 @@ function trunc (x, posiciones = 0) {
 				$("#totalbase").val(totalbase);
 				$("#texe").val(totalexe.toFixed(2));
 				$("#total_venta").val(total);
+				$("#tvorg").val(total);
               evaluar();
 				$('#detalles').append(fila);
 				$("#pidarticulo").selectpicker('toggle');
@@ -738,6 +819,7 @@ $("#pidpago").focus();
 		}else { alert('¡El monto indicado no debe se mayor al saldo pendiente!');
 			limpiarpago();		
 			}
+			document.getElementById('linkdscto').style.display="none";	
 	}
 	function limpiarpago(){
         $("#pmonto").val("");
@@ -758,12 +840,14 @@ $("#pidpago").focus();
         $("#filapago" + index).remove();
         $("#total_abono").text(nc.toFixed(3));
 		$("#totala").val(nc.toFixed(3));
+		if(nc==0){		document.getElementById('linkdscto').style.display="";	}
 		document.getElementById('procesa').style.display="none"; 
 		if($("#tdeuda").val()==0){
+			
 				document.getElementById('cfl').style.display="";
 				
 				}else{ 
-				//	$("#convertir").attr("checked",false);
+				//	$("#convertir").attr("checked",false);		
 					document.getElementById('convertir').checked=false; 
 					document.getElementById('cfl').style.display="none"; } 
     }

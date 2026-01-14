@@ -119,6 +119,7 @@ class VentasController extends Controller
     $venta->base=$request->get('totalbase');
     $venta->total_iva=$request->get('total_iva');
     $venta->texe=$request->get('totalexe');
+    $venta->descuento=$request->get('mdsctoventa');
     $mytime=Carbon::now('America/Caracas');
     $venta->fecha_hora=$mytime->toDateTimeString();
 	$venta->fecha_emi=$request->get('fecha_emi');
@@ -392,7 +393,7 @@ public function recibo($id){
 
 			$venta=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
-            -> select ('v.idempresa','v.idventa','v.fecha_hora','p.nombre','p.rif as cedula','p.direccion','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu')
+            -> select ('v.idempresa','v.idventa','v.descuento','v.fecha_hora','p.nombre','p.rif as cedula','p.direccion','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu')
             ->where ('v.idventa','=',$id)
             -> first();
             $detalles=DB::table('detalle_venta as dv')
@@ -415,7 +416,7 @@ public function show(Request $request, $id){
 
 			$venta=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
-            -> select ('v.idempresa','v.idventa','p.id_cliente','v.fecha_hora','p.nombre','p.rif','p.cedula','p.telefono','p.direccion','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu','v.obs')
+            -> select ('v.idempresa','v.idventa','p.id_cliente','v.fecha_hora','p.nombre','p.rif','p.cedula','p.telefono','p.direccion','v.descuento','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu','v.obs')
             ->where ('v.idventa','=',$id)
             -> first();
 			//dd($venta);

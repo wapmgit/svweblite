@@ -95,7 +95,7 @@ class ClientesController extends Controller
 			->first();
 			$ventas=DB::table('venta')
 			->join('detalle_venta as det','det.idventa','=','venta.idventa')
-			->select('venta.tipo_comprobante','venta.num_comprobante','venta.serie_comprobante','venta.total_venta','venta.total_pagar','venta.fecha_hora','venta.comision','venta.descuento','venta.saldo','venta.devolu','venta.estado','venta.idventa')
+			->select('venta.tipo_comprobante','venta.num_comprobante','venta.serie_comprobante','venta.total_venta','venta.total_pagar','venta.fecha_hora','venta.comision','venta.control','venta.descuento','venta.saldo','venta.devolu','venta.estado','venta.idventa')
 				->where('venta.idcliente','=',$id)
 				->orderBy('venta.idventa','desc')
 				->groupBy('venta.idventa')

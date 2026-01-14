@@ -36,7 +36,8 @@ $cntl=0;
                           <th ><font size="8">Precio.</font></th>
                           <th ><font size="8">Subt.</font></th>
                       </thead>
-                      <tfoot>                      
+                      <tfoot>  
+				<?Php if($venta->descuento>0){ ?>	<tr > <td colspan="3"><div align="right"><font size="7">Descto.</font></div></td><td><div align="left"><font size="8">-{{$venta->descuento}}</font></div></tD>  </tr >	<?php } ?>				  
 							  <tr >
                           <th colspan="4"> <hr class="class1"> </th>  </tr >
 						  		  <tr >
