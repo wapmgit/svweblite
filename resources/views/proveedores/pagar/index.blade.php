@@ -58,7 +58,9 @@
 				 	<?php 
 					$nc=0;$nd=0;
 					for ($i=0;$i<$longitudn;$i++){
-						if ($not->idproveedor==$arraynidcliente[$i]){?>
+						if ($not->idproveedor==$arraynidcliente[$i]){  
+						$tmonto=($tmonto+$not->tpendiente); 
+						?>
 				<tr>
 					<td><small>{{$not->nombre}}</small></td>
 					<td><small>{{$not->rif}}</small></td>
