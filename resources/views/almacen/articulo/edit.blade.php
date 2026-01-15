@@ -190,8 +190,6 @@ function trunc (x, posiciones = 0) {
         var util=((iva-1)*100);
         pt=(parseFloat(util));
         var nv=(new Intl.NumberFormat("de-DE", {style:  "decimal", decimal: "2"}).format(pt));
-  //      alert(nv);
-  	nv=trunc(nv,2);
       $("#utilidad").val(parseFloat(nv));
       }
         function reverso2(){
