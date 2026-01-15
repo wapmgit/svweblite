@@ -37,8 +37,8 @@
 					<td><small><small>{{ $cat->categoria}}</small></small></td>
 					<td><small>{{ $cat->stock}}</small></td>
 						<td  > <?php if ($cat->imagen==""){?> <img src="{{ asset('/img/articulos/ninguna.jpg')}}" alt="{{$cat->nombre}}" height="20px" width="20px" class="img-thumbnail"><?php }else{ ?><img src="{{ asset('/img/articulos/'.$cat->imagen)}}" alt="{{$cat->nombre}}" height="15px" width="30px" class="img-thumbnail"><?php } ?> </td>
-					<td><small><?php echo number_format($cat->precio1, 2,',','.'); ?></small></td>
-					<td><small><?php echo number_format(($cat->precio1*$empresa->tc), 2,',','.'); ?></small></td>
+					<td><small><?php echo number_format($cat->precio1, 3,',','.'); ?></small></td>
+					<td><small><?php echo number_format(($cat->precio1*$empresa->tc), 3,',','.'); ?></small></td>
 					<td>
 						
 					@if($rol->editarticulo==1)	<a href="{{route('editarticulo',['id'=>$cat->idarticulo])}}"><button class="btn btn-warning btn-xs">Editar</button></a>@endif

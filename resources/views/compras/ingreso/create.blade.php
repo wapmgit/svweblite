@@ -208,8 +208,15 @@ if (dias_transcurridos($fecha_a,$fserver) < 0){
 									  </tfoot>
 									  <tbody></tbody>
 								</table>
-						</div>						
-						<div class="col-lg-12 ol-md-12 col-sm-12 col-xs-12" align="right">
+						</div>	
+	<div class="col-lg-8 ol-md-8 col-sm-8 col-xs-12">
+						<div class="form-group">
+						<label for="productor">¿ Recalcular Precios ?</label>
+						<input type="checkbox" name="recalcular" checked >
+						</div>
+					</div>						
+			
+						<div class="col-lg-4 ol-md-4 col-sm-4 col-xs-4" align="right">
 						<button type="button" class="btn btn-danger" id="regresar" data-dismiss="modal">Cancelar</button>
 						<input name="_token" value="{{ csrf_token() }}" type="hidden" ></input>
 						<button type="submit" id="procesa" class="btn btn-primary">Procesar</button>
