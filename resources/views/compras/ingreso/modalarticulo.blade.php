@@ -99,7 +99,7 @@ $idv=0;
                         <div class="form-group">
                               <label for="precio1">Precio 1</label>
                               <input type="text" name="precio1" id="precio1"  class="form-control" value="" placeholder=" precio">
-                              <input type="text" name="idempresa"  class="form-control" value="{{$empresa->idempresa}}">
+                              <input type="hidden" name="idempresa"  class="form-control" value="{{$empresa->idempresa}}">
                  </div> 
                  </div>
                         
