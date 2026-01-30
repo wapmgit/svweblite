@@ -93,7 +93,8 @@ $acum=0; $acum2=0; $acumn=0; $count=0; $contdoc=0; $link=1; $p=1;?>
 					<td><?php echo date("d-m-Y",strtotime($cat->fecha)); ?></td>
 					<td><?php echo number_format($cat->monto, 2,',','.')." $"; ?></td>
 					<td><?php echo number_format($cat->saldo, 2,',','.')." $"; ?></td>			
-					<td><a href="javascript:abrirespecialg({{$cat->idgasto}},{{$cat->saldo}});"><button  id="abono" class="btn btn-info btn-xs">Abono</button></a></td>					
+					<td><a href="javascript:abrirespecialg({{$cat->idgasto}},{{$cat->saldo}});"><button  id="abono" class="btn btn-info btn-xs">Abono</button></a>
+					<a href="{{route('showdetallegasto',['id'=>$cat->idgasto])}}"><button class="btn btn-success btn-xs">Detalle</button></a></td></td>					
 		
 				</tr>	
 				@endforeach

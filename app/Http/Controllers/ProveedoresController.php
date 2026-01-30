@@ -72,6 +72,7 @@ $this->middleware('auth');
 	$datos=DB::table('proveedores')->where('idproveedor','=',$id)
 	->first();
 	$compras=DB::table('compras')->where('idproveedor','=',$id)->get();
+	$gastos=DB::table('gastos')->where('idpersona','=',$id)->get();
 
 				$link="2";
 	$rcompras=DB::table('comprobante as re')
@@ -81,7 +82,7 @@ $this->middleware('auth');
 	 -> where('pro.idproveedor','=',$id)
 		->get();
 
-        return view("proveedores.proveedor.show",["rcompras"=>$rcompras,"empresa"=>$empresa,"datos"=>$datos,"compras"=>$compras,"link"=>$link]);
+        return view("proveedores.proveedor.show",["gastos"=>$gastos,"rcompras"=>$rcompras,"empresa"=>$empresa,"datos"=>$datos,"compras"=>$compras,"link"=>$link]);
     }
 	public function edit($idproveedor)
 	{		

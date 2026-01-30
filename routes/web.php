@@ -165,6 +165,7 @@ Route::get('showcxp/{id}', [CxpagarController::class, 'show'])->name('showcxp');
 Route::get('shownota/{id}', [CxpagarController::class, 'shownota'])->name('shownota');
 Route::post('abonarncp', [CxpagarController::class, 'aplicanc'])->name('abonarncp');
 Route::get('showdetallecompra/{id}', [CxpagarController::class, 'detalle'])->name('showdetallecompra');
+Route::get('showdetallegasto/{id}', [CxpagarController::class, 'detallegasto'])->name('showdetallegasto');
 Route::post('abonarcxp', [CxpagarController::class, 'store'])->name('abonarcxp');
 Route::get('retcompra', [CxpagarController::class, 'retencion'])->name('retcompra');
 Route::get('retgasto', [CxpagarController::class, 'retenciongasto'])->name('retgasto');

@@ -223,6 +223,19 @@ $this->middleware('auth');
             return view("proveedores.pagar.detalle",["ingreso"=>$ingreso,"empresa"=>$empresa,"detalles"=>$detalles,"pago"=>$pago]);
 
 	}
+		public function detallegasto($id){
+		
+		$gasto=DB::table('gastos as g')
+            -> join ('proveedores as p','p.idproveedor','=','g.idpersona')
+            -> select ('g.*','p.nombre','p.rif','p.telefono','p.direccion')
+            ->where ('g.idgasto','=',$id)
+            -> first();
+            $comprobante=DB::table('comprobante as co')
+            -> where ('co.idgasto','=',$id)
+            ->get();
+			$empresa=DB::table('empresa')-> where('idempresa','=',$gasto->idempresa)->first();
+            return view("proveedores.pagar.showgasto",["gasto"=>$gasto,"comprobante"=>$comprobante,"empresa"=>$empresa]);
+	}
 	public function pago(Request $request)
     {	
 	//dd($request);

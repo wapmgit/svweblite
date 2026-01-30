@@ -82,7 +82,7 @@ $saldond=$saldonc=0; $contnd=0; $contnc=0;
 
 							
 				</thead>
-				<?php $comprado=0; $acum=0; $base=$exento=$iva=$pagar=0; $saldo=0; $cont=0;?>
+				<?php $comprado=0; $acum=0; $base=$exento=$iva=$pagar=0; $saldo=0; $cont=0; $contg=0;?>
                @foreach ($compras as $cat)
 			   <?php $comprado=$comprado+$cat->total;  
 			   $saldo=$saldo+$cat->saldo; 
@@ -102,9 +102,29 @@ $saldond=$saldonc=0; $contnd=0; $contnc=0;
 					<td>{{ $cat->saldo}}</td>				
 				</tr>
 				@endforeach
+				
+               @foreach ($gastos as $cat)
+			   <?php $comprado=$comprado+$cat->monto;  
+			   $saldo=$saldo+$cat->saldo; 
+			   $base=$base+$cat->base;
+			   $exento=$exento+$cat->exento; 
+			   $iva=$iva+$cat->iva;
+			   $contg++; 
+			   ?>
+				<tr>
+	<td></td>
+					<td>GTO-{{ $cat->documento}}-{{ $cat->control}}</td>
+					<td>{{ $cat->fecha}}</td>
+					<td>{{ $cat->monto}}</td>
+					<td>{{ $cat->base}}</td>
+					<td>{{ $cat->iva}}</td>
+					<td>{{ $cat->exento}}</td>
+					<td>{{ $cat->saldo}}</td>				
+				</tr>
+				@endforeach
 				<tr>
 				<td class="filap1"></td>
-				<td><strong>Facturas: <?php echo $cont; ?></strong></td><td></td>
+				<td><strong>Facturas: <?php echo $cont; ?> Gastos: <?php echo $contg; ?> </strong></td><td></td>
 				<td><strong><?php echo $comprado; ?> $.</strong></td>
 				<td><strong><?php echo $base; ?> $.</strong></td>
 				<td><strong><?php echo $iva; ?> $.</strong></td>
