@@ -63,14 +63,13 @@ class VendedoresController extends Controller
 	{
 		return view("vendedor.vendedor.edit",["vendedores"=>Vendedores::findOrFail($id)]);
 	}
-	public function update(Request $request,$id)
+	public function update(Request $request)
 	{
+		//dd($request);
 		$this->validate($request,[
             'nombre' => 'required',
-			'cedula' => 'required',
-            'comision' => 'required'
-        ]);
-		
+			'cedula' => 'required'
+        ]);	
 		$paciente=Vendedores::findOrFail($request->get('id'));
         $paciente->nombre=$request->get('nombre');
         $paciente->cedula=$request->get('cedula');
