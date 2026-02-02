@@ -33,7 +33,7 @@ if (dias_transcurridos($fserver,$fechaini)>$dato){
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<p>
-				<b>SysVent@s</b> es un sistema desarrollado por la empresa <b>CORPORACION DE SISTEMAS NKS</b>, con el fin de brindar una 
+				<b>SysVent@s</b> es un sistema desarrollado por la empresa <b>W&W SYSTEMS</b>, con el fin de brindar una 
 				herramienta de ayuda </br>para el control de entrada y salida de inventario en tu negocio.
 				<span></br><b>Empresa:</b>{{$empresa->rif}} - {{$empresa->nombre}}</span>
 				<span></br><b>Telefono:</b> {{$empresa->telefono}}<span>
@@ -60,7 +60,7 @@ if (dias_transcurridos($fserver,$fechaini)>$dato){
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<p align="center">
-		<img src="{{asset('dist/img/nks.jpg')}}"  width="350" height="200" alt="User Image">
+		<img src="{{asset('dist/img/nksnew.png')}}"  width="350" height="300" alt="User Image">
 		</p>
 		</div>
 	</div>
