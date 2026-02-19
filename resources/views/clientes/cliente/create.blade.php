@@ -33,7 +33,7 @@
                   <div class="input-group">
                     <div class="input-group-prepend">
                     </div>
-                    <input type="text" required name="codpais" value="{{old('codpais')}}" required placeholder="+58" class="form-control">
+                    <input type="text" required name="codpais" value="{{old('codpais')}}" required maxlength="4" placeholder="+58" class="form-control">
                   @if($errors->first('codpais'))<P class='text-danger'>{{$errors->first('codpais')}}</p>@endif
 				  </div>
             </div>

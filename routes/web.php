@@ -117,6 +117,7 @@ Route::post('validarcventa', [ventasController::class, 'validar'])->name('valida
 Route::post('ventacxc', [ventasController::class, 'vcxc'])->name('ventacxc');
 Route::post('deletearticulo', [ventasController::class, 'deletearticulo'])->name('deletearticulo');
 Route::post('addarticuloventa', [ventasController::class, 'addarticuloventa'])->name('addarticuloventa');
+Route::get('visor/{id}', [ventasController::class, 'visorprecio'])->name('visor');
 //gastos
 Route::get('gastos', [GastosController::class, 'index'])->name('gastos');
 Route::get('newgasto', [GastosController::class, 'create'])->name('newgasto');

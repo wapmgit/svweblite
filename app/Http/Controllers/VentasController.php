@@ -656,5 +656,20 @@ public function addarticuloventa(Request $request){
 	
       return Redirect::to('showdevolucion/'.$ajv->idventa);
 }
-
+ public function visorprecio($id){
+	// dd($id);
+	 $ide=Auth::user()->idempresa;
+	     $monedas=DB::table('monedas')-> where('idempresa','=',$ide)->get();
+	   		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')
+		 ->join('sistema','sistema.idempresa','=','empresa.idempresa')
+		->where('empresa.idempresa','=',$id)->first();
+	$articulos =DB::table('articulos as art')
+        -> select(DB::raw('CONCAT(art.codigo," ",art.nombre) as articulo'),'art.idarticulo','art.stock','art.costo','art.precio1 as precio_promedio','art.precio2 as precio2','art.iva','art.serial')
+        -> where('art.estado','=','Activo')
+        -> where('art.idempresa','=',$empresa->idempresa)
+        -> where ('art.stock','>','0')
+        ->groupby('articulo','art.idarticulo')
+	-> get();
+     return view("ventas.venta.visorprecios",["monedas"=>$monedas,"articulos"=>$articulos,"empresa"=>$empresa]);
+ }
 }
