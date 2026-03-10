@@ -57,10 +57,10 @@
 					<td>{{ $q->codigo}}</td>
 					<td>{{ $q->nombre}}</td>
 					<td>{{ $q->stock}}</td>
-					<td><?php echo number_format( $q->costo, 2,',','.'); ?></td>
+					<td><?php echo number_format( $q->costo, 3,',','.'); ?></td>
 					<td>{{ $q->iva}}</td>
 					<td>{{$q->utilidad}} %</td>
-					<td><?php echo number_format( $q->precio1, 2,',','.'); ?></td>	
+					<td><?php echo number_format( $q->precio1, 3,',','.'); ?></td>	
 				</tr>
 
 				@endforeach

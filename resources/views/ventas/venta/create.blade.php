@@ -153,7 +153,7 @@ $idv=0;
 				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                     <div class="form-group">
                         <label for="precio_venta">Precio venta</label>
-                        <input type="number" name="pprecio_venta" id="pprecio_venta"  min="0.01" class ="form-control" placeholder="Precio de Venta" <?php if ($nivel=="L"){?> disabled <?php }  ?> >
+                        <input type="number" name="pprecio_venta" id="pprecio_venta"  min="0.01" class ="form-control" placeholder="Precio de Venta" <?php if ($rol->editpedido==0){?> disabled <?php }  ?> >
                     </div>
 				</div>
 				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
