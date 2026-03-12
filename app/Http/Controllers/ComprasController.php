@@ -74,6 +74,7 @@ class ComprasController extends Controller
 	$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 	$contador=DB::table('compras')->select(DB::raw('count(idcompra) as nrocompra'))->where('idempresa',$empresa->idempresa)->first();
 	$user=Auth::user()->name;
+	
 	try{
     DB::beginTransaction();
     $ingreso=new Compras;
@@ -162,18 +163,19 @@ class ComprasController extends Controller
 		 
         //actualizo costo   
         $articulo=Articulos::findOrFail($idarticulo[$cont]);
-        $articulo->costo=$precio_compra[$cont];
-        $articulo->costo_t=$precio_cambio[$cont];
+       
         $costo= $precio_compra[$cont];
         $costot= $precio_cambio[$cont];
         $articulo->stock=$articulo->stock+$cantidad[$cont];
         $impuesto= $articulo->iva;
         $utilidad= $articulo->utilidad;
-
+		if($request->get('recalcular')){
+		$articulo->costo=$precio_compra[$cont];
+        $articulo->costo_t=$precio_cambio[$cont];
          $pt=($costo + (($utilidad/100)*$costo))+($costo + (($utilidad/100)*$costo))*($impuesto/100);
         $articulo->precio1=$pt;
         $articulo->precio_t=($costot + (($utilidad/100)*$costot))+($costot + (($utilidad/100)*$costot))*($impuesto/100);
-
+		}
         $articulo->update();
 		$cont=$cont+1;
                     }
@@ -361,7 +363,7 @@ return Redirect::to('showcompra/'.$ingreso->idcompra."-1");
 		$articulo->save();
 
 		$articulos =DB::table('articulos as art')
-        -> select(DB::raw('CONCAT(art.codigo,"-",art.nombre," - ",stock," - ",costo,"-",iva) as articulo'),'art.idarticulo','art.costo','art.serial')
+        -> select(DB::raw('CONCAT(art.codigo,"-",art.nombre," - ",stock," - ",costo,"-",iva) as articulo'),'art.idarticulo','art.costo','art.serial','art.iva')
         -> where('art.idarticulo','=',$articulo->idarticulo)
         -> get();
            return response()->json($articulos);
