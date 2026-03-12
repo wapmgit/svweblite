@@ -393,7 +393,7 @@ public function recibo($id){
 
 			$venta=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
-            -> select ('v.idempresa','v.idventa','v.descuento','v.fecha_hora','p.nombre','p.rif as cedula','p.direccion','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu')
+            -> select ('v.idempresa','v.idventa','v.descuento','v.fecha_hora','p.nombre','p.rif as cedula','p.direccion','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu','v.tasa')
             ->where ('v.idventa','=',$id)
             -> first();
             $detalles=DB::table('detalle_venta as dv')
@@ -405,8 +405,10 @@ public function recibo($id){
             ->get();
 
 			$empresa=DB::table('empresa')-> where('idempresa','=',$venta->idempresa)->first();
-            return view("ventas.venta.recibo",["venta"=>$venta,"recibos"=>$recibo,"empresa"=>$empresa,"detalles"=>$detalles]);
+		
+            return view("ventas.venta.".$empresa->formatot,["venta"=>$venta,"recibos"=>$recibo,"empresa"=>$empresa,"detalles"=>$detalles]);
 }
+
 public function show(Request $request, $id){
 //dd($id);
 	$dato=explode("-",$id);

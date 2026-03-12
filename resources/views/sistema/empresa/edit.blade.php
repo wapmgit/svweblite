@@ -139,6 +139,18 @@
                     </div>
                     </td>
 </tr>             
+                    <td>Formato de Tikect
+					</div></td>     
+                    <td>
+						<div class="form-group">
+							<select name="formato" class="form-control">
+							<option value="recibo" <?php if($empresa->formatot=="recibo"){ echo "Selected";} ?>>Formato1</option>
+							<option value="recibo2" <?php if($empresa->formatot=="recibo2"){ echo "Selected";} ?>>Formato2</option>
+							</select>
+										
+						</div>
+                    </td>
+				</tr>
                   <tr>
                     <td colspan="2">Mostrar: Direccion <input type="checkbox" name="mdir" <?Php if($empresa->mdireccion==1){ echo "checked"; }?>>
                 Telefono <input type="checkbox" name="mtel" <?Php if($empresa->mtel==1){ echo "checked"; }?> >    

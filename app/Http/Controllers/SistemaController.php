@@ -206,6 +206,7 @@ class SistemaController extends Controller
         $emp->inicio=$request->get('vencimiento');
         $emp->uuid=$request->get('uuid');
         $emp->tasaespecial=$request->get('tasaajuste');
+        $emp->formatot=$request->get('formato');
 		if($request->get('usaserie')){
         $emp->serie=$request->get('usaserie');}else{
 			$emp->serie="A";
