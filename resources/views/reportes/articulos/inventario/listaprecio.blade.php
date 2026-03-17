@@ -63,7 +63,7 @@
 								<td>{{ $q->nombre}} <?php if($q->iva>0){ /*echo "(G)"; }else { echo "(E)";*/ } ?></td>
 								<td>{{ $q->unidad}}</td>
 								<td class="filap3">{{ $q->stock}}</td>
-								<td class="filap1"><?php echo number_format( $q->precio1, 2,',','.'); ?></td>	
+								<td class="filap1"><?php echo number_format( $q->precio1, 3,',','.'); ?></td>	
 								
 							</tr>
 							@endforeach
