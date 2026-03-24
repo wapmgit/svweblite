@@ -200,6 +200,7 @@ Route::get('valorizado', [ReportesarticulosController::class, 'valorizado'])->na
 Route::get('listaprecios', [ReportesarticulosController::class, 'listaprecio'])->name('listaprecios');
 Route::get('stockcero', [ReportesarticulosController::class, 'cero'])->name('stockcero');
 Route::get('catalogo', [ReportesarticulosController::class, 'catalogo'])->name('catalogo');
+Route::get('etiquetas', [ReportesarticulosController::class, 'etiquetas'])->name('etiquetas');
 Route::get('resumen', [ReportesarticulosController::class, 'resumen'])->name('resumen');
 //banco
 Route::get('bancos', [BancoController::class, 'index'])->name('bancos');

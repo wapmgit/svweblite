@@ -152,6 +152,29 @@ class ReportesarticulosController extends Controller
         return view('reportes.articulos.catalogo.index',["datos"=>$datos,"empresa"=>$empresa,"grupo"=>$grupo,"searchText"=>$query]);
             
     }
+		public function etiquetas(Request $request)
+    {
+		$rol=DB::table('roles')-> select('iduser')->where('iduser','=',$request->user()->id)->first();	
+		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();		
+             $query=trim($request->get('grupo'));
+             if (($query)==""){			
+            $datos=DB::table('articulos')                
+            -> select('codigo','nombre','precio1','imagen')
+			->where('articulos.idempresa',$empresa->idempresa) 
+			->OrderBy('nombre')
+            ->get(); 
+			 }else {							
+            $datos=DB::table('articulos')                
+            -> select('codigo','nombre','precio1','imagen')
+			->where('articulos.idempresa',$empresa->idempresa) 
+			-> where('idcategoria','=',$query)
+			->OrderBy('nombre')
+            ->get(); 	 
+			 }
+			 $grupo=DB::table('categoria')->where('idempresa',$empresa->idempresa) ->get();
+        return view('reportes.articulos.etiquetas.index',["datos"=>$datos,"empresa"=>$empresa,"grupo"=>$grupo,"searchText"=>$query]);
+            
+    }
 	public function resumen(Request $request)
     {
 		$rol=DB::table('roles')-> select('rgerencial')->where('iduser','=',$request->user()->id)->first();	
