@@ -108,7 +108,7 @@ class VentasController extends Controller
 	$idcliente=explode("_",$request->get('id_cliente'));
     $venta->idcliente=$idcliente[0];
     $venta->idempresa=$empresa->idempresa;
-    $venta->tipo_comprobante=$request->get('tipo_comprobante');
+    $venta->tipo_comprobante="FAC";
     $venta->serie_comprobante="A";
     $venta->num_comprobante=($numero+1);
     $venta->idvendedor=$request->get('nvendedor');
