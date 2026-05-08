@@ -60,7 +60,7 @@ class ComprasController extends Controller
         $personas=DB::table('proveedores')
         -> where('estatus','=','A')->where('idempresa',$empresa->idempresa)->get();
         $articulos =DB::table('articulos as art')
-        -> select(DB::raw('CONCAT(art.codigo,"-",art.nombre," - ",stock," - ",costo,"-",iva) as articulo'),'art.idarticulo','art.costo','art.serial')
+        -> select(DB::raw('CONCAT(art.codigo,"_",art.nombre," _ ",stock," _ ",costo,"_",iva) as articulo'),'art.idarticulo','art.costo','art.serial')
         -> where('art.estado','=','Activo')
 		->where('art.idempresa',$empresa->idempresa)
         -> get();
@@ -363,7 +363,7 @@ return Redirect::to('showcompra/'.$ingreso->idcompra."-1");
 		$articulo->save();
 
 		$articulos =DB::table('articulos as art')
-        -> select(DB::raw('CONCAT(art.codigo,"-",art.nombre," - ",stock," - ",costo,"-",iva) as articulo'),'art.idarticulo','art.costo','art.serial','art.iva')
+        -> select(DB::raw('CONCAT(art.codigo,"_",art.nombre," _ ",stock," _ ",costo,"_",iva) as articulo'),'art.idarticulo','art.costo','art.serial','art.iva')
         -> where('art.idarticulo','=',$articulo->idarticulo)
         -> get();
            return response()->json($articulos);

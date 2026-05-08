@@ -87,7 +87,7 @@ if (dias_transcurridos($fecha_a,$fserver) < 0){
 						 <div class="form-group"	>				                         
                              <select name="pidarticulo" id="pidarticulo" class="form-control selectpicker" data-live-search="true">
                              @foreach ($articulos as $articulo)<?php $cntart++; ?>
-                              <option  value="{{$articulo -> idarticulo}}">{{$articulo -> articulo}}-{{$articulo -> serial}}</option> 
+                              <option  value="{{$articulo -> idarticulo}}">{{$articulo -> articulo}}_{{$articulo -> serial}}</option> 
                              @endforeach
                               </select>
 						
@@ -418,7 +418,7 @@ $("#guardar").hide();
         precio_venta=$("#pprecio_venta").val();
         precio_tasa=(precio_compra*$("#vtasa").val());
 		precio_tasa=precio_tasa.toFixed(2);
-        artiva=articulo.split('-');
+        artiva=articulo.split('_');
         viva=artiva[4];
 		mserial=artiva[5];
         narticulo=artiva[1];
@@ -472,7 +472,7 @@ $("#guardar").hide();
         precio_venta=($("#pprecio_venta").val()/tasacompra);
         precio_tasa=(precio_compra*tasacompra);
 		precio_tasa=precio_tasa.toFixed(2);
-        artiva=articulo.split('-');
+        artiva=articulo.split('_');
         viva=artiva[4];
         narticulo=artiva[1];
         if (idarticulo!="" && cantidad > 0 &&  precio_compra!=""){         
@@ -584,14 +584,14 @@ $("#guardar").hide();
     }
     function validar(){   
       datosarticulo= $("#pidarticulo option:selected").text();
-      arti=datosarticulo.split('-');
+      arti=datosarticulo.split('_');
           st=arti[3];
          $("#pprecio_compra").val(""+st); 
     }
 
     function validartexto(){
          datosarticulo= $("#pidarticulo option:selected").text();
-      arti=datosarticulo.split('-');
+      arti=datosarticulo.split('_');
           st=arti[3];
           st=st*1;
 		var dato =  $("#pprecio_compra").val();

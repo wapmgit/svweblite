@@ -49,15 +49,16 @@
 				</thead><?php $count=0; $costo=0;$costoacum=0; $precioacum=0;?>
                @foreach ($lista as $q)
 				<tr> <?php $count++; 
+					
 					$costoacum=$q->stock+$costoacum;
-					$costo=$costo+($q->costo*$q->stock);
+					$costo=$costo+(($q->costo*(($q->iva/100)+1))*$q->stock);
 					$precioacum=$q->stock*$q->precio1+$precioacum;
 					?> 
 
 					<td>{{ $q->codigo}}</td>
 					<td>{{ $q->nombre}}</td>
 					<td>{{ $q->stock}}</td>
-					<td><?php echo number_format( $q->costo, 3,',','.'); ?></td>
+					<td><?php echo number_format( ($q->costo*(($q->iva/100)+1)), 3,',','.'); ?></td>
 					<td>{{ $q->iva}}</td>
 					<td>{{$q->utilidad}} %</td>
 					<td><?php echo number_format( $q->precio1, 3,',','.'); ?></td>	
