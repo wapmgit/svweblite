@@ -19,7 +19,7 @@ $cntl=0;
 			</br>
 			<div  class="col-12 table-responsive">
                   <table id="detalles" border="0" >
-				  <tR><td align="center"><font size="10"><b>{{$empresa->nombre}} <?php if($empresa->mrif==1){ echo $empresa->rif; }?></b></font></td></tR>
+				  <tR><td align="center"><font size="10"><b><?php if($empresa->mnombre==1){ echo $empresa->nombre; } ?> <?php if($empresa->mrif==1){ echo $empresa->rif; }?></b></font></td></tR>
 				<?php if($empresa->mtel==1){?> <tR><td align="center"><font size="8"><b>Tel.: {{$empresa->telefono}}</b></font></td></tR><?php } ?>
 				 <?php if($empresa->mdireccion==1){?> <tR><td align="center"><font size="8"><b>{{$empresa->direccion}}</b></font></td></tR><?php } ?>
 				  <tR><td align="center"><font size="8"><b>{{$venta->cedula}} -> <b>{{$venta->nombre}}</b></br>

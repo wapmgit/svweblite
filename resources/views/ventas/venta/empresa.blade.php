@@ -1,9 +1,9 @@
 	<div class="col-sm-6 invoice-col">
-		{{$empresa->nombre}}
+	@if($empresa->mnombre==1){{$empresa->nombre}} @endif
 			<address>
-			<strong>{{$empresa->rif}}</strong><br>
-					{{$empresa->direccion}}<br>
-					Tel: {{$empresa->telefono}}<br>
+			<strong>@if($empresa->mrif==1) {{$empresa->rif}} @endif</strong><br>
+					@if($empresa->mdireccion==1) {{$empresa->direccion}} @endif<br>
+				@if($empresa->mtel==1)	Tel: {{$empresa->telefono}} @endif<br>
 			</address>
 	</div>
                 <!-- /.col -->
