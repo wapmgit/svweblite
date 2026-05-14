@@ -22,7 +22,7 @@ use App\Http\Controllers\BancoController;
 use App\Http\Controllers\CtasconController;
 use App\Http\Controllers\MonedasController;
 use App\Http\Controllers\EmpresasController;
-use App\Http\Controllers\produccionController;
+use App\Http\Controllers\ProduccionController;
 
 
 Route::get('/', function () {
