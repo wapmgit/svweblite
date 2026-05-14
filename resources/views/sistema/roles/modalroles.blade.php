@@ -258,6 +258,12 @@
 						<input type="checkbox" name="op38" class="minimal" @if($q->rgerencial==1) checked @endif ></label>
 						</div>
 						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+						<div class="form-group">
+						<label>Reporte Produccion: </label><label>
+						<input type="checkbox" name="op63" class="minimal" @if($q->rproduccion==1) checked @endif ></label>
+						</div>
+						</div>
 						<!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 						<div class="form-group">
 						<label>Analisis Cientes: </label><label>

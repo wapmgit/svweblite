@@ -151,6 +151,7 @@ class SistemaController extends Controller
 		if ($request->get('op60')){ $data->edoctaproveedor=1; }else{ $data->edoctaproveedor=0; }
 		if ($request->get('op61')){ $data->ajustarventa=1; }else{ $data->ajustarventa=0; }
 		if ($request->get('op62')){ $data->newproduccion=1; }else{ $data->ajustarventa=0; }
+		if ($request->get('op63')){ $data->rproduccion=1; }else{ $data->rproduccion=0; }
 		$data ->update();
 			
 		$user=DB::table('users')->join('roles','users.id','=','roles.iduser')
