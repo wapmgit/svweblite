@@ -51,7 +51,7 @@ class ArticulosController extends Controller
 			$contador=DB::table('articulos')->select('idarticulo')->where('idempresa',$empresa->idempresa)->limit('1')->orderby('idarticulo','desc')->first();		
 			$categorias=DB::table('categoria')->where('idempresa',$empresa->idempresa)->where('condicion','=','1')->get();
 //dd($contador);
-			return view("almacen.articulo.create",["categorias"=>$categorias,"cnt"=>$contador,"idempresa"=>$empresa->idempresa]);
+			return view("almacen.articulo.create",["categorias"=>$categorias,"cnt"=>$contador,"empresa"=>$empresa,"idempresa"=>$empresa->idempresa]);
 		} else { 
 		return view("reportes.mensajes.noautorizado");
 		}
@@ -82,7 +82,8 @@ class ArticulosController extends Controller
         $articulo->costo=$request->get('costo');
         //validar iva vacio
         $articulo->iva=$request->get('impuesto');
-		if($request->get('serial')=="on"){$articulo->serial=1;}		
+		if($request->get('serial')=="on"){$articulo->serial=1;}	
+		if($request->get('sevende')=="on"){$articulo->sevende=1;}else{$articulo->sevende=0;}		
 			if(!empty($request->file('imagen'))){
 			$file = $request->file('imagen');
 			$img = $file->getClientOriginalName();		
@@ -101,7 +102,7 @@ class ArticulosController extends Controller
 			 $articulos=Articulos::find($id);
 			 $categorias=DB::table('categoria')->where('idempresa',$empresa->idempresa)->where('condicion','=','1')->get();
 			return view('almacen.articulo.edit')
-			->with(["articulo"=>$articulos,"categorias"=>$categorias]);
+			->with(["articulo"=>$articulos,"categorias"=>$categorias,"empresa"=>$empresa]);
 
     }
 	public function update(Request $request)
@@ -125,6 +126,7 @@ class ArticulosController extends Controller
         $articulo->precio1=$request->get('precio1');
         $articulo->costo=$request->get('costo');
         $articulo->iva=$request->get('impuesto');
+		if($request->get('sevende')=="on"){$articulo->sevende=1;}else{$articulo->sevende=0;}		
 		if(!empty($request->file('imagen'))){
 			$file = $request->file('imagen');
 			$img = $file->getClientOriginalName();		
@@ -147,11 +149,12 @@ class ArticulosController extends Controller
 	public function kardex($id)
    {	
 		//	dd($id);	
-	 	 $articulo=Articulos::findOrFail($id);		 
+	 	 $articulo=Articulos::findOrFail($id);		
+		$empresa=DB::table('empresa')-> where('idempresa','=',$articulo->idempresa)->first();		 
 		$datos=DB::table('kardex as k')
 		->where('k.idarticulo','=',$id)
 		->get();
-	       return view("almacen.articulo.kardex",["datos"=>$datos,"articulo"=>$articulo]);
+	       return view("almacen.articulo.kardex",["datos"=>$datos,"articulo"=>$articulo,"empresa"=>$empresa]);
     }
 	    public function show($id)
     {

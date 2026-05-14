@@ -20,14 +20,14 @@
 	        <form action="{{route('updatearticulo')}}" id="formulario" method="POST" enctype="multipart/form-data" >       
         {{csrf_field()}}
  <div class="row">
-            	<div class="col-lg-8 col-sm-8 col-md-8 col-xs-12">
+            	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
             		 <div class="form-group">
             			<label for="nombre">Nombre</label>
             			<input type="text" name="nombre" onchange="conMayusculas(this)"  required value="{{$articulo->nombre}}" class="form-control" placeholder="Nombre...">
             		<input type="hidden" name="id"  value="{{$articulo->idarticulo}}" class="form-control">
 					</div>
             	</div>
-           <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+           <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
             	 <div class="form-group">
             			<label >Categoria</label>
             			<select name="idcategoria" id="idcategoria" class="form-control selectpicker" data-live-search="true">
@@ -41,6 +41,15 @@
             			</select>
             			
             		</div>
+            </div>
+		<div class="col-lg-2 col-sm-2 col-md-2 col-xs-12">
+                  <div class="form-group"></br>
+                    <div class="custom-control custom-switch  custom-switch-on-success custom-switch-off-danger">
+                      <input type="checkbox" name="sevende"  <?Php if($articulo->sevende==1) echo "checked"; ?> class="custom-control-input" id="customSwitch3">
+                      <label class="custom-control-label" for="customSwitch3">¿Se Vende?</label>
+                    </div>
+		
+                  </div>
             </div>
           <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
 			

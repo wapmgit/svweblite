@@ -30,9 +30,10 @@ class VendedoresController extends Controller
 	}
 	public function create(Request $request)
 	{
-	$rol=DB::table('roles')->select('newvendedor')->where('iduser','=',$request->user()->id)->first();	
+	$rol=DB::table('roles')->select('newvendedor','iduser')->where('iduser','=',$request->user()->id)->first();	
+ $empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 		if ($rol->newvendedor==1){
-			return view("vendedor.vendedor.create");
+			return view("vendedor.vendedor.create")->with("empresa",$empresa);
 		} else { 
 			return view("reportes.mensajes.noautorizado");
 		}
@@ -61,7 +62,9 @@ class VendedoresController extends Controller
     }	
 	public function edit($id)
 	{
-		return view("vendedor.vendedor.edit",["vendedores"=>Vendedores::findOrFail($id)]);
+		$vendedor=Vendedores::findOrFail($id);
+		$empresa=DB::table('empresa')-> where('idempresa','=',$vendedor->idempresa)->first();
+		return view("vendedor.vendedor.edit",["vendedores"=>$vendedor,"empresa"=>$empresa]);
 	}
 	public function update(Request $request)
 	{

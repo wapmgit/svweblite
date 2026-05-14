@@ -22,6 +22,7 @@ use App\Http\Controllers\BancoController;
 use App\Http\Controllers\CtasconController;
 use App\Http\Controllers\MonedasController;
 use App\Http\Controllers\EmpresasController;
+use App\Http\Controllers\produccionController;
 
 
 Route::get('/', function () {
@@ -147,6 +148,12 @@ Route::post('guardaajuste', [AjustesController::class, 'store'])->name('guardaaj
 Route::get('showajuste/{id}', [AjustesController::class, 'show'])->name('showajuste');
 Route::post('loadcsv', [AjustesController::class, 'loadcsv'])->name('loadcsv');
 Route::get('etiquetasajuste/{id}', [AjustesController::class, 'etiquetas'])->name('etiquetasajuste');
+//produccion
+Route::get('produccion', [ProduccionController::class, 'index'])->name('produccion');
+Route::get('newproduccion', [ProduccionController::class, 'create'])->name('newproduccion');
+Route::post('guardaproduccion', [ProduccionController::class, 'store'])->name('guardaproduccion');
+Route::get('showproduccion/{id}', [ProduccionController::class, 'show'])->name('showproduccion');
+Route::get('reporteproduccion', [ProduccionController::class, 'reporte'])->name('reporteproduccion');
 //cxc
 Route::get('cxc', [CxcobrarController::class, 'index'])->name('cxc');
 Route::get('showcxc/{id}', [CxcobrarController::class, 'show'])->name('showcxc');

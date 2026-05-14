@@ -86,7 +86,9 @@ $this->middleware('auth');
     }
 	public function edit($idproveedor)
 	{		
-		return view("proveedores.proveedor.edit",["proveedor"=>Proveedores::findOrFail($idproveedor)]);
+	$proveedor=Proveedores::findOrFail($idproveedor);
+	$empresa=DB::table('empresa')-> where('idempresa','=',$proveedor->idempresa)->first();
+		return view("proveedores.proveedor.edit",["proveedor"=>$proveedor,"empresa"=>$empresa]);
 	}
 	public function update(Request $request)
 	{

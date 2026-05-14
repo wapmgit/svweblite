@@ -24,14 +24,14 @@ $idv=0;
      <form action="{{route('guardararticulo')}}" method="POST" id="formulario" enctype="multipart/form-data" >         
         {{csrf_field()}}
         <div class="row">
-            	<div class="col-lg-8 col-sm-8 col-md-8 col-xs-12">
+            	<div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
             		 <div class="form-group">
             			<label for="nombre">Nombre</label>
             			<input type="text" name="nombre" id="nombre" required value="{{old('nombre')}}" onchange="conMayusculas(this)" class="form-control" placeholder="Nombre...">
 						@if($errors->first('nombre'))<P class='text-danger'>{{$errors->first('nombre')}}</p>@endif
 					</div>
             	</div>
-            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+            <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
             	 <div class="form-group">
             			<label >Categoria</label><?php if ($cntcat=0){?><span class='text-danger'> <a href="{{route('newcategoria')}}">Debe Registrar Categoria¡¡ </a></span> <?php } ?>
             			<select name="idcategoria" id="idcategoria" class="form-control">
@@ -42,6 +42,14 @@ $idv=0;
             	       				
             		</div>
             </div>   
+		<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
+                  <div class="form-group"></br>
+                    <div class="custom-control custom-switch custom-switch-on-danger custom-switch-off-success">
+                      <input type="checkbox" name="sevende" class="custom-control-input" id="customSwitch3">
+                      <label class="custom-control-label" for="customSwitch3">¿Se vende?</label>
+                    </div>
+                  </div>
+            </div>
 	   <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
             	 <div class="form-group">
             			<label for="codigo">Codigo</label> <i class="fa fa-fw fa-exchange" title="Generar Codigo" id="generar"></i>

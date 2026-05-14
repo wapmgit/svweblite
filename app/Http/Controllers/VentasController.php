@@ -73,6 +73,7 @@ class VentasController extends Controller
         -> select(DB::raw('CONCAT(art.codigo," ",art.nombre) as articulo'),'art.idarticulo','art.stock','art.costo','art.precio1 as precio_promedio','art.precio2 as precio2','art.iva','art.serial')
         -> where('art.estado','=','Activo')
         -> where('art.idempresa','=',$empresa->idempresa)
+        -> where ('art.sevende','=','1')
         -> where ('art.stock','>','0')
         ->groupby('articulo','art.idarticulo')
 	-> get();}else{
@@ -80,6 +81,7 @@ class VentasController extends Controller
         -> select(DB::raw('CONCAT(art.codigo," ",art.nombre) as articulo'),'art.idarticulo','art.stock','art.costo','art.precio1 as precio_promedio','art.precio2 as precio2','art.iva','art.serial')
         -> where('art.estado','=','Activo')
         -> where('art.idempresa','=',$empresa->idempresa)
+		 -> where ('art.sevende','=','1')
         ->groupby('articulo','art.idarticulo')
 		-> get();
 		}

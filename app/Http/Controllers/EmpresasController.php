@@ -29,7 +29,7 @@ class EmpresasController extends Controller
 			->join('sistema','sistema.idempresa','empresa.idempresa')
             ->orderBy('empresa.idempresa','asc')
             ->paginate(20);
-            return view('empresas.empresa.index',["empresas"=>$empresas,"searchText"=>$query]);
+            return view('empresas.empresa.index',["empresa"=>$empresa,"empresas"=>$empresas,"searchText"=>$query]);
 		}
 		 } else { 
 	return view("reportes.mensajes.noautorizado");

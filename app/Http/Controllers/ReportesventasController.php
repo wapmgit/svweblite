@@ -100,7 +100,7 @@ class ReportesventasController extends Controller
 		} 
 		}
 		else { 
-	return view("reportes.mensajes.noautorizado");
+	return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 	}
 		
 	}
@@ -267,7 +267,7 @@ class ReportesventasController extends Controller
 			$query2=date("Y-m-d",strtotime($query2."- 1 days"));			  
 				  }
 		} }else { 
-	return view("reportes.mensajes.noautorizado");
+	return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 	}
 
         return view('reportes.ventas.corte.index',["filtro"=>$filtro,"datos"=>$datos,"devolucion"=>$devolucion,"impuestos"=>$impuestos,"comision"=>$comisiones,"empresa"=>$empresa,"ingresos"=>$ingresos,"cobranza"=>$cobranza,"pagos"=>$pagos,"searchText"=>$query,"searchText2"=>$query2,"usuario"=>$usuario,"ingresosnd"=>$ingresosnd]);    
@@ -357,7 +357,7 @@ class ReportesventasController extends Controller
 		   $query2=date("Y-m-d",strtotime($query2."- 1 days"));
 			return view('reportes.ventas.cobranza.index',["comprobante"=>$comprobante,"vendedores"=>$vendedores,"empresa"=>$empresa,"cobranza"=>$cobranza,"searchText"=>$query,"searchText2"=>$query2,"ingresosnd"=>$ingresosnd,"recibonc"=>$recibonc]);
 			   } else { 
-			return view("reportes.mensajes.noautorizado");
+			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 			}
 		}
 			
@@ -416,7 +416,7 @@ class ReportesventasController extends Controller
 			
 			return view('reportes.ventas.cobrar.index',["vendedor"=>$vendedor,"notas"=>$q2,"pacientes"=>$clientes,"vendedores"=>$vendedores,"empresa"=>$empresa]);
 			   } else { 
-			return view("reportes.mensajes.noautorizado");
+			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 			}
 	}
 	
@@ -487,7 +487,7 @@ class ReportesventasController extends Controller
 		}   
 		}
 		else { 
-	return view("reportes.mensajes.noautorizado");
+	return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 	}		
     }
 	public function ventasarticulo(Request $request)
@@ -555,7 +555,7 @@ class ReportesventasController extends Controller
 			return view('reportes.ventas.ventasarticulo.index',["clientes"=>$clientes,"persona"=>$nvendedor,"vendedores"=>$vendedores,"datos"=>$datos,"empresa"=>$empresa,"searchText"=>$query,"searchText2"=>$query2,"opc"=>$request->get('opcion')]);
        	}
 		else { 
-	return view("reportes.mensajes.noautorizado");
+	return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 	}     
     }
 	public function cajaventas(Request $request)
@@ -637,7 +637,7 @@ class ReportesventasController extends Controller
         return view('reportes.ventas.corte.cortecaja',["datos"=>$datos,"devolucion"=>$devolucion,"impuestos"=>$impuestos,"empresa"=>$empresa,"ingresos"=>$ingresos,"cobranza"=>$cobranza,"pagos"=>$pagos,"searchText"=>$query,"searchText2"=>$query2]);
        
 		} }else { 
-	return view("reportes.mensajes.noautorizado");
+	return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 	}
 
             

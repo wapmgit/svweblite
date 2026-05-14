@@ -16,7 +16,7 @@
           <th>Fecha inicio</th>
           <th>Acceso</th>
         </thead>
-               @foreach ($empresa as $q)
+               @foreach ($users as $q)
               
         <tr>
    

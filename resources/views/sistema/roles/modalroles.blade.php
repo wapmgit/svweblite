@@ -170,13 +170,13 @@
 						<input type="checkbox" name="op61" class="minimal" @if($q->ajustarventa==1) checked @endif ></label>
 						</div>
 						</div>
-				<!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 					 <div class="form-group">
-					 <label>Crear Pedidos: </label><label>
-					  <input type="checkbox" name="op20" class="minimal" @if($q->crearpedido==1) checked @endif ></label>
+					 <label>Crear Produccion: </label><label>
+					  <input type="checkbox" name="op62" class="minimal" @if($q->newproduccion==1) checked @endif ></label>
 					</div>
 				</div>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 					 <div class="form-group">
 					 <label>Anular Pedido: </label><label>
 					  <input type="checkbox" name="op29" class="minimal" @if($q->anularpedido==1) checked @endif ></label>

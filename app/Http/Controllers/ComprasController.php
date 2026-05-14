@@ -380,10 +380,10 @@ return Redirect::to('showcompra/'.$ingreso->idcompra."-1");
         -> where ('idproveedor','=',$idproveedor)
         -> where('estatus','=','A')->get();
 		
-        $articulos =DB::table('articulos as art')
-        -> select(DB::raw('CONCAT(art.codigo,"-",art.nombre," - ",stock," - ",costo,"-",iva) as articulo'),'art.idarticulo','art.costo','art.serial')
-        ->where('art.idempresa',$proveedor->idempresa)
-		-> where('art.estado','=','Activo')
+       $articulos =DB::table('articulos as art')
+        -> select(DB::raw('CONCAT(art.codigo,"_",art.nombre," _ ",stock," _ ",costo,"_",iva) as articulo'),'art.idarticulo','art.costo','art.serial')
+        -> where('art.estado','=','Activo')
+		->where('art.idempresa',$empresa->idempresa)
         -> get();
         return view("compras.ingreso.create",["cnt"=>$contador,"monedas"=>$monedas,"personas"=>$personas,"articulos"=>$articulos,"categorias"=>$categorias,"empresa"=>$empresa]);
     }

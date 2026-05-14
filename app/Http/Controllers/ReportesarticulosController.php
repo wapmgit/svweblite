@@ -26,7 +26,7 @@ class ReportesarticulosController extends Controller
 			->get();
 			return view('reportes.articulos.inventario.index',["lista"=>$lista,"empresa"=>$empresa]);          
 		} else { 
-			return view("reportes.mensajes.noautorizado");
+			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 		}
 	}
 	public function valorizado(Request $request)
@@ -85,7 +85,7 @@ class ReportesarticulosController extends Controller
         return view('reportes.articulos.valorizado.index',["year"=>$year,"tasa"=>$tc,"anteriorout"=>$anteriorout,"anteriorin"=>$anteriorin,"articulo"=>$articulo,"entrada"=>$entrada,"salida"=>$salida,"empresa"=>$empresa,"searchText"=>$mes]);
             
 		} else { 
-			return view("reportes.mensajes.noautorizado");
+			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 		}
     }
 	public function listaprecio(Request $request)
@@ -112,7 +112,7 @@ class ReportesarticulosController extends Controller
 		return view('reportes.articulos.inventario.listaprecio',["lista"=>$lista,"empresa"=>$empresa]); }         
 
 		} else { 
-			return view("reportes.mensajes.noautorizado");
+			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 		}
 	}
 	public function cero(Request $request)
@@ -211,7 +211,7 @@ class ReportesarticulosController extends Controller
 			  $articulos=DB::table('articulos')->select(DB::raw('sum(costo*stock) as vcosto'),DB::raw('sum(precio1*stock) as vprecio'),DB::raw('count(idarticulo) as articulos'))->first();
         return view('reportes.resumen.index',["vende"=>$vende,"articulos"=>$articulos,"clientes"=>$clientes,"proveedores"=>$proveedores,"notas"=>$q2,"ventas"=>$ventas,"compras"=>$compras,"gastos"=>$gastos,"empresa"=>$empresa]);    
 	} else { 
-			return view("reportes.mensajes.noautorizado");
+			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 		}    
   }
    

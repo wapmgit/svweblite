@@ -283,6 +283,30 @@
               </li>
             </ul>
           </li>
+		  @if($empresa->usaproduccion)
+		   <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+              Produccion Basica
+                <i class="fas fa-angle-left right"></i>             
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                 <a href="{{route('produccion')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Produccion</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('reporteproduccion')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Reporte</p>
+                </a>
+              </li>
+            </ul>
+          </li> @endif
 		 <!--  <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-truck"></i>

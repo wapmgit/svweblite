@@ -16,7 +16,13 @@
             	<label for="descripcion">Descripción</label>
             	<input type="text" name="descripcion" class="form-control" value="{{$categoria->descripcion}}" placeholder="Descripción...">
             </div>
-
+                <div class="form-group"></br>
+                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+					  <input type="checkbox" name="mprima"  <?Php if($categoria->mprima==1) echo "checked"; ?> class="custom-control-input" id="customSwitch3">
+       
+                      <label class="custom-control-label" for="customSwitch3">¿Materia Prima?</label>
+                    </div>
+                  </div>
 	          
 		</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="center">	

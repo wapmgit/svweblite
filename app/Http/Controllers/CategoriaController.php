@@ -25,12 +25,15 @@ class CategoriaController extends Controller
             ->where ('idempresa',$empresa->idempresa)
             ->orderBy('idcategoria','asc')
             ->paginate(20);
-            return view('almacen.categoria.index',["categorias"=>$categorias,"searchText"=>$query]);
+            return view('almacen.categoria.index',["empresa"=>$empresa,"categorias"=>$categorias,"searchText"=>$query]);
 		}
 		
 	}
-	public function create(){
-		return view('almacen.categoria.create');
+	public function create(Request $request){
+			$rol=DB::table('roles')-> select('iduser')->where('iduser','=',$request->user()->id)->first();
+	$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
+		return view('almacen.categoria.create')
+		->with('empresa',$empresa);
 	}
     public function store (Request $request)
     {
@@ -43,6 +46,7 @@ class CategoriaController extends Controller
         $categoria->idempresa=$empresa->idempresa;
         $categoria->nombre=$request->get('nombre');
         $categoria->descripcion=$request->get('descripcion');
+		if($request->get('mprima')=="on"){$categoria->mprima=1;}	
         $categoria->condicion='1';
         $categoria->save();
        return Redirect::to('icategoria');
@@ -54,6 +58,7 @@ class CategoriaController extends Controller
         $categoria=Categoria::findOrFail($request->id);
         $categoria->nombre=$request->get('nombre');
         $categoria->descripcion=$request->get('descripcion');
+		if($request->get('mprima')=="on"){$categoria->mprima=1;}else{$categoria->mprima=0;}	
         $categoria->update();
        return Redirect::to('icategoria');
     }
@@ -75,8 +80,11 @@ class CategoriaController extends Controller
     }
     public function edit($id)
     {
+		
 		$categoria=Categoria::find($id);
+			$empresa=DB::table('empresa')-> where('idempresa','=',$categoria->idempresa)->first();
 			return view('almacen.categoria.edit')
+			->with('empresa',$empresa)
 			->with('categoria',$categoria);
 
     }

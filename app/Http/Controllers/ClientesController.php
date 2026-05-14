@@ -119,8 +119,9 @@ class ClientesController extends Controller
 			->select('v.nombre as vendedor')
 			-> where('c.id_cliente','=',$historia)
             ->first();
+		$empresa=DB::table('empresa')-> where('idempresa','=',$cliente->idempresa)->first();
 		$vendedor=DB::table('vendedores')->where('idempresa','=',$cliente->idempresa)->get();
-		return view("clientes.cliente.edit",["cliente"=>$cliente,"vendedores"=>$vendedor,"datos"=>$datos]);
+		return view("clientes.cliente.edit",["empresa"=>$empresa,"cliente"=>$cliente,"vendedores"=>$vendedor,"datos"=>$datos]);
 	}
 	public function update(Request $request)
 	{

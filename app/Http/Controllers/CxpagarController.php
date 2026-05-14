@@ -50,7 +50,7 @@ $this->middleware('auth');
 			->where('g.saldo','>',0)
 			->where('g.estatus','=',0)
 			->paginate(20);
-		return view('proveedores.pagar.index',["rol"=>$rol,"proveedores"=>$proveedores,"gastos"=>$gastos,"searchText"=>$query]);
+		return view('proveedores.pagar.index',["empresa"=>$empresa,"rol"=>$rol,"proveedores"=>$proveedores,"gastos"=>$gastos,"searchText"=>$query]);
 		}
 	}
 	public function show(Request $request, $historia)

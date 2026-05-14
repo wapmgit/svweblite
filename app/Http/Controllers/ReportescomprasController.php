@@ -49,7 +49,7 @@ class ReportescomprasController extends Controller
 		$query2=date("Y-m-d",strtotime($query2."- 1 days"));
         return view('reportes.compras.compras.index',["datos"=>$datos,"pagos"=>$pagos,"empresa"=>$empresa,"searchText"=>$query,"searchText2"=>$query2]);    
 		} else { 
-			return view("reportes.mensajes.noautorizado");
+			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 			}
 	}
 	public function gastos(Request $request)
@@ -79,7 +79,7 @@ class ReportescomprasController extends Controller
 		$query2=date("Y-m-d",strtotime($query2."- 1 days"));
         return view('reportes.compras.gastos.index',["datos"=>$datos,"pagos"=>$pagos,"empresa"=>$empresa,"searchText"=>$query,"searchText2"=>$query2]);    
 		} else { 
-			return view("reportes.mensajes.noautorizado");
+			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 			}  
   }
 	public function listaretenciones(Request $request)
@@ -185,7 +185,7 @@ class ReportescomprasController extends Controller
 			->paginate(20);
 			return view('reportes.compras.pagar.index',["compras"=>$compras,"gastos"=>$gastos,"empresa"=>$empresa]);
 			   } else { 
-			return view("reportes.mensajes.noautorizado");
+			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 			}
 	}
 	public function pagos(Request $request)
@@ -235,7 +235,7 @@ class ReportescomprasController extends Controller
 		   $query2=date("Y-m-d",strtotime($query2."- 1 days"));
 			return view('reportes.compras.pagos.index',["egresosnd"=>$egresosnd,"comprobante"=>$desglose,"empresa"=>$empresa,"gastos"=>$gastos,"pagos"=>$pagos,"searchText"=>$query,"searchText2"=>$query2]);
 			} else { 
-	return view("reportes.mensajes.noautorizado");
+	return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 	}
 		}
 	}
@@ -263,7 +263,7 @@ class ReportescomprasController extends Controller
 			$query2=date("Y-m-d",strtotime($query2."- 1 days"));
 			return view('reportes.compras.comprasarticulo.index',["datos"=>$datos,"empresa"=>$empresa,"searchText"=>$query,"searchText2"=>$query2]);           
     } else { 
-	return view("reportes.mensajes.noautorizado");
+	return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 	}
 		
 	}

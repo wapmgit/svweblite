@@ -73,9 +73,9 @@ class SistemaController extends Controller
 			->where('idempresa',$empresa->idempresa)
 			->get();
 					}
-			return view('sistema.roles.usuarios',["empresa"=>$user,"updatepass"=>$rol->updatepass]);							  
+			return view('sistema.roles.usuarios',["empresa"=>$empresa,"users"=>$user,"updatepass"=>$rol->updatepass]);							  
 			} else { 
-		return view("reportes.mensajes.noautorizado");
+		return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 	}
 		
 	}
@@ -150,6 +150,7 @@ class SistemaController extends Controller
 		if ($request->get('op59')){ $data->edoctacliente=1; }else{ $data->edoctacliente=0; }
 		if ($request->get('op60')){ $data->edoctaproveedor=1; }else{ $data->edoctaproveedor=0; }
 		if ($request->get('op61')){ $data->ajustarventa=1; }else{ $data->ajustarventa=0; }
+		if ($request->get('op62')){ $data->newproduccion=1; }else{ $data->ajustarventa=0; }
 		$data ->update();
 			
 		$user=DB::table('users')->join('roles','users.id','=','roles.iduser')
@@ -157,9 +158,16 @@ class SistemaController extends Controller
 		   
          return Redirect::to('showusuarios');
 	}
-	public function ayuda()
+	public function ayuda(Request $request)
 	{		
-		return view('sistema.ayuda.index');	
+	$rol=DB::table('roles')-> select('idrol','iduser')->where('iduser','=',$request->user()->id)->first();
+		$empresa=DB::table('empresa')
+		->join('sistema','sistema.idempresa','=','empresa.idempresa')
+		->join('users','users.idempresa','=','empresa.idempresa')
+		->where('users.id',$rol->iduser)
+		->first();
+	
+		return view('sistema.ayuda.index')->with("empresa",$empresa);	
 	}
 	function calculador(Request $request){
 			$ruta=$_SERVER["HTTP_REFERER"];
@@ -229,6 +237,7 @@ class SistemaController extends Controller
 		if($request->get('mtel')=="on"){$emp->mtel=1;}else{$emp->mtel=0;}
 		if($request->get('mrif')=="on"){$emp->mrif=1;}else{$emp->mrif=0;}
 		if($request->get('mcobro')=="on"){$emp->mcobro=1;}else{$emp->mcobro=0;}
+		if($request->get('usap')=="on"){$emp->usaproduccion=1;}else{$emp->usaproduccion=0;}
         $emp->update();
 		
             $query2=trim($request->get('vencimiento'));
@@ -353,7 +362,7 @@ class SistemaController extends Controller
 			if ($rol->rgerencial==1){
         return view('reportes.balance.balance.index',["desglosepg"=>$desglosepg,"gastos"=>$gastos,"ingresos"=>$ingresos,"desglosep"=>$desglosep,"pagos"=>$pagos,"cobranza"=>$cobranza,"empresa"=>$empresa,"rol"=>$rol,"searchText"=>$query,"searchText2"=>$query2]);
 			} else { 
-	return view("reportes.mensajes.noautorizado");
+	return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 	}
 	}
 

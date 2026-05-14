@@ -24,7 +24,7 @@ class MonedasController extends Controller
 			->where('idempresa',$empresa->idempresa)           
 		   ->orderBy('idmoneda','asc')
             ->paginate(20);
-            return view('sistema.monedas.index',["rol"=>$rol,"monedas"=>$monedas,"searchText"=>$query]);
+            return view('sistema.monedas.index',["empresa"=>$empresa,"rol"=>$rol,"monedas"=>$monedas,"searchText"=>$query]);
 		}
 		
 	}
