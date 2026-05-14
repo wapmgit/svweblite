@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Produccion;
 use App\Models\ProduccionIn;
-use App\Models\Produccionout;
+use App\Models\ProduccionOut;
 use App\Models\Kardex;
 use App\Models\Articulos;
 use Carbon\Carbon;
