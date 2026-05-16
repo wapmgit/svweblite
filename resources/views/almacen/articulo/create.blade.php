@@ -44,8 +44,8 @@ $idv=0;
             </div>   
 		<div class="col-lg-2 col-sm-2 col-md-2 col-xs-2">
                   <div class="form-group"></br>
-                    <div class="custom-control custom-switch custom-switch-on-danger custom-switch-off-success">
-                      <input type="checkbox" name="sevende" class="custom-control-input" id="customSwitch3">
+                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                      <input type="checkbox" name="sevende" class="custom-control-input" checked id="customSwitch3">
                       <label class="custom-control-label" for="customSwitch3">¿Se vende?</label>
                     </div>
                   </div>
