@@ -63,15 +63,15 @@
    	 <div class="form-group">
             			<label for="stock">Unidad </label>                  			
 						<select name="unidad" class="form-control">          			            			
-            				<option <?php if($articulo->unid=="UND"){ echo "selected"; } ?> value="UND">Unidad</option>
-            				<option <?php if($articulo->unid=="BTO"){ echo "selected"; } ?> value="BTO">Bulto</option>
-            				<option <?php if($articulo->unid=="SCO"){ echo "Selected"; } ?> value="SCO">Saco</option>
-            				<option <?php if($articulo->unid=="CJA"){ echo "Selected"; } ?> value="CJA">Caja</option>
-            				<option <?php if($articulo->unid=="KG"){ echo "selected"; } ?>  value="kG">Kg</option>
-            				<option <?php if($articulo->unid=="DISP"){ echo "selected"; } ?> value="DISP">Display</option>
-            				<option <?php if($articulo->unid=="PR"){ echo "selected"; } ?> value="PR">Par</option>
-            				<option <?php if($articulo->unid=="LTR"){ echo "selected"; } ?>  value="LTR">Litros</option>		
-            				<option <?php if($articulo->unid=="MTR"){ echo "selected"; } ?>  value="MTR">Metro</option>		
+            				<option <?php if($articulo->unidad=="UND"){ echo "selected"; } ?> value="UND">Unidad</option>
+            				<option <?php if($articulo->unidad=="BTO"){ echo "selected"; } ?> value="BTO">Bulto</option>
+            				<option <?php if($articulo->unidad=="SCO"){ echo "Selected"; } ?> value="SCO">Saco</option>
+            				<option <?php if($articulo->unidad=="CJA"){ echo "Selected"; } ?> value="CJA">Caja</option>
+            				<option <?php if($articulo->unidad=="KG"){ echo "selected"; } ?>  value="kG">Kg</option>
+            				<option <?php if($articulo->unidad=="DISP"){ echo "selected"; } ?> value="DISP">Display</option>
+            				<option <?php if($articulo->unidad=="PR"){ echo "selected"; } ?> value="PR">Par</option>
+            				<option <?php if($articulo->unidad=="LTR"){ echo "selected"; } ?>  value="LTR">Litros</option>		
+            				<option <?php if($articulo->unidad=="MTR"){ echo "selected"; } ?>  value="MTR">Metro</option>		
             			</select>            	
 				</div>
             </div>
