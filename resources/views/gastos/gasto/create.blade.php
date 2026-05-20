@@ -229,7 +229,8 @@ $('#divdesglose').fadeIn("fast"); }	 }
 	var total2=$("#iva").val();  	
 	var total3=$("#exe").val();
 	var ttp=parseFloat(total)+parseFloat(total2)+parseFloat(total3);
-	 $("#pcosto").val(ttp);
+
+	 $("#pcosto").val(ttp.toFixed(2));
 	 var total=$("#pcosto").val();  	
 	$("#guardar").show();
 	$("#divtotal").val(total);
