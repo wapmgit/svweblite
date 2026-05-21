@@ -28,8 +28,10 @@ class MonedasController extends Controller
 		}
 		
 	}
-		public function create(){
-		return view('sistema.monedas.create');
+		public function create(Request $request){
+			$rol=DB::table('roles')-> select('editmoneda','iduser')->where('iduser','=',$request->user()->id)->first();	
+			 $empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
+		return view('sistema.monedas.create')->with('empresa',$empresa);
 	}
 	    public function store (Request $request)
     {
@@ -74,7 +76,8 @@ class MonedasController extends Controller
         if ($rol->editmoneda==1){
 		$mone=Monedas::find($id);
 			return view('sistema.monedas.edit')
-			->with('mone',$mone);
+			->with('mone',$mone)
+			->with('empresa',$empresa);
 		} else { 
 	return view("reportes.mensajes.noautorizado");
 	}
