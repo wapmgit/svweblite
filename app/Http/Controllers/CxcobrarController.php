@@ -387,11 +387,12 @@ $this->middleware('auth');
 	}
 		public function detalle($id){
 	
-		$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();
+		
 		$venta=DB::table('venta as v')
             -> join ('clientes as p','v.idcliente','=','p.id_cliente')
             ->where ('v.idventa','=',$id)
             -> first();
+			$empresa=DB::table('empresa')-> where('idempresa','=',$venta->idempresa)->first();
             $detalles=DB::table('detalle_venta as dv')
             -> join('articulos as a','dv.idarticulo','=','a.idarticulo')
             -> select('a.nombre as articulo','dv.cantidad','dv.idarticulo','dv.descuento','dv.precio_venta')
