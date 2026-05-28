@@ -36,9 +36,9 @@
 					<th>Monto</th>
 					<th>Opciones</th>
 				</thead>
-				<?php $acumnd=$acumnc=0; $tmonto=$nc=0;?>
+				<?php  $tmonto=$nc=0;?>
                @foreach ($proveedores as $cat)
-			   <?php $tmonto=($tmonto+$cat->acumulado); $nd=$nc=0;?>
+			   <?php $acumnd=$acumnc=0; $tmonto=($tmonto+$cat->acumulado); $nd=$nc=0;?>
 				<tr>
 					
 					<td><small>{{ $cat->nombre}}</small></td>
@@ -47,7 +47,7 @@
 					 	 @foreach ($gastos as $not) <?php if($cat->idproveedor==$not->idproveedor){ 
 					 $acumnd=$acumnd+$not->tpendiente; $acumnc=$not->tpendiente; }?>
 					 @endforeach
-					<td> <?php echo number_format(($cat->acumulado+$acumnc), 2,',','.')." $"; ?>	</td>
+					<td> <?php  $tmonto= $tmonto+$acumnd; echo number_format(($cat->acumulado+$acumnc), 2,',','.')." $"; ?>	</td>
 			<td>@if($rol->abonarcxp==1)	<a href="{{route('showcxp',['id'=>$cat->idproveedor])}}"><button class="btn btn-info btn-xs">Abono</button></a>@endif
 			@if($rol->crearcompra==1)	<a href="{{route('faccompra',['id'=>$cat->idproveedor])}}"><button class="btn btn-success btn-xs">Facturar</button></a>@endif
                   
