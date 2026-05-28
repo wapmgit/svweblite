@@ -58,7 +58,6 @@ class ArticulosController extends Controller
     }
 	public function store (Request $request)
     {
-		//dd($request);
 		$this->validate($request,[
             'nombre' => 'required',
             'codigo' => 'required',
@@ -107,7 +106,6 @@ class ArticulosController extends Controller
     }
 	public function update(Request $request)
     {
-		//dd($request);
 		$this->validate($request,[
             'nombre' => 'required',
             'codigo' => 'required',
