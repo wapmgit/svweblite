@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 	//	dd($request->user());
-		$rol=DB::table('roles')-> select('crearventa','iduser')->where('iduser','=',$request->user()->id)->first();	
+		$rol=DB::table('roles')-> select('crearventa','iduser','editpedido')->where('iduser','=',$request->user()->id)->first();	
  $empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')
  ->join('sistema','sistema.idempresa','=','empresa.idempresa')
  -> where('id','=',$rol->iduser)->first();
