@@ -299,6 +299,12 @@
                   <p>Produccion</p>
                 </a>
               </li>
+				<li class="nav-item">
+                <a href="{{route('produccionpesaje')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pesaje</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="{{route('reporteproduccion')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

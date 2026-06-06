@@ -154,6 +154,7 @@ Route::get('newproduccion', [ProduccionController::class, 'create'])->name('newp
 Route::post('guardaproduccion', [ProduccionController::class, 'store'])->name('guardaproduccion');
 Route::get('showproduccion/{id}', [ProduccionController::class, 'show'])->name('showproduccion');
 Route::get('reporteproduccion', [ProduccionController::class, 'reporte'])->name('reporteproduccion');
+Route::get('produccionpesaje', [ProduccionController::class, 'pesaje'])->name('produccionpesaje');
 //cxc
 Route::get('cxc', [CxcobrarController::class, 'index'])->name('cxc');
 Route::get('showcxc/{id}', [CxcobrarController::class, 'show'])->name('showcxc');

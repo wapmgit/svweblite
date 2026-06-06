@@ -207,4 +207,19 @@ class ProduccionController extends Controller
 	return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 	}
 	}
+	public function pesaje(Request $request){
+		$rol=DB::table('roles')-> select('newproduccion','iduser')->where('iduser','=',$request->user()->id)->first();	
+		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')
+		 ->join('sistema','sistema.idempresa','=','empresa.idempresa')
+		 ->where('id','=',$rol->iduser)->first();
+	
+			$articulos =DB::table('articulos as art')
+			->join('categoria as cat','cat.idcategoria','art.idcategoria')
+			-> select(DB::raw('CONCAT(art.codigo,"_",art.nombre,"_",art.stock) as articulo'),'art.idarticulo','art.stock','art.costo','cat.mprima')
+			-> where('art.estado','=','Activo')
+			->where('art.idempresa',$empresa->idempresa)
+			-> get();
+			return view("produccion.pesada.index",["rol"=>$rol,"articulos"=>$articulos,"empresa"=>$empresa]);
+		
+    }
 }
