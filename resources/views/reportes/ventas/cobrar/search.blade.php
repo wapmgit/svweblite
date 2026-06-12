@@ -14,7 +14,7 @@
 			{{csrf_field()}}
         <div class="card-body p-0"></br>
 		<div class="row">
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 				<div class="form-group">
 				<div class="input-group">
 					<select name="vendedor" class="form-control selectpicker" data-live-search="true">
@@ -25,6 +25,20 @@
 					</select>
 				</div>
 				</div>		
+			</div>
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+				<div class="form-group">
+				<div class="input-group">
+					<input type="date" class="form-control" name="searchText"  value="">
+				</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+				<div class="form-group">
+				<div class="input-group">
+					<input type="date" class="form-control" name="searchText2" value="">
+				</div>
+				</div>	
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 				<div class="form-group">

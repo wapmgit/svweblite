@@ -19,7 +19,7 @@
 				<div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
             		 <div class="form-group">
             			<label for="nombre">Nueva Cantidad</label>
-            			<input type="number" step="any" name="cantidad" id="idcantidad" min="1"  required value="" class="form-control">
+            			<input type="number" step="any" name="cantidad" id="idcantidad" min="0"  required value="" class="form-control">
 					<input type="hidden" name="idventa"  value="{{$venta->idventa}}" >
 					<input type="hidden" name="tasa"  value="{{$venta->tasa}}" >
 						<input type="hidden" name="idarticulo"  id="idarticulo" value >

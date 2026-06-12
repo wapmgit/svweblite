@@ -69,7 +69,8 @@
 <script>
 $(document).ready(function(){
 	$(function () {
-    $("#ventastable").DataTable({
+     $("#ventastable").DataTable({
+		 "bSort" : false,
 		"order":[0,'desc'],
 		"searching": true,
 		"bPaginate": false,

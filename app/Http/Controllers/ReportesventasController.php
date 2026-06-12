@@ -364,11 +364,16 @@ class ReportesventasController extends Controller
 	}
 	public function cuentascobrar(Request $request)	
 	{
-		
+			$corteHoy = date("Y-m-d");         
 			$rol=DB::table('roles')-> select('rcxc','iduser')->where('iduser','=',$request->user()->id)->first();	
 		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 		if ($rol->rcxc==1){
-		//$empresa=DB::table('empresa')-> where('idempresa','=','1')->first();		
+	           $query=trim($request->get('searchText')); 
+			   $query2=trim($request->get('searchText2'));
+			if (($query)==""){$query=$empresa->fechasistema; }
+			if (($query2)==""){$query2=$corteHoy; }            
+           $query2 = date_create($query2);   
+
 		$vendedores=DB::table('vendedores')->where('idempresa','=',$empresa->idempresa)->get();  
 			if($request->get('vendedor')==NULL){
 			$clientes=DB::table('venta as v')
@@ -376,6 +381,7 @@ class ReportesventasController extends Controller
 			->join('vendedores as ve','ve.id_vendedor','=','v.idvendedor')
 			->select(DB::raw('sum(v.saldo) as acumulado'),'c.nombre','c.cedula','c.telefono','c.id_cliente')
 			->where('c.idempresa','=',$empresa->idempresa)
+			 -> whereBetween('v.fecha_emi', [$query, $query2])
 			->where('v.saldo','>',0)
 			->where('v.devolu','=',0)
 			->groupby('c.id_cliente')
@@ -397,6 +403,7 @@ class ReportesventasController extends Controller
 			->select(DB::raw('sum(v.saldo) as acumulado'),'c.nombre','c.cedula','c.telefono','c.id_cliente')
 			->where('v.idvendedor','=',$request->get('vendedor'))
 			->where('c.idempresa','=',$empresa->idempresa)
+			 -> whereBetween('v.fecha_emi', [$query, $query2])
 			->where('v.saldo','>',0)
 			->where('v.devolu','=',0)
 			->groupby('c.id_cliente')
@@ -410,11 +417,11 @@ class ReportesventasController extends Controller
 			->where('n.tipo','=',1)->where('n.pendiente','>',0)
 			->groupby('n.idcliente')
 			->get(); 
-			//dd($clientes);
+		
 			$vendedor=DB::table('vendedores')->where('id_vendedor','=',$request->get('vendedor'))->select('nombre')->first();
 			}
-			
-			return view('reportes.ventas.cobrar.index',["vendedor"=>$vendedor,"notas"=>$q2,"pacientes"=>$clientes,"vendedores"=>$vendedores,"empresa"=>$empresa]);
+			//dd($query2);
+			return view('reportes.ventas.cobrar.index',["vendedor"=>$vendedor,"notas"=>$q2,"pacientes"=>$clientes,"vendedores"=>$vendedores,"empresa"=>$empresa,"searchText"=>$query,"searchText2"=>$query2]);
 			   } else { 
 			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 			}
