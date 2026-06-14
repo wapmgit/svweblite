@@ -30,6 +30,7 @@ class ReportescomprasController extends Controller
 			$query2 = date_create($query2);
             date_add($query2, date_interval_create_from_date_string('1 day'));
             $query2=date_format($query2, 'Y-m-d');
+			 if($request->get('tipodoc')){
             $datos=DB::table('compras as c')
             ->join ('proveedores as p', 'c.idproveedor','=','p.idproveedor')
 			->select ('c.idcompra as idingreso','c.base','c.miva','c.exento','c.num_comprobante','c.condicion as estado','c.total','c.saldo','c.fecha_hora','p.nombre','p.rif','tipo_comprobante')
@@ -45,7 +46,23 @@ class ReportescomprasController extends Controller
 			->where('compras.idempresa',$empresa->idempresa)           
 		   -> whereBetween('re.fecha_comp', [$query, $query2])
 			-> groupby('re.idpago','re.idbanco')
+			 ->get();}else{
+			   $datos=DB::table('compras as c')
+            ->join ('proveedores as p', 'c.idproveedor','=','p.idproveedor')
+			->select ('c.idcompra as idingreso','c.base','c.miva','c.exento','c.num_comprobante','c.condicion as estado','c.total','c.saldo','c.fecha_hora','p.nombre','p.rif','tipo_comprobante')
+			->where('c.idempresa',$empresa->idempresa)
+            ->whereBetween('c.fecha_hora', [$query, $query2])
+            ->groupby('c.idcompra')
             ->get();
+         // dd($datos);
+			$pagos=DB::table('comprobante as re')->join('compras','compras.idcompra','=','re.idcompra')
+			-> select(DB::raw('sum(re.monto) as monto'),DB::raw('sum(re.recibido) as recibido'),'re.idbanco','re.idpago')
+			->where('compras.idempresa',$empresa->idempresa)           
+		   -> whereBetween('re.fecha_comp', [$query, $query2])
+			-> groupby('re.idpago','re.idbanco')
+			 ->get();	 
+			 }
+			 
 		$query2=date("Y-m-d",strtotime($query2."- 1 days"));
         return view('reportes.compras.compras.index',["datos"=>$datos,"pagos"=>$pagos,"empresa"=>$empresa,"searchText"=>$query,"searchText2"=>$query2]);    
 		} else { 
