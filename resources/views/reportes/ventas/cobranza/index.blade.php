@@ -40,6 +40,7 @@ $cefe=0;?>
 						<th>Recibido</th>
 						<th>Monto</th>
 						<th>Referencia</th>
+						<th>Fecha</th>
 						<th>Fecha Rec.</th>
 					</thead>
 					@foreach ($cobranza as $cob)
@@ -57,12 +58,13 @@ $cefe=0;?>
 						<td><?php  echo number_format($cob->monto, 2,',','.')." $"; ?></td>
 						<td>{{$cob->referencia}}</td>
 						<td><?php echo date("d-m-Y",strtotime($cob->fecha)); ?></td>
+						<td><?php echo date("d-m-Y",strtotime($cob->fecharecibo)); ?></td>
 					</tr>
 					@include('reportes.ventas.cobranza.modal')
 					<tr>  <?php  } ?>
 					@endforeach
 					<tr>    
-						<td colspan="6"><strong>Total Ingresos Cobranza</strong></td><td colspan="3"><strong><?php  echo number_format($tcobranza, 2,',','.'); ?> $</strong></td></tr>
+						<td colspan="7"><strong>Total Ingresos Cobranza</strong></td><td colspan="3"><strong><?php  echo number_format($tcobranza, 2,',','.'); ?> $</strong></td></tr>
 				</table>
 		       <table width="100%">
 					<thead><th colspan="9" >Ventas</th></thead>
