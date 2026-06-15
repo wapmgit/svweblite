@@ -56,7 +56,7 @@ $cefe=0;?>
 						<td><?php echo number_format($cob->recibido, 2,',','.'); ?></td>
 						<td><?php  echo number_format($cob->monto, 2,',','.')." $"; ?></td>
 						<td>{{$cob->referencia}}</td>
-						<td><?php echo date("d-m-Y h:i:s a",strtotime($cob->fecha)); ?></td>
+						<td><?php echo date("d-m-Y",strtotime($cob->fecha)); ?></td>
 					</tr>
 					@include('reportes.ventas.cobranza.modal')
 					<tr>  <?php  } ?>

@@ -15,6 +15,7 @@ function truncar($numero, $digitos){
 	$truncar = 10**$digitos;
 	return intval($numero * $truncar) / $truncar;
 	} 
+	$fserver=date('Y-m-d');
 ?>
 <?php $acum=0; $acum2=$aux=0;$auxn=0;$acumn=0;$acumf=0;$count=0; $count2=0; $contdoc=0; $montonc=0;$link="A"?>
 <div class="row">
@@ -154,12 +155,17 @@ function truncar($numero, $digitos){
 						<input type="number" class="form-control" name="pmonto" id="pmonto" placeholder=""  min="1" step="0.01">
 						</div>
 		</div>
-		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 						<div class="form-group">
 						<input type="text" name="preferencia" class="form-control" id="preferencia" onchange="conMayusculas(this);" placeholder="Referencia...">
 						</div>
 		</div>
-		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+			<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+						<div class="form-group">
+		<input type="date" name="fecha_emi"  id="fecha_emi" value="<?php echo $fserver;?>" class="form-control control">
+							</div>
+		</div>	
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 						<div class="form-group">
 						<button type="button" id="bt_pago" class="form-control" > <i class="fa fa-fw fa-plus-square"></i> </button>
 						</div>
@@ -172,10 +178,12 @@ function truncar($numero, $digitos){
 						   <th width="15%">Monto</th>
                           <th>Monto $</th>
                           <th>Referencia</th>
+						         <th>Fecha</th>
                       </thead>
                       <tfoot> 
                       <th></th>
                           <th></th>
+						   <th></th>
 						   <th></th>
                           <th><h3>Total $</h3></th>
                           <th><h3 id="total_abono">$.  0.00</h3></th><input type="hidden" name="totala" id="totala" value="0.00">
@@ -316,6 +324,7 @@ function truncar($numero, $digitos){
         tpago= $("#pidpago option:selected").text();
         pmonto= $("#pmonto").val();
         pref= $("#preferencia").val();
+		    fecha= $("#fecha_emi").val();
 		
 			moneda= $("#pidpago").val();
 		 tm=moneda.split('_');
@@ -348,7 +357,7 @@ function truncar($numero, $digitos){
         tresta=(parseFloat(tventa)-parseFloat(pagototal));
             $("#resta").val(tresta.toFixed(2));
             $("#tdeuda").val(tresta.toFixed(2));	
-            var fila='<tr  id="filapago'+contp+'"><td align="center"><span onclick="eliminarpago('+contp+');"><i class="fa fa-fw fa-eraser"></i></span></td><td><input type="hidden" name="tidpago[]" value="'+idpago+'"><input type="hidden" name="tidbanco[]" value="'+tpago+'">'+tpago+'</td><td><input type="hidden" name="denominacion[]" value="'+denomina+'">'+denomina+'</td><td><input type="hidden" name="tmonto[]" value="'+pmonto+'">'+pmonto.toLocaleString('de-DE', { style: 'decimal',  decimal: '2' })+'</td><td><input type="hidden" name="tref[]" value="'+pref+'">'+pref+'</td></tr>';
+            var fila='<tr  id="filapago'+contp+'"><td align="center"><span onclick="eliminarpago('+contp+');"><i class="fa fa-fw fa-eraser"></i></span></td><td><input type="hidden" name="tidpago[]" value="'+idpago+'"><input type="hidden" name="tidbanco[]" value="'+tpago+'">'+tpago+'</td><td><input type="hidden" name="denominacion[]" value="'+denomina+'">'+denomina+'</td><td><input type="hidden" name="tmonto[]" value="'+pmonto+'">'+pmonto.toLocaleString('de-DE', { style: 'decimal',  decimal: '2' })+'</td><td><input type="hidden" name="tref[]" value="'+pref+'">'+pref+'</td><td><input type="hidden" name="fecha[]" value="'+fecha+'">'+fecha+'</td></tr>';
             contp++;
             document.getElementById('bt_pago').style.display="none";
 			document.getElementById('procesa').style.display="";

@@ -77,7 +77,8 @@ $this->middleware('auth');
            $idbanco=$request->get('tidbanco');
 		   $denomina=$request->get('denominacion');
            $tmonto=$request->get('tmonto');
-           $tref=$request->get('tref');		 
+           $tref=$request->get('tref');		
+			$fecha=$request->get('fecha');			   
            $contp=0;
              while($contp < count($idpago)){
 				$recibo=new Recibos;
@@ -96,6 +97,7 @@ $this->middleware('auth');
 				$recibo->aux=$request->get('tdeuda');
 				$mytime=Carbon::now('America/Caracas');
 				$recibo->fecha=$mytime->toDateTimeString();	
+				$recibo->fecharecibo=$fecha[$contp];
 				$recibo->usuario=$user;				
 				$recibo->save();
 				$contp=$contp+1;
