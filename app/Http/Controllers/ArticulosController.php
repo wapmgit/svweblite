@@ -106,6 +106,7 @@ class ArticulosController extends Controller
     }
 	public function update(Request $request)
     {
+		//dd($request);
 		$this->validate($request,[
             'nombre' => 'required',
             'codigo' => 'required',
@@ -122,6 +123,7 @@ class ArticulosController extends Controller
         $articulo->estado='Activo';
 		$articulo->unidad=$request->get('unidad');
         $articulo->precio1=$request->get('precio1');
+        $articulo->utilidad=$request->get('utilidad');
         $articulo->costo=$request->get('costo');
         $articulo->iva=$request->get('impuesto');
 		if($request->get('sevende')=="on"){$articulo->sevende=1;}else{$articulo->sevende=0;}		
