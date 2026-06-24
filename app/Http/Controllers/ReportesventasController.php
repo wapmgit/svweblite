@@ -274,8 +274,6 @@ class ReportesventasController extends Controller
   }
   	public function cobranza(Request $request)
     {   
-
-
       if ($request)
         {	
 	$rol=DB::table('roles')-> select('rdetallei','iduser')->where('iduser','=',$request->user()->id)->first();	
@@ -296,7 +294,7 @@ class ReportesventasController extends Controller
 			->join('venta','venta.idventa','=','re.idventa' )
 			->join('clientes','clientes.id_cliente','=','venta.idcliente')
 			->join('vendedores as vende','vende.id_vendedor','=','clientes.vendedor')
-			-> select('clientes.nombre','re.referencia','re.tiporecibo','venta.tipo_comprobante','venta.num_comprobante','re.idbanco','re.idpago','re.idrecibo','re.monto','re.recibido','re.fecharecibo','fecha','vende.nombre as vendedor')    
+			-> select('clientes.nombre','re.referencia','re.tiporecibo','venta.fecha_emi','venta.tipo_comprobante','venta.num_comprobante','re.idbanco','re.idpago','re.idrecibo','re.monto','re.recibido','re.fecharecibo','fecha','vende.nombre as vendedor')    
 			-> where('venta.idempresa','=',$empresa->idempresa)
 			-> where('venta.devolu','=',0)
             -> whereBetween('re.fecha', [$query, $query2])
@@ -326,7 +324,7 @@ class ReportesventasController extends Controller
 				->join('venta','venta.idventa','=','re.idventa' )
 				->join('clientes','clientes.id_cliente','=','venta.idcliente')
 				->join('vendedores as vende','vende.id_vendedor','=','clientes.vendedor')
-			 -> select('clientes.nombre','re.referencia','re.tiporecibo','venta.tipo_comprobante','venta.num_comprobante','re.idbanco','re.idrecibo','re.idpago','re.monto','re.recibido','re.fecharecibo','fecha','vende.nombre as vendedor')
+			 -> select('clientes.nombre','re.referencia','re.tiporecibo','venta.fecha_emi','venta.tipo_comprobante','venta.num_comprobante','re.idbanco','re.idrecibo','re.idpago','re.monto','re.recibido','re.fecharecibo','fecha','vende.nombre as vendedor')
 				->where('clientes.vendedor','=',$request->get('vendedor'))  
 				-> where('venta.idempresa','=',$empresa->idempresa)
 				-> where('venta.devolu','=',0)

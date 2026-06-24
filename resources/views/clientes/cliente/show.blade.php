@@ -11,6 +11,17 @@ function add_ceros($numero,$ceros) {
   }
 return $insertar_ceros = $recibo.$numero;
 };
+// fecha 1
+$fecha_dada= "1985/08/28";
+// fecha actual
+$fecha_actual= date("Y/m/d");
+
+function dias_pasados($fecha_inicial,$fecha_final)
+{
+$dias = (strtotime($fecha_inicial)-strtotime($fecha_final))/86400;
+$dias = abs($dias); $dias = floor($dias);
+return $dias;
+}
 ?>
 <style type="text/css">
 #capa{
@@ -99,7 +110,7 @@ return $insertar_ceros = $recibo.$numero;
 					{{ $cat->serie_comprobante}}<?php $idv=$cat->idventa; echo add_ceros($idv,$ceros); ?> C{{$cat->control}}
 					</td>
 					<td></td><td></td>
-					<td><small><?php echo date("d-m-Y h:i:s a",strtotime($cat->fecha_hora)); ?></small></td>
+					<td><small><?php echo date("d-m-Y",strtotime($cat->fecha_hora)); ?></small></td>
 					<td>{{ $cat->estado}}</td>
 					<td>{{ $cat->total_venta}}</td>
 					<td>{{ $cat->descuento}}</td>
@@ -109,7 +120,7 @@ return $insertar_ceros = $recibo.$numero;
 				
 					@foreach($pagos as $p)
 					<?php if($cat->idventa==$p->idventa){ ?>
-					<tr style="line-height:80%"><td></td><td colspan="4"><small>------------> Recibo-{{$p->idrecibo}} <?php echo date("d-m-Y",strtotime($p->fecha)); ?></small></td><td colspan="4"><small>{{$p->idbanco}}->{{$p->recibido}}->{{$p->monto}}$</small></td><td></td><td></td></tr>
+					<tr style="line-height:80%"><td></td><td colspan="4"><small>------------> Recibo-{{$p->idrecibo}} <?php echo date("d-m-Y",strtotime($p->fecha)); ?></small></td><td colspan="4"><small>{{$p->idbanco}}->{{$p->recibido}}->{{$p->monto}}$ <?php echo "(".dias_pasados($cat->fecha_hora,$p->fecha)." dias)"; ?></small></td><td></td><td></td></tr>
 					<?php } ?>
 					@endforeach
 				@endforeach

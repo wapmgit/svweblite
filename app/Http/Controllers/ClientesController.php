@@ -95,7 +95,7 @@ class ClientesController extends Controller
 			->first();
 			$ventas=DB::table('venta')
 			->join('detalle_venta as det','det.idventa','=','venta.idventa')
-			->select('venta.tipo_comprobante','venta.num_comprobante','venta.serie_comprobante','venta.total_venta','venta.total_pagar','venta.fecha_hora','venta.comision','venta.control','venta.descuento','venta.saldo','venta.devolu','venta.estado','venta.idventa')
+			->select('venta.tipo_comprobante','venta.num_comprobante','venta.serie_comprobante','venta.total_venta','venta.total_pagar','venta.fecha_emi as fecha_hora','venta.comision','venta.control','venta.descuento','venta.saldo','venta.devolu','venta.estado','venta.idventa')
 				->where('venta.idcliente','=',$id)
 				->orderBy('venta.idventa','desc')
 				->groupBy('venta.idventa')
@@ -104,7 +104,7 @@ class ClientesController extends Controller
 		  $pagos=DB::table('recibos as re')
 				  ->join('venta as v','v.idventa','=','re.idventa')
 				  ->join('clientes as cli','cli.id_cliente','=','v.idcliente')
-         -> select('re.idrecibo','re.monto','re.recibido','re.idbanco','re.idpago','v.tipo_comprobante','re.idventa','re.referencia','v.num_comprobante','re.fecha')
+         -> select('re.idrecibo','re.monto','re.recibido','re.idbanco','re.idpago','v.tipo_comprobante','re.idventa','re.referencia','v.num_comprobante','re.fecharecibo as fecha')
 		 -> where('v.idcliente','=',$id)
             ->get(); 
 

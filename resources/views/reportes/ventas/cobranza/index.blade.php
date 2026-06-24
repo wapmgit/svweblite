@@ -7,7 +7,19 @@
 </div>
 
 <?php $acum=0;$tcobranza=0;$deb=0;$che=0;$tra=$tventas=$tingnd=0;$acumnc=0;
-$cefe=0;?>
+$cefe=0;
+// fecha 1
+$fecha_dada= "1985/08/28";
+// fecha actual
+$fecha_actual= date("Y/m/d");
+
+function dias_pasados($fecha_inicial,$fecha_final)
+{
+$dias = (strtotime($fecha_inicial)-strtotime($fecha_final))/86400;
+$dias = abs($dias); $dias = floor($dias);
+return $dias;
+}
+?>
  <!-- Main content -->
             <div class="invoice p-3 mb-3">
               <!-- title row -->
@@ -40,8 +52,9 @@ $cefe=0;?>
 						<th>Recibido</th>
 						<th>Monto</th>
 						<th>Referencia</th>
-						<th>Fecha</th>
+						<th>Fecha Fac.</th>
 						<th>Fecha Rec.</th>
+						<th>Dias</th>
 					</thead>
 					@foreach ($cobranza as $cob)
 					<?php   if($cob->tiporecibo=="A") { $tcobranza=$tcobranza+$cob->monto;?> 		 
@@ -57,8 +70,9 @@ $cefe=0;?>
 						<td><?php echo number_format($cob->recibido, 2,',','.'); ?></td>
 						<td><?php  echo number_format($cob->monto, 2,',','.')." $"; ?></td>
 						<td>{{$cob->referencia}}</td>
-						<td><?php echo date("d-m-Y",strtotime($cob->fecha)); ?></td>
+						<td><?php echo date("d-m-Y",strtotime($cob->fecha_emi)); ?></td>
 						<td><?php echo date("d-m-Y",strtotime($cob->fecharecibo)); ?></td>
+						<td><?php echo dias_pasados($cob->fecha_emi,$cob->fecharecibo); ?></td>
 					</tr>
 					@include('reportes.ventas.cobranza.modal')
 					<tr>  <?php  } ?>
