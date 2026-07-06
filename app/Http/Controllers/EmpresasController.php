@@ -32,12 +32,15 @@ class EmpresasController extends Controller
             return view('empresas.empresa.index',["empresa"=>$empresa,"empresas"=>$empresas,"searchText"=>$query]);
 		}
 		 } else { 
+		 
 	return view("reportes.mensajes.noautorizado");
 	}
 		
 	}	
-	public function create(){
-		return view('empresas.empresa.create');
+	public function create(Request $request){
+		$rol=DB::table('roles')-> select('newempresa','iduser')->where('iduser','=',$request->user()->id)->first();
+		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
+		return view('empresas.empresa.create',["empresa"=>$empresa]);
 	}
 	    public function store (Request $request)
     {
