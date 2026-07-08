@@ -48,6 +48,10 @@
                       <input type="checkbox" name="sevende"  <?Php if($articulo->sevende==1) echo "checked"; ?> class="custom-control-input" id="customSwitch3">
                       <label class="custom-control-label" for="customSwitch3">¿Se Vende?</label>
                     </div>
+					 <div class="custom-control custom-switch  custom-switch-on-success custom-switch-off-danger">
+                      <input type="checkbox" name="mprima"  <?Php if($articulo->mprima==1) echo "checked"; ?> class="custom-control-input" id="customSwitch4">
+                      <label class="custom-control-label" for="customSwitch4">¿Materia Prima?</label>
+                    </div>
 		
                   </div>
             </div>

@@ -83,6 +83,7 @@ class ArticulosController extends Controller
         $articulo->iva=$request->get('impuesto');
 		if($request->get('serial')=="on"){$articulo->serial=1;}	
 		if($request->get('sevende')=="on"){$articulo->sevende=1;}else{$articulo->sevende=0;}		
+		if($request->get('mprima')=="on"){$articulo->mprima=1;}else{$articulo->mprima=0;}		
 			if(!empty($request->file('imagen'))){
 			$file = $request->file('imagen');
 			$img = $file->getClientOriginalName();		
@@ -126,7 +127,8 @@ class ArticulosController extends Controller
         $articulo->utilidad=$request->get('utilidad');
         $articulo->costo=$request->get('costo');
         $articulo->iva=$request->get('impuesto');
-		if($request->get('sevende')=="on"){$articulo->sevende=1;}else{$articulo->sevende=0;}		
+		if($request->get('sevende')=="on"){$articulo->sevende=1;}else{$articulo->sevende=0;}
+		if($request->get('mprima')=="on"){$articulo->mprima=1;}else{$articulo->mprima=0;}		
 		if(!empty($request->file('imagen'))){
 			$file = $request->file('imagen');
 			$img = $file->getClientOriginalName();		

@@ -58,9 +58,9 @@ if (dias_transcurridos($fserver,$fechaini)>$dato){
 					<div class="form-group">
 					<label>Articulo</label>
 					<select name="pidarticulo" id="pidarticulo" class="form-control selectpicker" data-live-search="true">
-					@foreach ($articulos as $articulo)<?php  if($articulo->mprima==1){?>
+					@foreach ($articulosmp as $articulo)
 					<option value="{{$articulo -> idarticulo}}_{{$articulo -> costo}}">{{$articulo -> articulo}}</option> 
-					<?php } ?>
+				
 					@endforeach
 					</select>	</div> 
 					</td>

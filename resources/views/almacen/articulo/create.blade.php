@@ -48,6 +48,10 @@ $idv=0;
                       <input type="checkbox" name="sevende" class="custom-control-input" checked id="customSwitch3">
                       <label class="custom-control-label" for="customSwitch3">¿Se vende?</label>
                     </div>
+					 <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                      <input type="checkbox" name="mprima" class="custom-control-input"  id="customSwitch4">
+                      <label class="custom-control-label" for="customSwitch4">¿Materia Prima?</label>
+                    </div>
                   </div>
             </div>
 	   <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">

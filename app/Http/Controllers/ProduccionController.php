@@ -43,9 +43,19 @@ class ProduccionController extends Controller
 			->join('categoria as cat','cat.idcategoria','art.idcategoria')
 			-> select(DB::raw('CONCAT(art.codigo,"_",art.nombre,"_",art.stock) as articulo'),'art.idarticulo','art.stock','art.costo','cat.mprima')
 			-> where('art.estado','=','Activo')
+			-> where('art.mprima','=',0)
 			->where('art.idempresa',$empresa->idempresa)
 			-> get();
-			return view("produccion.produccion.create",["rol"=>$rol,"articulos"=>$articulos,"empresa"=>$empresa]);
+			$articulosmp =DB::table('articulos as art')
+			->join('categoria as cat','cat.idcategoria','art.idcategoria')
+			-> select(DB::raw('CONCAT(art.codigo,"_",art.nombre,"_",art.stock) as articulo'),'art.idarticulo','art.stock','art.costo','cat.mprima')
+			-> where('art.estado','=','Activo')
+			-> where('art.mprima','=',1)
+			-> where('art.stock','>',0)
+			->where('art.idempresa',$empresa->idempresa)
+			-> get();
+			//dd($articulosmp);
+			return view("produccion.produccion.create",["rol"=>$rol,"articulosmp"=>$articulosmp,"articulos"=>$articulos,"empresa"=>$empresa]);
 		} else { 
 		return view("reportes.mensajes.noautorizado");
 		}
