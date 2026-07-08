@@ -152,7 +152,13 @@ $acumpa=0; $countpa=0; $acumga=0; $countga=0; $tcobro=0; $tpagos=0; $countndp=0;
 		  <td align="center" style="background-color: #E6E6E6"> 
 		  <strong>Egresos: <?php  echo number_format($tpagos, 2,',','.')." $"; ?></strong></td>
 		  <td align="center" style="background-color: #E6E6E6"> 
-		  <strong>Saldo: <?php  echo number_format(($tcobro-$tpagos), 2,',','.')." $"; ?></strong></td></tr> 		
+		  <strong>Saldo: <?php  echo number_format(($tcobro-$tpagos), 2,',','.')." $"; ?></strong></td></tr> 	
+<tr><td align="center" style="background-color: #E6E6E6"> 
+		  <strong>Cuentas por cobrar: <?php  echo number_format($cxc->acumulado, 2,',','.')." $"; ?></strong></td>
+		  <td align="center" style="background-color: #E6E6E6"> 
+		  <strong>Cuentas por Pagar: <?php  echo number_format($cxpc->acumulado+$cxpg->acumulado, 2,',','.')." $"; ?></strong></td>
+		  <td align="center" style="background-color: #E6E6E6"> 
+		  <strong>Valor Actual Inventario(Costo/Precio): <?php  echo number_format(($valorinv->vcosto), 2,',','.')." / ".number_format(($valorinv->vprecio), 2,',','.')." $"; ?></strong></td></tr> 			  
 		  </thead>
       </table>
 	  </div>	  

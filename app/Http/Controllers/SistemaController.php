@@ -318,8 +318,14 @@ class SistemaController extends Controller
             -> whereBetween('re.fecha', [$query, $query2])
 			-> groupby('re.idrecibo','re.idpago')
             ->get();
-			//dd($empresa);
-
+			$cxc=DB::table('venta as v')
+			->select(DB::raw('SUM(v.saldo) as acumulado'))
+			 -> where ('v.idempresa',$empresa->idempresa)
+			->where('v.saldo','>',0)
+			-> where('v.devolu','=',0)
+			-> where('v.fecha_emi','<=',$query2)
+			->first();
+		
 			 $ingresos=DB::table('recibos as re')
 			->join('venta','venta.idventa','=','re.idventa' )
 			->select(DB::raw('sum(re.recibido) as recibido'),DB::raw('sum(re.monto) as monto'),'re.idpago','re.idbanco')
@@ -360,8 +366,28 @@ class SistemaController extends Controller
             -> whereBetween('co.fecha_comp', [$query, $query2])
             ->groupby('co.idpago','co.idbanco')
             ->get();
+			$cxpc=DB::table('compras as i')
+			->select(DB::raw('SUM(i.saldo) as acumulado'))
+			->where('i.idempresa',$empresa->idempresa)
+			-> where('i.emision','<=',$query2)
+			->where('i.saldo','>',0)
+			->where('i.estatus','=',0)
+			->first();
+			$cxpg=DB::table('gastos as i')
+			->select(DB::raw('SUM(i.saldo) as acumulado'))
+			->where('i.idempresa',$empresa->idempresa)
+			-> where('i.fecha','<=',$query2)
+			->where('i.saldo','>',0)
+			->where('i.estatus','=',0)
+			->first();
+			$valorinv=DB::table('articulos as i')
+			->select(DB::raw('SUM(i.stock*i.costo) as vcosto'),DB::raw('SUM(i.stock*i.precio1) as vprecio'))
+			->where('i.idempresa',$empresa->idempresa)
+			->where('i.estado','=',"Activo")
+			->where('i.stock','>',0)
+			->first();
 			if ($rol->rgerencial==1){
-        return view('reportes.balance.balance.index',["desglosepg"=>$desglosepg,"gastos"=>$gastos,"ingresos"=>$ingresos,"desglosep"=>$desglosep,"pagos"=>$pagos,"cobranza"=>$cobranza,"empresa"=>$empresa,"rol"=>$rol,"searchText"=>$query,"searchText2"=>$query2]);
+        return view('reportes.balance.balance.index',["valorinv"=>$valorinv,"cxpg"=>$cxpg,"cxpc"=>$cxpc,"cxc"=>$cxc,"desglosepg"=>$desglosepg,"gastos"=>$gastos,"ingresos"=>$ingresos,"desglosep"=>$desglosep,"pagos"=>$pagos,"cobranza"=>$cobranza,"empresa"=>$empresa,"rol"=>$rol,"searchText"=>$query,"searchText2"=>$query2]);
 			} else { 
 	return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 	}
