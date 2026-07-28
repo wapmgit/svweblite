@@ -103,18 +103,40 @@ class VentasController extends Controller
    try{
    DB::beginTransaction();
    $contador=DB::table('venta')->select(DB::raw('count(idventa) as idventa'))->where('idempresa',$empresa->idempresa)->first();
-   if ($contador==NULL){$numero=0;}else{$numero=$contador->idventa;}
+   if ($contador==NULL){$numero=1;}else{$numero=$contador->idventa+1;}
+			function generarCorrelativo(int $numeroVenta): string
+			{
+				// Restamos 1 para trabajar con base 0 (0 a 999 por letra)
+				$indiceBase = $numeroVenta - 1;
 
+				// Calcular la posición de la letra (0 = A, 1 = B, 2 = C, etc.)
+				$posicionLetra = intdiv($indiceBase, 1000);
+
+				// Convertir la posición a carácter ASCII ('A' es 65)
+				$letra = chr(65 + $posicionLetra);
+
+				// Calcular el número correlativo del 1 al 1000
+				$numero = ($indiceBase % 1000) + 1;
+
+				// Formatear con ceros a la izquierda (ej: A-0001 o A0001)
+				return sprintf('%s-%04d', $letra, $numero);
+			}
+			
+		$corre=$empresa->serie;
+			if($empresa->usacorreaut==1){$numero=generarCorrelativo($numero); 
+			$dat=explode("-",$numero); $corre=$dat[0]; $numero=$dat[1];}
+
+	
 //registra la venta
     $venta=new Ventas;
 	$idcliente=explode("_",$request->get('id_cliente'));
     $venta->idcliente=$idcliente[0];
     $venta->idempresa=$empresa->idempresa;
     $venta->tipo_comprobante="FAC";
-    $venta->serie_comprobante="A";
-    $venta->num_comprobante=($numero+1);
+    $venta->serie_comprobante=$corre;
+    $venta->num_comprobante=($numero);
     $venta->idvendedor=$request->get('nvendedor');
-    $venta->controlventa=($numero+1);
+    $venta->controlventa=($numero);
     $venta->control=$request->get('control');
     $venta->tasa=$request->get('tc');
     $venta->total_venta=$request->get('total_venta');
@@ -193,7 +215,7 @@ class VentasController extends Controller
 
 				$kar=new Kardex;
 		$kar->fecha=$mytime->toDateTimeString();
-		$kar->documento="VENT-".($numero+1);
+		$kar->documento="VENT-".$numero;
 		$kar->idarticulo=$idarticulo[$cont];
 		$kar->cantidad=$cantidad[$cont];
 		$kar->costo=$costoarticulo[$cont];

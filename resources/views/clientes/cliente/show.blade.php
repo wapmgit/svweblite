@@ -109,7 +109,7 @@ return $dias;
 					<td> <?php if($cat->devolu==1){echo "*DEV";}?>             
 					{{ $cat->serie_comprobante}}<?php $idv=$cat->idventa; echo add_ceros($idv,$ceros); ?> C{{$cat->control}}
 					</td>
-					<td></td><td></td>
+					<td>{{ $cat->num_comprobante}}</td><td></td>
 					<td><small><?php echo date("d-m-Y",strtotime($cat->fecha_hora)); ?></small></td>
 					<td>{{ $cat->estado}}</td>
 					<td>{{ $cat->total_venta}}</td>
