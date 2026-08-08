@@ -52,7 +52,7 @@
 						<th id="p3">Existencia  <i class="fa fa-fw fa-eye" title="Ocultar" id="ocultarst"></i></th>
 						<th id="pd">Precio</th>  
 					
-						</thead><?php $count=0; $i=0;$costo=0;$costoacum=0; $precioacum=0; $order=1;?>
+						</thead><?php $count=0; $i=0;$costo=0;$costoacum=0; $todo=1; $precioacum=0; $order=1;?>
 							@foreach ($lista as $q)
 							   <?php $i++; ?>
 							<tr <?php if (($i%2)==0){ echo "style='background-color: #D4E6F1 !important'";}?>> <?php $count++; 
@@ -79,6 +79,8 @@
 			<div class="col-lg-12 col-md-12 csol-sm-6 col-xs-12 pie" id="botones">
                     <div class="form-group" align="center"></br>
                      <button type="button" id="imprimir" class="btn btn-primary btn-sm" data-dismiss="modal">Imprimir</button>
+					@if($num==0) <a href="{{route('listaprecios',['todo'=>1])}}"><button class="btn btn-info btn-sm"> Mostrar Todos</button></a>@endif
+					@if($num==-1000) <a href="{{route('listaprecios',['todo'=>0])}}"><button class="btn btn-info btn-sm"> Mostrar Solo con Existencias</button></a>@endif
 					 <a href="{{route('listaprecios',['order'=>$order])}}"><button class="btn btn-success btn-sm"> Ordenar por Grupo</button></a>
 				  </div>
 			</div>

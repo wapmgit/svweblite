@@ -97,19 +97,22 @@ class ReportesarticulosController extends Controller
 			$lista=DB::table('articulos')
 			->where('articulos.idempresa',$empresa->idempresa) 
 				->where('stock','>',0)
+				->where('mprima','=',0)
 				->where('estado','=',"Activo")
 				->OrderBy('articulos.nombre')
 				->get();
 			$grupos=DB::table('categoria')->where('categoria.idempresa',$empresa->idempresa)->where ('condicion','=','1')->get();
 			return view('reportes.articulos.inventario.listapreciogrupo',["grupos"=>$grupos,"lista"=>$lista,"empresa"=>$empresa]);
 		}else{     
+		if($request->todo==1){ $num=-1000;}else{$num=0;};
         $lista=DB::table('articulos')
 		->where('articulos.idempresa',$empresa->idempresa) 
-		->where('stock','>',0)
+		->where('stock','>',$num)
+		->where('mprima','=',0)
 		->where('estado','=',"Activo")
 		->OrderBy('articulos.nombre')
         ->get();
-		return view('reportes.articulos.inventario.listaprecio',["lista"=>$lista,"empresa"=>$empresa]); }         
+		return view('reportes.articulos.inventario.listaprecio',["num"=>$num,"lista"=>$lista,"empresa"=>$empresa]); }         
 
 		} else { 
 			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
