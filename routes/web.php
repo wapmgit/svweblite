@@ -23,6 +23,7 @@ use App\Http\Controllers\CtasconController;
 use App\Http\Controllers\MonedasController;
 use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\ProduccionController;
+use App\Http\Controllers\MiembrosController;
 
 
 Route::get('/', function () {
@@ -155,6 +156,16 @@ Route::post('guardaproduccion', [ProduccionController::class, 'store'])->name('g
 Route::get('showproduccion/{id}', [ProduccionController::class, 'show'])->name('showproduccion');
 Route::get('reporteproduccion', [ProduccionController::class, 'reporte'])->name('reporteproduccion');
 Route::get('produccionpesaje', [ProduccionController::class, 'pesaje'])->name('produccionpesaje');
+//menbresia
+Route::get('membresia', [MiembrosController::class, 'index'])->name('membresia');
+Route::get('newregistro', [MiembrosController::class, 'create'])->name('newregistro');
+Route::post('guardarregistro', [MiembrosController::class, 'store'])->name('guardarregistro');
+Route::get('edomienbro/{id}', [MiembrosController::class, 'show'])->name('edomienbro');
+Route::get('cobromes', [MiembrosController::class, 'cobromes'])->name('cobromes');
+Route::get('reportemiembros', [MiembrosController::class, 'reportemiembros'])->name('reportemiembros');
+Route::get('reporteingresosm', [MiembrosController::class, 'reporteingresosm'])->name('reporteingresosm');
+Route::get('editmiembro/{id}', [MiembrosController::class, 'edit'])->name('editmiembro');
+Route::get('updatemiembro', [MiembrosController::class, 'update'])->name('updatemiembro');
 //cxc
 Route::get('cxc', [CxcobrarController::class, 'index'])->name('cxc');
 Route::get('showcxc/{id}', [CxcobrarController::class, 'show'])->name('showcxc');

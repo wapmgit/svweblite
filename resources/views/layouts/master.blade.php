@@ -313,6 +313,36 @@
               </li>
             </ul>
           </li> @endif
+		  		  @if($empresa->usamembresia)
+		   <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+             Membresia
+                <i class="fas fa-angle-left right"></i>             
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                 <a href="{{route('membresia')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Personas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('reportemiembros')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Reporte</p>
+                </a>
+              </li>
+			  <li class="nav-item">
+                <a href="{{route('reporteingresosm')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ingresos</p>
+                </a>
+              </li>
+            </ul>
+          </li> @endif
 		 <!--  <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-truck"></i>
