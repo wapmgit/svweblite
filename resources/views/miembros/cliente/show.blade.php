@@ -78,7 +78,7 @@ $fserver=date('Y-m-d');
 
 	<!-- @include('clientes.cliente.modalcredito') -->
 
-@include('clientes.cliente.modalrecibos')
+@include('miembros.cliente.modalrecibos')
 </div>
 
 

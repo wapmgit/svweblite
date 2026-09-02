@@ -1,3 +1,4 @@
+
 <div class="modal fade" id="modalrecibos-{{$cliente->id_cliente}}">
 
 	<div class="modal-dialog modal-xl">
