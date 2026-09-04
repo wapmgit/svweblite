@@ -38,12 +38,11 @@ $cntser=0;
               </div>
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<table width="100%"><tr><td width="30%"><strong>Cliente</strong></td><td width="20%"><strong>Telefono</strong></td><td width="30%"><strong>Direccion</strong></td><td width="20%"><strong># Control</strong></td>
-			</tr>
-			<tr><td>{{$venta->rif}} -> {{$venta->nombre}}</td><td>{{$venta->telefono}}</td><td>{{$venta->direccion}}</td><td>{{$venta->control}}</td>
-			</tr>
-			<tr><td colspan="4"><?php if($venta->obs != NULL) { echo "<b>Obs.:</b> ".$venta->obs; }?></td></tr>
-		</table>
+			<table width="100%" border="1" >
+	<tr><td><small><b>DOCUMENTO:</small></b>{{$venta->tipo_comprobante}} {{$venta->serie_comprobante}} <?php  $idv=$venta->num_comprobante;; echo add_ceros($idv,$ceros); ?></td><td><td><small><b>FECHA DE EMISION: </small></b><?php echo date("d-m-Y",strtotime($venta->fecha_hora)); ?></td><td><small><b>CONDICION: </small></b>{{$venta->estado}}@if($venta->estado == "Credito") {{$venta->diascredito}}Dias  @endif</td></tr>
+	<tr><td colspan="4"><small><b>NOMBRE Y APELLIDO O RAZON SOCIAL: </b> </small> {{$venta->rif}} -> {{$venta->nombre}} <b>TELF: </b> {{$venta->telefono}}</td></tr>
+	<tr><td colspan="4"  width="50%"><small><b>DOMICILIO FISCAL: </b> {{$venta->direccion}} </small><b>VENDEDOR: </b> {{$venta->vendedor}}@if($venta->obs != NULL)<b>Obs.:</b> {{$venta->obs}}   @endif</td></tr>
+	</table>
 		
 	</div>
 
