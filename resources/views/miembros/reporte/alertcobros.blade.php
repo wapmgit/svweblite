@@ -67,9 +67,7 @@ return $dias;
 				$cel =str_replace(')', '', $cel);
 				$cel =str_replace(' ', '', $cel);
 			
-				?>
-			   
-			   ?>
+				?>			 
 				<tr>
 					<td><small><?php echo $cont; ?></small></td>
 					<td><small>{{ $cat->nombre}}</small></td>

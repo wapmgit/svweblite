@@ -105,7 +105,7 @@ class MiembrosController extends Controller
 			$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
 			$pacientes=DB::table('miembros')
 			->join('clientes','clientes.id_cliente','=','miembros.idcliente')
-			->select('clientes.nombre','clientes.telefono','clientes.cedula','clientes.id_cliente','clientes.direccion','miembros.montomes','miembros.idmiembro')
+			->select('miembros.fecha_inicio','clientes.nombre','clientes.telefono','clientes.cedula','clientes.id_cliente','clientes.direccion','miembros.montomes','miembros.idmiembro')
 			->where('miembros.idmiembro','=',$id)
 			->first();
 
@@ -160,7 +160,7 @@ class MiembrosController extends Controller
 			  	$act=Miembros::findOrFail($request->get('doc'));
 				if (is_null($act->ult_pago)) {
 					// Toma la fecha de inicio y obtiene el último día de ese mes
-					$act->ult_pago = Carbon::parse($act->fecha_inicio)->endOfMonth()->toDateString();
+					$act->ult_pago = Carbon::parse($act->fecha_inicio)->addMonth()->toDateString();
 				} else {
 					// Suma un mes a la fecha de último pago
 					$act->ult_pago = Carbon::parse($act->ult_pago)->addMonth()->toDateString();

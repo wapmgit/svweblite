@@ -64,9 +64,9 @@ $fserver=date('Y-m-d');
               </div>
 <div class="row"><?php $acummonto=0; ?>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<table width="100%"border="1"><tr><td width="30%"><strong>Rif -> Cliente</strong></td><td width="20%"><strong>Telefono</strong></td><td width="30%"><strong>Direccion</strong></td><td width="20%"><strong>Vendedor</strong></td>
+			<table width="100%"border="1"><tr><td width="30%"><strong>Rif -> Cliente</strong></td><td width="20%"><strong>Telefono</strong></td><td width="30%"><strong>Direccion</strong></td><td width="20%"><strong>Fecha Inicio</strong></td>
 			</tr>
-			<tr><td>{{$cliente->cedula}} -> {{$cliente->nombre}}</td><td>{{$cliente->telefono}}</td><td>{{$cliente->direccion}}</td><td> </td>
+			<tr><td>{{$cliente->cedula}} -> {{$cliente->nombre}}</td><td>{{$cliente->telefono}}</td><td>{{$cliente->direccion}}</td><td><?php echo date("d-m-Y",strtotime($cliente->fecha_inicio)); ?> </td>
 			</tr>
 			</table></br>
 		</div>
