@@ -112,6 +112,7 @@ Route::post('devolucion', [VentasController::class, 'devolucion'])->name('devolu
 Route::post('refrescar', [VentasController::class, 'refrescar'])->name('refrescar');
 Route::get('recibo/{id}', [ventasController::class, 'recibo'])->name('recibo');
 Route::get('tcarta/{id}', [ventasController::class, 'show'])->name('tcarta');
+Route::get('tcartacopias/{id}', [ventasController::class, 'showcopias'])->name('tcartacopias');
 Route::get('fbs/{id}', [ventasController::class, 'fbs'])->name('fbs');
 Route::post('anulforma', [ventasController::class, 'anulforma'])->name('anulforma');
 Route::post('anularecibo', [ventasController::class, 'anular'])->name('anularecibo');

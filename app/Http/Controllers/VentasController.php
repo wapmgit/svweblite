@@ -239,8 +239,10 @@ catch(\Exception $e)
 }
 	if($empresa->tikect==1){
 		  return Redirect::to('recibo/'.$venta->idventa);
-	}else{
-	return Redirect::to('tcarta/'.$venta->idventa.'-1');
+	}else{ if($empresa->ncopias==1){
+	return Redirect::to('tcarta/'.$venta->idventa.'-1');}else{
+		return Redirect::to('tcartacopias/'.$venta->idventa.'-1');
+	}
 	}
 	}
  public function showdevolucion(Request $request, $id)
@@ -463,6 +465,36 @@ public function show(Request $request, $id){
             ->get();
 
             return view("ventas.venta.show",["ruta"=>$ruta,"venta"=>$venta,"recibos"=>$recibo,"recibonc"=>$recibonc,"empresa"=>$empresa,"detalles"=>$detalles]);
+}
+public function showcopias(Request $request, $id){
+//dd($id);
+	$dato=explode("-",$id);
+    $id=$dato[0];
+    $ruta=$dato[1];
+	//dd($ruta);
+
+			$venta=DB::table('venta as v')
+            -> join ('clientes as p','v.idcliente','=','p.id_cliente')
+            -> join ('vendedores as vend','vend.id_vendedor','=','v.idvendedor')
+            -> select ('vend.nombre as vendedor','p.diascredito','v.idempresa','v.idventa','p.id_cliente','v.fecha_hora','p.nombre','p.rif','p.cedula','p.telefono','p.direccion','v.descuento','v.control','v.tipo_comprobante','v.serie_comprobante','v.num_comprobante','v.impuesto','v.estado','v.total_venta','v.devolu','v.obs')
+            ->where ('v.idventa','=',$id)
+            -> first();
+			//dd($venta);
+            $detalles=DB::table('detalle_venta as dv')
+            -> join('articulos as a','dv.idarticulo','=','a.idarticulo')
+            -> select('a.idarticulo','a.nombre as articulo','a.iva','a.unidad','dv.cantidad','dv.descuento','dv.precio_venta')
+            -> where ('dv.idventa','=',$id)
+            ->get();
+			
+			$recibo=DB::table('recibos as r')-> where ('r.idventa','=',$id)
+            ->get();
+			//dd($retencion);
+			$rol=DB::table('roles')-> select('iduser')->where('iduser','=',$request->user()->id)->first();
+			$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
+			$recibonc=DB::table('mov_notas as mov')-> where ('mov.iddoc','=',$id)-> where ('mov.tipodoc','=',"FAC")
+            ->get();
+
+            return view("ventas.venta.showcopias",["ruta"=>$ruta,"venta"=>$venta,"recibos"=>$recibo,"recibonc"=>$recibonc,"empresa"=>$empresa,"detalles"=>$detalles]);
 }
 public function fbs(Request $request, $id){
 

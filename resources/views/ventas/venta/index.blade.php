@@ -40,7 +40,8 @@
                       <span class="sr-only"></span>
                     </button>
                     <div class="dropdown-menu" role="menu">
-                      <a class="dropdown-item" href="{{route('tcarta',['id'=>$ven->idventa.'-'.$link])}}">Diseño Carta</a>
+                       @if($empresa->ncopias==1)  <a class="dropdown-item" href="{{route('tcarta',['id'=>$ven->idventa.'-'.$link])}}">Diseño Carta</a> @else
+                      <a class="dropdown-item" href="{{route('tcartacopias',['id'=>$ven->idventa.'-'.$link])}}">Diseño Carta</a> @endif
                       <a class="dropdown-item" href="{{route('recibo',['id'=>$ven->idventa])}}">Modo Tikect</a>
                        <?php if ($ven->flibre==1){?>   <a class="dropdown-item" href="{{route('fbs',['id'=>$ven->idventa])}}">Diseño Bs</a><?php } ?>
                     </div>
