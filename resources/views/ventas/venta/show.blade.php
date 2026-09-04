@@ -135,7 +135,7 @@ $cntser = 0;
         <!-- Info cliente -->
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<table width="100%" border="1"  style="line-height:90%">
+			<table width="100%" border="1" >
 	<tr><td><small><b>DOCUMENTO:</small></b>{{$venta->tipo_comprobante}} {{$venta->serie_comprobante}} <?php  $idv=$venta->num_comprobante;; echo add_ceros($idv,$ceros); ?></td><td><td><small><b>FECHA DE EMISION: </small></b><?php echo date("d-m-Y",strtotime($venta->fecha_hora)); ?></td><td><small><b>CONDICION: </small></b>{{$venta->estado}}@if($venta->estado == "Credito") {{$venta->diascredito}}Dias  @endif</td></tr>
 	<tr><td colspan="4"><small><b>NOMBRE Y APELLIDO O RAZON SOCIAL: </b> </small> {{$venta->rif}} -> {{$venta->nombre}} <b>TELF: </b> {{$venta->telefono}}</td></tr>
 	<tr><td colspan="4"  width="50%"><small><b>DOMICILIO FISCAL: </b> {{$venta->direccion}} </small><b>VENDEDOR: </b> {{$venta->vendedor}}@if($venta->obs != NULL)<b>Obs.:</b> {{$venta->obs}}   @endif</td></tr>
@@ -146,7 +146,7 @@ $cntser = 0;
         <!-- Detalles de la venta -->
         <div class="row">
             <div class="col-md-12">
-                <table id="detalles" width="100%"  style="line-height:93%">
+                <table id="detalles" width="100%" >
                     <thead style="background-color: #A9D0F5"> 
                         <th>Artículo</th>
                         <th>Cantidad</th>
