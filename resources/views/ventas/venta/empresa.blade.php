@@ -1,6 +1,6 @@
 	<div class="col-sm-6 invoice-col">
-	@if($empresa->mnombre==1){{$empresa->nombre}} @endif
-			<address>
+	
+			<address>@if($empresa->mnombre==1){{$empresa->nombre}} @endif
 			<strong>@if($empresa->mrif==1) {{$empresa->rif}} @endif</strong><br>
 					@if($empresa->mdireccion==1) {{$empresa->direccion}} @endif<br>
 				@if($empresa->mtel==1)	Tel: {{$empresa->telefono}} @endif<br>
@@ -8,8 +8,8 @@
 	</div>
                 <!-- /.col -->
 	<div class="col-sm-3 invoice-col">
-		<h2 align="center"><u>  NOTA DE ENTREGA </u></h2><div align="center">
-		{{$venta->tipo_comprobante}} {{$venta->serie_comprobante}} <?php $idv=$venta->num_comprobante; echo add_ceros($idv,$ceros); ?>
+		<h4 align="center"><u>  NOTA DE ENTREGA </u></h4><div align="center">
+		CONTROL {{$venta->control}}
 		<span><strong><?php if($venta->devolu>0){ echo "**Devuelta**";} ?></span></strong></div>		
 	</div>	
 	<div class="col-sm-3 invoice-col" align="center">

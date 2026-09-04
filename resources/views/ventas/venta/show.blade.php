@@ -1,209 +1,287 @@
 @extends ('layouts.master')
 @section ('contenido')
-<?php $acum=0; 
-$ceros=5;  $acumnc=0;
-function add_ceros($numero,$ceros) {
-  $numero=$numero;
-	$digitos=strlen($numero);
-  $recibo=" ";
-  for ($i=0;$i<8-$digitos;$i++){
-    $recibo=$recibo."0";
-  }
-return $insertar_ceros = $recibo.$numero;
-};
-$cntser=0;
-?>
-<style type="text/css">
- hr {
-        height: 3px;
-        background-color: black;
-        margin: 10px auto;
-      }
- 
-</style>
-            <div class="invoice p-3 mb-3">
-              <!-- title row -->
-              <div class="row">
-                <div class="col-12">
-                  <h4>
-                    <img src="{{asset('dist/img/iconosistema.png')}}" title="NKS"> SysVent@s
-                    <small class="float-right"></small>
-                  </h4>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- info row -->
-              <div class="row invoice-info">
-			@include('ventas.venta.empresa')
-              </div>
-<div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<table width="100%"><tr><td width="30%"><strong>Cliente</strong></td><td width="20%"><strong>Telefono</strong></td><td width="30%"><strong>Direccion</strong></td><td width="20%"><strong># Control</strong></td>
-			</tr>
-			<tr><td>{{$venta->rif}} -> {{$venta->nombre}}</td><td>{{$venta->telefono}}</td><td>{{$venta->direccion}}</td><td>{{$venta->control}}</td>
-			</tr>
-			<tr><td colspan="4"><?php if($venta->obs != NULL) { echo "<b>Obs.:</b> ".$venta->obs; }?></td></tr>
-		</table>
-		
-	</div>
+<?php 
+$acum = 0; 
+$ceros = 5; 
+$acumnc = 0;
 
-</div>
-<div class ="row">
-                                              
-        <div class="col-md-12">
-	
-            <table id="detalles" width="100%">
-                      <thead style="background-color: #A9D0F5">                    
-                          <th>Articulo</th>
-                          <th>Cantidad</th>
-                          <th>Unidad</th>
-                          <th>Precio</th>
-                          <th>Subtotal</th>
-                      </thead>
-                    
-                        @foreach($detalles as $det)
-						<?php if ($det->cantidad>0){?>
-                        <tr >
-                          <td>{{$det->articulo}}</td>
-                          <td>{{$det->cantidad}}</td>
-                          <td>{{$det->unidad}}</td>
-                          <td><?php echo number_format( $det->precio_venta, 2,',','.'); ?></td>
-                          <td><?php echo number_format( (($det->cantidad*$det->precio_venta)), 2,',','.'); ?></td>
-                        </tr>
-							<?php } ?>
-                        @endforeach
-						<?Php if($venta->descuento>0){ ?><tr><td colspan="3"></td><td> Descto. </td><td>-{{$venta->descuento}}</td></tr><?php } ?>
-                      </tbody>
-					   <tfoot>                      
-                          <th colspan="4"><div align="right">TOTAL: </div></th>
-                          <th ><b><font size="4"><?php echo " $ ".number_format($venta->total_venta, 2,',','.'); ?> </b></font></th>
-                          </tfoot> 
-                         
-                      <tbody>
-            </table>
-	 <tfoot> 
-						   <th colspan="5"><hr></th> </tfoot>
-        </div>                   
-				<?php if(count($recibos)>0){?>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><h6 align="center">Desglose de pago</h6>
-                  <table width="100%">
-                      <thead style="background-color: #A9D0F5">                   
-                          <th>Tipo</th>
-                          <th>Monto</th>
-						  <th>Tasa</th>
-                          <th>Monto$</th>
-                          <th>Ref.</th>                          
-                      </thead>                    
-                      <tbody>                        
-                        @foreach($recibos as $re) <?php  $acum=$acum+$re->monto;?>
-                        <tr >
-                          <td>{{$re->idbanco}}</td>
-                          <td><?php echo number_format( $re->recibido, 2,',','.'); ?></td>
-						      <td> <?php if ($re->idpago==2){echo number_format( $re->tasap, 2,',','.'); }
-							  if ($re->idpago==3){echo number_format( $re->tasab, 2,',','.'); }?></td>
-						   <td><?php echo number_format( $re->monto, 2,',','.'); ?></td>
-                          <td>{{$re->referencia}}</td>                        
-                        </tr>
-                        @endforeach
-				
-                        <tfoot >                    
-                          <th colspan="3">Total</th>
-						  <th><?php echo "$ ".number_format( $acum, 2,',','.');?></th>
-                          <th ><h4 id="total"><b></b></h4></th>
-                          </tfoot>
-                      </tbody>
-                  </table>
-                </div><?php } ?>
-				<?php if(count($recibonc)>0){?>
-				                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><h6 align="center">Nota de Credito Aplicada</h6>
-                  <table width="100%">
-                      <thead style="background-color: #A9D0F5">
-                     
-                          <th>Fecha</th> 
-						  <th>Usuario</th>
-                          <th>Monto</th>
-						 
-                      </thead>
-                     
-                      <tbody>
-                        
-                        @foreach($recibonc as $renc) <?php  $acumnc=$acumnc+$renc->monto;?>
-                        <tr >
-                          <td>{{$renc->fecha}}</td>
-                          <td>{{$renc->user}}</td> 
-						<td><?php echo number_format( $renc->monto, 2,',','.'); ?></td>						  
-                        </tr>
-                        @endforeach
-                        <tfoot >                    
-                          <th colspan="2">Total</th>
-						  <th><?php echo "$ ".number_format( $acumnc, 2,',','.');?></th>
-                          <th ><h4 id="total"><b></b></h4></th>
-                          </tfoot>
-                      </tbody>
-                  </table>
-                </div>
-				<?php } ?>
-             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="form-group">
-         
-                    <p>           <label for="num_comprobante">Fecha: </label><?php echo " ".date("d-m-Y h:i:s a",strtotime($venta->fecha_hora)); ?></p>
-                </div>
-            </div> 
-			<input type="hidden" name="ruta" id="ruta" value="<?php if($ruta==1){ $ruta="ventas"; }else{ $ruta="edocuenta/".$venta->id_cliente; } ?>"></input>
-		@if(Auth::user()->nivel=="A")
-			<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-                    <div class="form-group" align="center">
-					 <button type="button" id="regresar" class="btn btn-danger btn-sm" data-dismiss="modal" title="Presione Alt+flecha izq. para regresar">Regresar</button>
-					 <button type="button" id="nventa" class="btn btn-info btn-sm" data-dismiss="modal">Facturar</button>
-                     <button type="button" id="imprimir" class="btn btn-primary btn-sm" data-dismiss="modal">Imprimir</button>
-                    </div>
-			</div>  
-		@else
-			<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-                    <div class="form-group" align="center">
-					 <button type="button" id="regresarvc" class="btn btn-danger btn-sm" data-dismiss="modal" title="Presione Alt+flecha izq. para regresar">Regresar</button>
-					<button type="button" id="nventavc" class="btn btn-info btn-sm" data-dismiss="modal">Facturar</button>                 
-					<button type="button" id="imprimirvc" class="btn btn-primary btn-sm" data-dismiss="modal">Imprimir</button>
-                    </div>
-			</div> 
-			@endif
+function add_ceros($numero, $ceros) {
+    $digitos = strlen($numero);
+    $recibo = "";
+    for ($i = 0; $i < 8 - $digitos; $i++) {
+        $recibo .= "0";
+    }
+    return $recibo . $numero;
+}
+$cntser = 0;
+?>
+
+<style type="text/css">
+    hr {
+        height: 1px;
+        background-color: black;
+        margin: 2px auto;
+    }
+
+    .separador-corte {
+        border-top: 1px dashed #000;
+        margin: 4px 0;
+        text-align: center;
+        position: relative;
+    }
+
+    .separador-corte span {
+        background: #fff;
+        padding: 0 5px;
+        position: relative;
+        top: -8px;
+        font-size: 9px;
+    }
+
+    /* ESTILOS EXCLUSIVOS PARA IMPRESIÓN */
+    @media print {
+        @page {
+            size: letter portrait; /* Forzar tamaño Carta en vertical */
+            margin: 0.3cm;         /* Margen exterior mínimo */
+        }
+
+        /* Ocultar elementos de la interfaz */
+        .no-print, .main-footer, .main-header, .main-sidebar, .btn, .navbar, nav {
+            display: none !important;
+        }
+
+        html, body {
+            height: 100% !important;
+            max-height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #fff !important;
+            font-size: 9.5px !important;
+            overflow: hidden !important;
+        }
+
+        /* Contenedor principal rígido */
+        #area-impresion {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            height: 98vh !important; /* Llena casi la totalidad de la hoja */
+            max-height: 98vh !important;
+            box-sizing: border-box !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            overflow: hidden !important;
+        }
+
+        /* Cada una de las 2 copias */
+        .copia-recibo {
+            height: 48% !important; /* Ocupa exactamente la mitad disponible */
+            max-height: 48% !important;
+            overflow: hidden !important; /* Evita desbordamiento que cree pag 2 */
+            box-sizing: border-box !important;
+            padding: 2px 5px !important;
+        }
+
+        /* Compactar encabezados y márgenes internos */
+        .copia-recibo h4, .copia-recibo h6 {
+            font-size: 11px !important;
+            margin-bottom: 2px !important;
+        }
+
+        .copia-recibo p {
+            margin-bottom: 2px !important;
+        }
+
+        /* Compactar tablas */
+        .copia-recibo table {
+            font-size: 9px !important;
+            width: 100% !important;
+        }
+
+        .copia-recibo th, .copia-recibo td {
+            padding: 1px 3px !important; /* Muy compacto para ahorrar espacio vertical */
+            line-height: 1.1 !important;
+        }
+
+        .separador-corte {
+            display: block !important;
+            margin: 2px 0 !important;
+        }
+    }
+</style>
+</style>
+
+<div class="invoice p-3 mb-3" id="area-impresion">
+    
+    {{-- BUCLE DE 2 VUELTAS: ORIGINAL Y COPIA --}}
+    @for ($copia = 1; $copia <= $empresa->ncopias; $copia++)
+    <div class="copia-recibo">
+        
+        <!-- Identificador de copia -->
+        <div class="row">
+            <div class="col-12">
+                <small class="float-right"><b>{{ $copia == 1 ? 'ORIGINAL' : 'COPIA' }}</b></small>
+                <h4>
+                    <img src="{{asset('dist/img/iconosistema.png')}}" title="NKS" width="24"> SysVent@s
+                </h4>
+            </div>
         </div>
-	</div>
+
+        <!-- Info empresa -->
+        <div class="row invoice-info">
+            @include('ventas.venta.empresa')
+        </div>
+
+        <!-- Info cliente -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<table width="100%" border="1"  style="line-height:82%">
+	<tr><td><small><b>DOCUMENTO: {{$empresa->ncopias}}</small></b><?php  $idv=$venta->idventa; echo "NOT".add_ceros($idv,$ceros); ?></td><td><td><small><b>FECHA DE EMISION: </small></b><?php echo date("d-m-Y",strtotime($venta->fecha_hora)); ?></td><td><small><b>CONDICION: </small></b>{{$venta->estado}}@if($venta->estado == "Credito") {{$venta->diascredito}}Dias  @endif</td></tr>
+	<tr><td colspan="4"><small><b>NOMBRE Y APELLIDO O RAZON SOCIAL: </b> </small> {{$venta->rif}} -> {{$venta->nombre}} <b>TELF: </b> {{$venta->telefono}}</td></tr>
+	<tr><td colspan="4"  width="50%"><small><b>DOMICILIO FISCAL: </b> {{$venta->direccion}} </small><b>VENDEDOR: </b> {{$venta->vendedor}}@if($venta->obs != NULL)<b>Obs.:</b> {{$venta->obs}}   @endif</td></tr>
+	</table>
+            </div>
+        </div>
+
+        <!-- Detalles de la venta -->
+        <div class="row">
+            <div class="col-md-12">
+                <table id="detalles" width="100%"  style="line-height:82%">
+                    <thead style="background-color: #A9D0F5"> 
+                        <th>Artículo</th>
+                        <th>Cantidad</th>
+                        <th>Unidad</th>
+                        <th>Precio</th>
+                        <th>Subtotal</th>
+                    </thead>
+                    <tbody>
+                        @foreach($detalles as $det)
+                            @if ($det->cantidad > 0)
+                            <tr>
+                                <td>{{$det->articulo}}</td>
+                                <td>{{$det->cantidad}}</td>
+                                <td>{{$det->unidad}}</td>
+                                <td><?php echo number_format($det->precio_venta, 2, ',', '.'); ?></td>
+                                <td><?php echo number_format(($det->cantidad * $det->precio_venta), 2, ',', '.'); ?></td>
+                            </tr>
+                            @endif
+                        @endforeach
+
+                        @if($venta->descuento > 0)
+                            <tr>
+                                <td colspan="3"></td>
+                                <td>Descto.</td>
+                                <td>-{{$venta->descuento}}</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                    <tfoot> 
+                        <tr>
+                            <th colspan="4" class="text-right">TOTAL:</th>
+                            <th><b><font size="3"><?php echo " $ " . number_format($venta->total_venta, 2, ',', '.'); ?></font></b></th>
+                        </tr>
+                    </tfoot> 
+                </table>
+                <hr>
+            </div> 
+
+            <!-- Desglose de Pago -->
+            @if(count($recibos) > 0)
+            <div class="col-6">
+                <h6 align="center">Desglose de pago</h6>
+                <table width="100%"  style="line-height:80%">
+                    <thead style="background-color: #A9D0F5"> 
+                        <th>Tipo</th>
+                        <th>Monto</th>
+                        <th>Tasa</th>
+                        <th>Monto$</th>
+                        <th>Ref.</th> 
+                    </thead> 
+                    <tbody> 
+                        <?php $acum_copia = 0; ?>
+                        @foreach($recibos as $re) 
+                            <?php $acum_copia += $re->monto; ?>
+                            <tr>
+                                <td>{{$re->idbanco}}</td>
+                                <td><?php echo number_format($re->recibido, 2, ',', '.'); ?></td>
+                                <td>
+                                    <?php 
+                                        if ($re->idpago == 2) { echo number_format($re->tasap, 2, ',', '.'); }
+                                        if ($re->idpago == 3) { echo number_format($re->tasab, 2, ',', '.'); }
+                                    ?>
+                                </td>
+                                <td><?php echo number_format($re->monto, 2, ',', '.'); ?></td>
+                                <td>{{$re->referencia}}</td> 
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot> 
+                        <tr>
+                            <th colspan="3">Total</th>
+                            <th><?php echo "$ " . number_format($acum_copia, 2, ',', '.'); ?></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            @endif
+        </div>
+    </div>
+
+    <!-- Línea divisoria de corte solo entre la 1ra y 2da copia -->
+    @if($copia == 1)
+        <div class="separador-corte no-print">
+          
+        </div>
+    @endif
+
+    @endfor
+
+    <!-- BOTONERA (Oculta al imprimir) -->
+    <input type="hidden" name="ruta" id="ruta" value="<?php echo ($ruta == 1) ? 'ventas' : 'edocuenta/' . $venta->id_cliente; ?>">
+    
+    <div class="row no-print mt-3">
+        @if(Auth::user()->nivel == "A")
+            <div class="col-12 text-center">
+                <button type="button" id="regresar" class="btn btn-danger btn-sm">Regresar</button>
+                <button type="button" id="nventa" class="btn btn-info btn-sm">Facturar</button>
+                <button type="button" id="imprimir" class="btn btn-primary btn-sm">Imprimir</button>
+            </div> 
+        @else
+            <div class="col-12 text-center">
+                <button type="button" id="regresarvc" class="btn btn-danger btn-sm">Regresar</button>
+                <button type="button" id="nventavc" class="btn btn-info btn-sm">Facturar</button> 
+                <button type="button" id="imprimirvc" class="btn btn-primary btn-sm">Imprimir</button>
+            </div> 
+        @endif
+    </div>
+</div>
+
 @push ('scripts')
 <script>
 $(document).ready(function(){
-    $('#imprimir').click(function(){
-  //  alert ('si');
-  document.getElementById('imprimir').style.display="none";
-  document.getElementById('regresar').style.display="none";
-  document.getElementById('nventa').style.display="none";
-  window.print(); 
-window.location.href="/{{$ruta}}";
+    
+    function ejecutarImpresion() {
+        // Ejecutar diálogo de impresión de navegador
+        window.print();
+        
+        // Redireccionar al terminar
+        var ruta = $('#ruta').val();
+        window.location.href = "/" + ruta;
+    }
+
+    $('#imprimir, #imprimirvc').click(function(){
+        ejecutarImpresion();
     });
-$('#regresar').on("click",function(){
-window.location.href="/{{$ruta}}";
-  
-});
-    $('#imprimirvc').click(function(){
-  //  alert ('si');
-  document.getElementById('imprimirvc').style.display="none";
-  document.getElementById('regresarvc').style.display="none";
-  document.getElementById('nventavc').style.display="none";
-  window.print(); 
-window.location.href="/{{$ruta}}";
+
+    $('#regresar, #regresarvc').on("click", function(){
+        var ruta = $('#ruta').val();
+        window.location.href = "/" + ruta;
     });
-$('#regresarvc').on("click",function(){
-window.location.href="/{{$ruta}}";
-  
-});
-$('#nventavc').on("click",function(){
-window.location.href="/newventa";
-  
-});
-$('#nventa').on("click",function(){
-window.location.href="/newventa";
-  
-});
+
+    $('#nventa, #nventavc').on("click", function(){
+        window.location.href = "/newventa";
+    });
 });
 </script>
 @endpush

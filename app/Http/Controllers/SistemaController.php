@@ -216,6 +216,7 @@ class SistemaController extends Controller
         $emp->uuid=$request->get('uuid');
         $emp->tasaespecial=$request->get('tasaajuste');
         $emp->formatot=$request->get('formato');
+        $emp->ncopias=$request->get('ncopias');
 		if($request->get('usaserie')){
         $emp->serie=$request->get('usaserie');}else{
 			$emp->serie="A";
@@ -239,6 +240,7 @@ class SistemaController extends Controller
 		if($request->get('mrif')=="on"){$emp->mrif=1;}else{$emp->mrif=0;}
 		if($request->get('mcobro')=="on"){$emp->mcobro=1;}else{$emp->mcobro=0;}
 		if($request->get('usap')=="on"){$emp->usaproduccion=1;}else{$emp->usaproduccion=0;}
+		if($request->get('usamem')=="on"){$emp->usamembresia=1;}else{$emp->usamembresia=0;}
         $emp->update();
 		
             $query2=trim($request->get('vencimiento'));

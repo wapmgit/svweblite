@@ -41,6 +41,7 @@ $this->middleware('auth');
 			->groupby('p.idproveedor')
 			->where('i.saldo','>',0)
 			->paginate(20);
+		
 			$gastos=DB::table('gastos as g')
 			->join('proveedores as p','p.idproveedor','=','g.idpersona')
 			->select(DB::raw('SUM(g.saldo) as tpendiente'),'p.idproveedor','p.nombre','p.rif','p.telefono')
@@ -49,7 +50,8 @@ $this->middleware('auth');
 			->groupby('p.idproveedor')
 			->where('g.saldo','>',0)
 			->where('g.estatus','=',0)
-			->paginate(20);
+			->paginate(20);	
+			//dd($proveedores);
 		return view('proveedores.pagar.index',["empresa"=>$empresa,"rol"=>$rol,"proveedores"=>$proveedores,"gastos"=>$gastos,"searchText"=>$query]);
 		}
 	}
