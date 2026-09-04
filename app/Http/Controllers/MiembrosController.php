@@ -226,4 +226,23 @@ class MiembrosController extends Controller
 		}
 			
 	}
+
+		public function reportealtcobro(Request $request)
+    {
+		$rol=DB::table('roles')-> select('iduser')->where('iduser','=',$request->user()->id)->first();	
+		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();				
+					$corteHoy = date("Y-m-d");
+		$query2=date("Y-m-d",strtotime($corteHoy."+ 4 days"));
+		//dd($query2);
+			$clientes=DB::table('miembros')
+			->join('clientes','clientes.id_cliente','=','miembros.idcliente')
+			->where('miembros.estatus',0)
+			->where('clientes.idempresa',$empresa->idempresa)
+			->where('miembros.ult_pago','<',$query2)
+			->orderby('clientes.nombre','asc')
+			->get();
+			//dd($clientes);
+			return view('miembros.reporte.alertcobros',["clientes"=>$clientes,"empresa"=>$empresa]);
+            
+    }
 }

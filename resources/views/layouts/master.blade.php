@@ -332,13 +332,19 @@
               <li class="nav-item">
                 <a href="{{route('reportemiembros')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte</p>
+                  <p>Reporte Menbresia</p>
                 </a>
               </li>
 			  <li class="nav-item">
                 <a href="{{route('reporteingresosm')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ingresos</p>
+                </a>
+              </li>
+			   <li class="nav-item">
+                <a href="{{route('reportealtcobro')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Alerta Cobranza</p>
                 </a>
               </li>
             </ul>
