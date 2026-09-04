@@ -9,7 +9,7 @@
                 <!-- /.col -->
 	<div class="col-sm-3 invoice-col">
 		<h4 align="center"><u>  NOTA DE ENTREGA </u></h4><div align="center">
-		CONTROL {{$venta->control}}
+		 @if($venta->control != "00") CONTROL {{$venta->control}} @endif
 		<span><strong><?php if($venta->devolu>0){ echo "**Devuelta**";} ?></span></strong></div>		
 	</div>	
 	<div class="col-sm-3 invoice-col" align="center">

@@ -136,7 +136,7 @@ $cntser = 0;
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<table width="100%" border="1"  style="line-height:82%">
-	<tr><td><small><b>DOCUMENTO: {{$empresa->ncopias}}</small></b><?php  $idv=$venta->idventa; echo "NOT".add_ceros($idv,$ceros); ?></td><td><td><small><b>FECHA DE EMISION: </small></b><?php echo date("d-m-Y",strtotime($venta->fecha_hora)); ?></td><td><small><b>CONDICION: </small></b>{{$venta->estado}}@if($venta->estado == "Credito") {{$venta->diascredito}}Dias  @endif</td></tr>
+	<tr><td><small><b>DOCUMENTO:</small></b>{{$venta->tipo_comprobante}} {{$venta->serie_comprobante}} <?php  $idv=$venta->num_comprobante;; echo add_ceros($idv,$ceros); ?></td><td><td><small><b>FECHA DE EMISION: </small></b><?php echo date("d-m-Y",strtotime($venta->fecha_hora)); ?></td><td><small><b>CONDICION: </small></b>{{$venta->estado}}@if($venta->estado == "Credito") {{$venta->diascredito}}Dias  @endif</td></tr>
 	<tr><td colspan="4"><small><b>NOMBRE Y APELLIDO O RAZON SOCIAL: </b> </small> {{$venta->rif}} -> {{$venta->nombre}} <b>TELF: </b> {{$venta->telefono}}</td></tr>
 	<tr><td colspan="4"  width="50%"><small><b>DOMICILIO FISCAL: </b> {{$venta->direccion}} </small><b>VENDEDOR: </b> {{$venta->vendedor}}@if($venta->obs != NULL)<b>Obs.:</b> {{$venta->obs}}   @endif</td></tr>
 	</table>
