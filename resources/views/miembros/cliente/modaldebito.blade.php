@@ -37,8 +37,10 @@ role="dialog" tabindex="-1" id="modaldebito">
 					</div>
 		  <div class ="row" id="divdesglose">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<h3 align="center">TOTAL <input type="number" id="divtotal" value="1" disabled ><span id="pasapago" title="haz click para hacer cobro total">RESTA</span> <input type="number" id="resta" disabled value="1">
-					<input type="hidden" name="tdeuda" id="tdeuda" value=""  >		
+					<h3 align="center">TOTAL <input type="number" id="divtotal" value="1" disabled >
+					<span id="pasapago" title="haz click para hacer cobro total">RESTA</span>
+					<input type="number" id="resta" disabled value="1">
+					<input type="hidden" name="tdeuda" id="tdeuda" value=""  >		</h3>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 					<div class="form-group">
