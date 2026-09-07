@@ -168,6 +168,7 @@ Route::get('reporteingresosm', [MiembrosController::class, 'reporteingresosm'])-
 Route::get('editmiembro/{id}', [MiembrosController::class, 'edit'])->name('editmiembro');
 Route::get('updatemiembro', [MiembrosController::class, 'update'])->name('updatemiembro');
 Route::get('reportealtcobro', [MiembrosController::class, 'reportealtcobro'])->name('reportealtcobro');
+Route::get('pagoeventual', [MiembrosController::class, 'pagoeventual'])->name('pagoeventual');
 //cxc
 Route::get('cxc', [CxcobrarController::class, 'index'])->name('cxc');
 Route::get('showcxc/{id}', [CxcobrarController::class, 'show'])->name('showcxc');

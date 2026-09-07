@@ -80,6 +80,21 @@ return $insertar_ceros = $recibo.$numero;
 					</tr>
 					<tr>  
 					@endforeach
+							@foreach ($cobroeve as $cob)
+					<?php  $tcobranza=$tcobranza+$cob->monto;?> 		 
+					<tr>
+						<td><?php $idv=$cob->idrecibo; echo add_ceros($idv,$ceros); ?></td>
+						<td>{{$cob->nombre}}</td>
+						<td><?php  echo$cob->idbanco; ?></td>
+						<td><?php echo number_format($cob->recibido, 2,',','.'); ?></td>
+						<td><?php  echo number_format($cob->monto, 2,',','.')." $"; ?></td>
+						<td>{{$cob->referencia}}</td>
+
+						<td><?php echo date("d-m-Y",strtotime($cob->fecharecibo)); ?></td>
+
+					</tr>
+					<tr>  
+					@endforeach
 					<tr>    
 						<td colspan="4"><strong>Total Ingresos Cobranza</strong></td>
 						<td colspan="3"><strong><?php  echo number_format($tcobranza, 2,',','.'); ?> $</strong></td></tr>
@@ -87,7 +102,7 @@ return $insertar_ceros = $recibo.$numero;
 		   
 			
 			</div>
-		<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12"><h5 align="center">Desglose de Ingresos</h5>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><h5 align="center">Desglose de Ingresos</h5>
 	    <table width="100%">
 			<thead style="background-color: #E6E6E6" >
 				<th>Moneda</th>
@@ -105,7 +120,24 @@ return $insertar_ceros = $recibo.$numero;
 
 		</table> 
 	  </div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><h5 align="center">Ingresos Eventuales</h5>
+	    <table width="100%">
+			<thead style="background-color: #E6E6E6" >
+				<th>Moneda</th>
+				<th>Recibido</th>
+				<th>Monto</th>
+			</thead>
+				@foreach ($comproeve as $co)
+					<?php   if($co->tiporecibo=="P") {?>
+				<tr>
+				<td>{{$co->idbanco}}</td>
+				<td><?php echo number_format($co->mrecibido, 2,',','.'); ?></td>
+				<td><?php  echo number_format($co->mmonto, 2,',','.')." $"; ?></td>
+				</tr>		 <?php } ?>
+				@endforeach
 
+		</table> 
+	  </div>
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 		       
 		<label>Usuario: </label>  {{ Auth::user()->name }}  
 				<div class="form-group" align="center">

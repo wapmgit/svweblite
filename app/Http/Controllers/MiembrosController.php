@@ -32,8 +32,9 @@ class MiembrosController extends Controller
 			->where('cli.idempresa',$empresa->idempresa)
 			->orderBy('cli.id_cliente','desc')
 			->paginate(20);
-
-			return view('miembros.cliente.index',["rol"=>$rol,"pacientes"=>$pacientes,"empresa"=>$empresa,"searchText"=>$query]);
+$monedas=DB::table('monedas')-> where ('idempresa',$empresa->idempresa)->get();
+$clientes=DB::table('clientes')->where('idempresa','=',$empresa->idempresa)->get();
+			return view('miembros.cliente.index',["clientes"=>$clientes,"monedas"=>$monedas,"rol"=>$rol,"pacientes"=>$pacientes,"empresa"=>$empresa,"searchText"=>$query]);
 		}
 	}
 		public function create(Request $request)
@@ -208,6 +209,13 @@ class MiembrosController extends Controller
             -> whereBetween('re.fecharecibo', [$query, $query2])
 			-> groupby('re.idrecibo','re.idbanco')
             ->get();
+			$cobroeve=DB::table('recibosm as re')
+			->join('clientes','clientes.id_cliente','=','re.idnota')
+			-> select('clientes.nombre','re.referencia','re.tiporecibo','re.idbanco','re.idpago','re.idrecibo','re.monto','re.recibido','re.fecharecibo')    
+			-> where('clientes.idempresa','=',$empresa->idempresa)
+            -> whereBetween('re.fecharecibo', [$query, $query2])
+			-> groupby('re.idrecibo','re.idbanco')
+            ->get();
 			//dd($cobranza);
             $comprobante=DB::table('recibosm')
 			->join('miembros as mi','mi.idmiembro','=','recibosm.idmiembro' )
@@ -216,10 +224,17 @@ class MiembrosController extends Controller
 			-> whereBetween('fecha', [$query, $query2])
             ->groupby('idpago','idbanco','tiporecibo')
             ->get();
+			  $comproeve=DB::table('recibosm')
+				->join('clientes','clientes.id_cliente','=','recibosm.idnota')
+            -> select(DB::raw('sum(recibido) as mrecibido'),DB::raw('sum(monto) as mmonto'),'idbanco','tiporecibo')        
+            -> where('clientes.idempresa','=',$empresa->idempresa)
+			-> whereBetween('fecha', [$query, $query2])
+            ->groupby('idpago','idbanco','tiporecibo')
+            ->get();
 		   	//
 
 		   $query2=date("Y-m-d",strtotime($query2."- 1 days"));
-			return view('miembros.cliente.indexcobros',["cobranza"=>$cobranza,"comprobante"=>$comprobante,"empresa"=>$empresa,"searchText"=>$query,"searchText2"=>$query2]);
+			return view('miembros.cliente.indexcobros',["cobroeve"=>$cobroeve,"comproeve"=>$comproeve,"cobranza"=>$cobranza,"comprobante"=>$comprobante,"empresa"=>$empresa,"searchText"=>$query,"searchText2"=>$query2]);
 			   } else { 
 			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 			}
@@ -244,5 +259,43 @@ class MiembrosController extends Controller
 			//dd($clientes);
 			return view('miembros.reporte.alertcobros',["clientes"=>$clientes,"empresa"=>$empresa]);
             
+    }
+		public function pagoeventual (Request $request)
+    {
+	//	dd($request);
+		$user=Auth::user()->name;
+		//dd($tipodoc);
+			
+			// inserta el recibo
+          $idpago=$request->get('tidpago');
+           $idbanco=$request->get('tidbanco');
+		   $denomina=$request->get('denominacion');
+           $tmonto=$request->get('tmonto');
+           $tref=$request->get('tref');				   
+           $contp=0;
+			while($contp < count($idpago)){
+				$recibo=new Recibosm;
+				$recibo->idmiembro=0;
+				if($request->get('tdeuda')>0){
+				$recibo->tiporecibo='P'; }else{$recibo->tiporecibo='P'; }
+				$recibo->idnota=$request->get('id_cliente');
+				$recibo->idpago=$idpago[$contp];
+				$recibo->id_banco=0;
+				$recibo->idbanco=$idbanco[$contp];
+				$recibo->recibido=$denomina[$contp];			
+				$recibo->monto=$tmonto[$contp]; 
+				$recibo->referencia=$tref[$contp]."".$request->get('hrs')."Hr*".$request->get('monto')."$";
+				$recibo->tasap=0;
+				$recibo->tasab=0;
+				$recibo->aux=$request->get('tdeuda');
+				$mytime=Carbon::now('America/Caracas');
+				$recibo->fecha=$mytime->toDateTimeString();	
+				$recibo->fecharecibo=$mytime->toDateTimeString();
+				$recibo->usuario=$user;				
+				$recibo->save();
+				$contp=$contp+1;
+			  } 
+
+	return Redirect::to('membresia');
     }
 }
