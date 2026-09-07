@@ -36,12 +36,19 @@ role="dialog" tabindex="-1" id="modaldebito">
             		</div>
 					</div>
 		  <div class ="row" id="divdesglose">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<h3 align="center">TOTAL <input type="number" id="divtotal" value="1" disabled >
-					<span id="pasapago" title="haz click para hacer cobro total">RESTA</span>
-					<input type="number" id="resta" disabled value="1">
-					<input type="hidden" name="tdeuda" id="tdeuda" value=""  >		</h3>
-				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+        <h3 style="margin-top: 0; margin-bottom: 5px;">TOTAL</h3>
+        <input type="number" id="divtotal" value="1" disabled class="form-control input-lg text-center" style="display: inline-block; width: 100%; max-width: 140px;">
+    </div>
+
+    <!-- Segunda columna: RESTA -->
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+        <h3 style="margin-top: 0; margin-bottom: 5px;">
+            <span id="pasapago" style="cursor: pointer;" title="haz click para hacer cobro total">RESTA</span>
+        </h3>
+        <input type="number" id="resta" disabled value="1" class="form-control input-lg text-center" style="display: inline-block; width: 100%; max-width: 140px;">
+        <input type="hidden" name="tdeuda" id="tdeuda" value="">      
+    </div>
 				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 					<div class="form-group">
 					<select name="pidpago" id="pidpago" class="form-control">
