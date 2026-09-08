@@ -412,12 +412,12 @@
                   <p>Cuentas por Cobrar</p>
                 </a>
               </li>
-				<!-- <li class="nav-item">
-                <a href="{{route('reportecxcv')}}" class="nav-link">
+				<li class="nav-item">
+                <a href="{{route('reportecxcvencida')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Cuentas por Vendedor</p>
+                  <p><small>Vencimiento por Cobros</small></p>
                 </a>
-              </li> -->
+              </li>
 			  <li class="nav-item">
                 <a href="{{route('utilidadventas')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

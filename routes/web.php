@@ -205,6 +205,7 @@ Route::get('cajaventas', [ReportesventasController::class, 'cajaventas'])->name(
 Route::get('ventacaja', [ReportesventasController::class, 'ventacaja'])->name('ventacaja');
 Route::get('libroventas', [ReportesventasController::class, 'librov'])->name('libroventas');
 Route::get('correlativof', [ReportesventasController::class, 'correlativo'])->name('correlativof');
+Route::get('reportecxcvencida', [ReportesventasController::class, 'reportecxcvencida'])->name('reportecxcvencida');
 //informes compras
 Route::get('resumencompras', [ReportescomprasController::class, 'compras'])->name('resumencompras');
 Route::get('resumengastos', [ReportescomprasController::class, 'gastos'])->name('resumengastos');
