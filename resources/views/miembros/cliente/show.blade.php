@@ -56,7 +56,7 @@ $fserver=date('Y-m-d');
 			</address>
 	</div>
 				 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 ">
-		<h3 align="center"><u>  Estado de Cuenta </u></h3>		
+		<h4 align="center"><u>  Estado de Cuenta Membresia </u></h4>		
 	</div>	
 	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 " align="center">
 <img src="{{ asset('dist/img/'.$empresa->logo)}}" width="60%" height="90%" title="NKS">

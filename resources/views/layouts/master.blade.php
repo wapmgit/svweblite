@@ -332,7 +332,7 @@
               <li class="nav-item">
                 <a href="{{route('reportemiembros')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte Menbresia</p>
+                  <p>Reporte Membresía</p>
                 </a>
               </li>
 			  <li class="nav-item">
