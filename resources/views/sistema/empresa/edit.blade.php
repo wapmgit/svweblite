@@ -152,7 +152,8 @@
                     </td>
 				</tr>
                   <tr>
-                    <td colspan="2">Mostrar: Direccion <input type="checkbox" name="mdir" <?Php if($empresa->mdireccion==1){ echo "checked"; }?>>
+                    <td colspan="2">Mostrar: Nombre <input type="checkbox" name="mnombre" <?Php if($empresa->mnombre==1){ echo "checked"; }?>>
+					Direccion <input type="checkbox" name="mdir" <?Php if($empresa->mdireccion==1){ echo "checked"; }?>>
                 Telefono <input type="checkbox" name="mtel" <?Php if($empresa->mtel==1){ echo "checked"; }?> >    
                 Rif <input type="checkbox" name="mrif" <?Php if($empresa->mrif==1){ echo "checked"; }?>>
                     Cobranza <input type="checkbox"  name="mcobro" <?Php if($empresa->mcobro==1){ echo "checked"; }?>> </td>

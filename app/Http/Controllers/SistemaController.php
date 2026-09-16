@@ -235,6 +235,7 @@ class SistemaController extends Controller
 		if($request->get('formal')=="on"){$emp->fl=1;}else{$emp->fl=0;}
 		if($request->get('actcosto')=="on"){$emp->actcosto=1;}else{$emp->actcosto=0;}
 		if($request->get('serie')=="on"){$emp->usaserie=1;}else{$emp->usaserie=0;}
+		if($request->get('mnombre')=="on"){$emp->mnombre=1;}else{$emp->mnombre=0;}
 		if($request->get('mdir')=="on"){$emp->mdireccion=1;}else{$emp->mdireccion=0;}
 		if($request->get('mtel')=="on"){$emp->mtel=1;}else{$emp->mtel=0;}
 		if($request->get('mrif')=="on"){$emp->mrif=1;}else{$emp->mrif=0;}
