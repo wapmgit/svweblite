@@ -37,7 +37,15 @@ $cntser = 0;
         top: -8px;
         font-size: 9px;
     }
-
+     html, body {
+            height: 100% !important;
+            max-height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #fff !important;
+            font-size: 20px !important;
+           
+        }
     /* ESTILOS EXCLUSIVOS PARA IMPRESIÓN */
     @media print {
         @page {
@@ -50,15 +58,6 @@ $cntser = 0;
             display: none !important;
         }
 
-        html, body {
-            height: 100% !important;
-            max-height: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            background: #fff !important;
-            font-size: 11px !important;
-            overflow: hidden !important;
-        }
 
         /* Contenedor principal rígido */
         #area-impresion {
@@ -84,7 +83,7 @@ $cntser = 0;
 
         /* Compactar encabezados y márgenes internos */
         .copia-recibo h4, .copia-recibo h6 {
-            font-size: 12px !important;
+            font-size: 20px !important;
             margin-bottom: 2px !important;
         }
 
@@ -94,7 +93,7 @@ $cntser = 0;
 
         /* Compactar tablas */
         .copia-recibo table {
-            font-size: 11px !important;
+            font-size: 18px !important;
             width: 100% !important;
         }
 
@@ -109,7 +108,7 @@ $cntser = 0;
         }
     }
 </style>
-</style>
+
 
 <div class="invoice p-3 mb-3" id="area-impresion">
     
@@ -129,7 +128,7 @@ $cntser = 0;
 
         <!-- Info empresa -->
         <div class="row invoice-info">
-            	<div class="col-sm-6 invoice-col">
+            	<div class="col-sm-4 invoice-col">
 	
 			<address>@if($empresa->mnombre==1){{$empresa->nombre}} @endif
 			<strong>@if($empresa->mrif==1) {{$empresa->rif}} @endif</strong><br>
@@ -138,14 +137,14 @@ $cntser = 0;
 			</address>
 	</div>
                 <!-- /.col -->
-	<div class="col-sm-3 invoice-col">
+	<div class="col-sm-6 invoice-col">
 		<h4 align="center"><u>  NOTA DE ENTREGA </u></h4><div align="center">
 		 @if($venta->control != "00") CONTROL {{$venta->control}} @endif
 		 <?php echo "Emision: ".date("d-m-Y",strtotime($venta->fecha_hora)); ?> {{$venta->estado}}@if($venta->estado == "Credito") {{$venta->diascredito}}Dias  @endif
 		NOT-{{$venta->serie_comprobante}}<?php  $idv=$venta->num_comprobante; echo add_ceros($idv,$ceros); ?>
 		<span><strong><?php if($venta->devolu>0){ echo "**Devuelta**";} ?></span></strong></div>		
 	</div>	
-	<div class="col-sm-3 invoice-col" align="center">
+	<div class="col-sm-2 invoice-col" align="center">
 <img src="{{ asset('dist/img/'.$empresa->logo)}}" width="50%" height="80%" title="NKS">
 	</div>
         </div>
