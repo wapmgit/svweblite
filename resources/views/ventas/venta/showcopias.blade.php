@@ -56,7 +56,7 @@ $cntser = 0;
             margin: 0 !important;
             padding: 0 !important;
             background: #fff !important;
-            font-size: 10.5px !important;
+            font-size: 11px !important;
             overflow: hidden !important;
         }
 
@@ -84,7 +84,7 @@ $cntser = 0;
 
         /* Compactar encabezados y márgenes internos */
         .copia-recibo h4, .copia-recibo h6 {
-            font-size: 11px !important;
+            font-size: 12px !important;
             margin-bottom: 2px !important;
         }
 
@@ -94,7 +94,7 @@ $cntser = 0;
 
         /* Compactar tablas */
         .copia-recibo table {
-            font-size: 9px !important;
+            font-size: 11px !important;
             width: 100% !important;
         }
 
