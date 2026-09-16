@@ -129,14 +129,32 @@ $cntser = 0;
 
         <!-- Info empresa -->
         <div class="row invoice-info">
-            @include('ventas.venta.empresa')
+            	<div class="col-sm-6 invoice-col">
+	
+			<address>@if($empresa->mnombre==1){{$empresa->nombre}} @endif
+			<strong>@if($empresa->mrif==1) {{$empresa->rif}} @endif</strong><br>
+					@if($empresa->mdireccion==1) {{$empresa->direccion}} @endif<br>
+				@if($empresa->mtel==1)	Tel: {{$empresa->telefono}} @endif<br>
+			</address>
+	</div>
+                <!-- /.col -->
+	<div class="col-sm-3 invoice-col">
+		<h4 align="center"><u>  NOTA DE ENTREGA </u></h4><div align="center">
+		 @if($venta->control != "00") CONTROL {{$venta->control}} @endif
+		 <?php echo "Emision: ".date("d-m-Y",strtotime($venta->fecha_hora)); ?> {{$venta->estado}}@if($venta->estado == "Credito") {{$venta->diascredito}}Dias  @endif
+		NOT-{{$venta->serie_comprobante}}<?php  $idv=$venta->num_comprobante; echo add_ceros($idv,$ceros); ?>
+		<span><strong><?php if($venta->devolu>0){ echo "**Devuelta**";} ?></span></strong></div>		
+	</div>	
+	<div class="col-sm-3 invoice-col" align="center">
+<img src="{{ asset('dist/img/'.$empresa->logo)}}" width="50%" height="80%" title="NKS">
+	</div>
         </div>
 
         <!-- Info cliente -->
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<table width="100%" border="1" >
-	<tr><td><small><b>DOCUMENTO:</small></b>{{$venta->tipo_comprobante}} {{$venta->serie_comprobante}} <?php  $idv=$venta->num_comprobante;; echo add_ceros($idv,$ceros); ?></td><td><td><small><b>FECHA DE EMISION: </small></b><?php echo date("d-m-Y",strtotime($venta->fecha_hora)); ?></td><td><small><b>CONDICION: </small></b>{{$venta->estado}}@if($venta->estado == "Credito") {{$venta->diascredito}}Dias  @endif</td></tr>
+	
 	<tr><td colspan="4"><small><b>NOMBRE Y APELLIDO O RAZON SOCIAL: </b> </small> {{$venta->rif}} -> {{$venta->nombre}} <b>TELF: </b> {{$venta->telefono}}</td></tr>
 	<tr><td colspan="4"  width="50%"><small><b>DOMICILIO FISCAL: </b> {{$venta->direccion}} </small><b>VENDEDOR: </b> {{$venta->vendedor}}@if($venta->obs != NULL)<b>Obs.:</b> {{$venta->obs}}   @endif</td></tr>
 	</table>
