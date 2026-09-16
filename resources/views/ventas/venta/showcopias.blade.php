@@ -56,7 +56,7 @@ $cntser = 0;
             margin: 0 !important;
             padding: 0 !important;
             background: #fff !important;
-            font-size: 9.5px !important;
+            font-size: 10.5px !important;
             overflow: hidden !important;
         }
 
