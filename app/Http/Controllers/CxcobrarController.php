@@ -167,8 +167,9 @@ $this->middleware('auth');
 		return Redirect::to('cxc');
 	}
 	public function multiple (Request $request){
-		//dd($request);
+
 		$user=Auth::user()->name;
+		$tmabono=$request->get('montom');
 		$ventas=DB::table('venta as ve')
             -> select('ve.idventa as cod','ve.saldo')
             -> where ('ve.idcliente','=',$request->get('cliente'))
@@ -202,7 +203,7 @@ $this->middleware('auth');
 					$recibe=$saldo/$moneda[2];}else{
 					$recibe=$saldo*$moneda[2];}
 				$recibo->recibido=$recibe;
-				$recibo->referencia="Pago Multiple";
+				$recibo->referencia="Pago Multiple ".$tmabono;
 				 $recibo->id_banco=0;
 				 $recibo->tasab=0;
 				 $recibo->tasap=0;
@@ -246,7 +247,7 @@ $this->middleware('auth');
 				if($moneda[1]==2){		
 				$recibo->recibido=$abono/$moneda[2];}else{
 				$recibo->recibido=$abono*$moneda[2];}
-            $recibo->referencia="Pago Multiple";
+            $recibo->referencia="Pago Multiple ".$tmabono;
 			$recibo->id_banco=0;
              $recibo->tasab=0;
 			 $recibo->tasap=0;

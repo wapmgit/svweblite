@@ -120,7 +120,7 @@ return $dias;
 				
 					@foreach($pagos as $p)
 					<?php if($cat->idventa==$p->idventa){ ?>
-					<tr style="line-height:80%"><td></td><td colspan="4"><small>------------> Recibo-{{$p->idrecibo}} <?php echo date("d-m-Y",strtotime($p->fecha)); ?></small></td><td colspan="4"><small>{{$p->idbanco}}->{{$p->recibido}}->{{$p->monto}}$ <?php echo "(".dias_pasados($cat->fecha_hora,$p->fecha)." dias)"; ?></small></td><td></td><td></td></tr>
+					<tr style="line-height:80%"><td></td><td colspan="4"><small>------------> Recibo-{{$p->idrecibo}} <?php echo date("d-m-Y",strtotime($p->fecha)); ?></small></td><td colspan="4"><small>{{$p->idbanco}}->{{$p->recibido}}->{{$p->monto}}$ <?php echo "(".dias_pasados($cat->fecha_hora,$p->fecha)." dias)".$p->referencia; ?></small></td><td></td><td></td></tr>
 					<?php } ?>
 					@endforeach
 				@endforeach
