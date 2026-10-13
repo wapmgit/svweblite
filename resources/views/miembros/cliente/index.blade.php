@@ -40,12 +40,14 @@
 					<td><small><small> <?php echo substr( $cat->direccion, 0, 20 ); ?></small></small></td>
 					<td><?php if($cat->ult_pago==NULL){ echo "Sin Registro"; }else{  echo date("d-m-Y",strtotime($cat->ult_pago));} ?></td>
 					<td>
-					<a href="{{route('editmiembro',['id'=>$cat->id_cliente])}}"><button class="btn btn-warning btn-xs">Editar</button></a>
-					
+					<a href="{{route('editmiembro',['id'=>$cat->id_cliente])}}"><button class="btn btn-warning btn-xs">Editar</button></a>					
 				<a href="{{route('edomienbro',['id'=>$cat->idmiembro])}}"><button class="btn btn-success btn-xs">Cuenta</button></a>	
+						<?php if($cat->estatus == 0){?><a href="" data-target="#modal_alta{{$cat->idmiembro}}" data-toggle="modal" title="Suspender Cliente"><i class="fa fa-fw fa-user-times" style="color:red"></i></a>
+					<?php }else{?><a href="" data-target="#modal_act{{$cat->idmiembro}}" data-toggle="modal" title="Activar Cliente"><i class="fa fa-fw fa-user-plus" style="color:blue"></i></a><?php } ?>
 					</td>
 				</tr>
-				
+				@include('miembros.cliente.modalalta')
+				@include('miembros.cliente.modalact')
 				@endforeach
 			</table>
 		</div>
