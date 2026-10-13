@@ -26,7 +26,7 @@ class MiembrosController extends Controller
 			$query=trim($request->get('searchText'));
 			$pacientes=DB::table('miembros')
 			->join('clientes as cli','cli.id_cliente','=','miembros.idcliente')
-			->select('miembros.idmiembro','miembros.estatus','cli.id_cliente','cli.nombre','cli.codpais','cli.telefono','cli.cedula','cli.direccion','miembros.ult_pago')
+			->select('miembros.idmiembro','miembros.estatus','cli.id_cliente','cli.nombre','cli.codpais','cli.telefono','cli.cedula','cli.direccion','miembros.fecha_inicio','miembros.ult_pago')
 			->where('cli.nombre','LIKE','%'.$query.'%')
 			->where('cli.status','A')
 			->where('cli.idempresa',$empresa->idempresa)

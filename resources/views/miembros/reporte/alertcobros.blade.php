@@ -55,6 +55,7 @@ return $dias;
 					<th>Cedula</th>
 					<th>Telefono</th>
 					<th>Direccion</th>
+					<th>Fecha Servicio</th>
 					<th>Ult. Pago</th>
 					<th>Dias</th>
 				
@@ -77,6 +78,7 @@ return $dias;
 					
 					</td>
 					<td><small><small> <?php echo substr( $cat->direccion, 0, 30 ); ?></small></small></td>
+					<td><small><?php echo date("d-m-Y",strtotime($cat->fecha_inicio)); ?></small></td>
 					<td><small><?php echo date("d-m-Y",strtotime($cat->ult_pago)); ?></small></td>
 					<td><small>			   <?php 
 							$diascre=((int)dias_pasados($fecha_actual,$cat->ult_pago));
