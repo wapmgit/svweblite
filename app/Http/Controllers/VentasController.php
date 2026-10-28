@@ -520,11 +520,12 @@ public function fbs(Request $request, $id){
 }
  public function almacena(Request $request)
     {	
-	//dd($request);
+		$rol=DB::table('roles')-> select('anularventa','iduser','ajustarventa')->where('iduser','=',$request->user()->id)->first();
+		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();
      if($request->ajax()){
 		 $paciente=new Clientes;
         $paciente->nombre=$request->get('cnombre');
-        $paciente->idempresa=$request->get('idempresa');
+        $paciente->idempresa=$empresa->idempresa;
         $paciente->cedula=$request->get('ccedula');
         $paciente->rif=$request->get('rif');
         $paciente->codpais=$request->get('codpais');
