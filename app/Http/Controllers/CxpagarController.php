@@ -175,6 +175,78 @@ $this->middleware('auth');
 			
 		return Redirect::to('showcxp/'.$request->get('idp'));
 	}
+		public function multiplep (Request $request){
+
+		$user=Auth::user()->name;
+		$tmabono=$request->get('montom');
+		$ventas=DB::table('compras as ve')
+            -> select('ve.idcompra as cod','ve.saldo')
+            -> where ('ve.idproveedor','=',$request->get('cliente'))
+			->where('ve.saldo','>',0)
+			->orderBy('ve.idcompra','asc')
+            ->get();
+		$moneda=explode("_",$request->get('pidpagom'));
+		if($moneda[1]==1){$abono=$request->get('montom')/$moneda[2];}else{
+		$abono=$request->get('montom')*$moneda[2];}
+		//dd($abono);
+		$longitud = count($ventas);
+		$array = array();
+			foreach($ventas as $t){
+			$arraycod[] = $t->cod;
+			}
+			for ($i=0;$i<$longitud;$i++){
+			$mov=Compras::findOrFail($arraycod[$i]);
+			if($abono>0){
+			$monto=$abono-$mov->saldo;
+			$saldo=$mov->saldo;
+			if($monto>0){ 	
+				$mov->saldo=0;
+				$recibo=new Comprobantes;
+				$recibo->idcompra=$arraycod[$i];
+				$recibo->idnota=0;
+				$recibo->idgasto=0;
+				$recibo->idpago=$moneda[0];
+				$recibo->idbanco=$request->get('nmoneda');		
+				$recibo->monto=$saldo;
+					if($moneda[1]==2){		
+					$recibe=$saldo/$moneda[2];}else{
+					$recibe=$saldo*$moneda[2];}
+				$recibo->recibido=$recibe;
+				$recibo->referencia="Pago Multiple ".$tmabono;
+				 $recibo->id_banco=0;
+				 $recibo->tasab=0;
+				 $recibo->tasap=0;
+				$recibo->aux=0;
+				$mytime=Carbon::now('America/Lima');
+				$recibo->fecha_comp=$mytime->toDateTimeString();
+				$recibo->save();	
+			}else{ 
+			$mov->saldo=($monto*-1);
+				$recibo=new Comprobantes;
+			$recibo->idcompra=$arraycod[$i];
+			$recibo->idnota=0;
+			$recibo->idgasto=0;
+            $recibo->idpago=$moneda[0];
+            $recibo->idbanco=$request->get('nmoneda');			
+			$recibo->monto=$abono;
+				if($moneda[1]==2){		
+				$recibo->recibido=$abono/$moneda[2];}else{
+				$recibo->recibido=$abono*$moneda[2];}
+            $recibo->referencia="Pago Multiple ".$tmabono;
+			$recibo->id_banco=0;
+             $recibo->tasab=0;
+			 $recibo->tasap=0;
+            $recibo->aux=0;
+            $mytime=Carbon::now('America/Lima');
+			$recibo->fecha_comp=$mytime->toDateTimeString();
+			$recibo->save();
+			}
+		$mov->update();
+		$abono=$monto;
+		}
+		}
+		return Redirect::to('cxp');
+	}
 	public function retenciongasto(Request $request)
     {	
 		$idret=explode("_",$request->get('idretencg'));

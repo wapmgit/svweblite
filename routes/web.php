@@ -195,6 +195,7 @@ Route::post('abonarcxp', [CxpagarController::class, 'store'])->name('abonarcxp')
 Route::get('retcompra', [CxpagarController::class, 'retencion'])->name('retcompra');
 Route::get('retgasto', [CxpagarController::class, 'retenciongasto'])->name('retgasto');
 Route::get('pagocxp', [CxpagarController::class, 'pago'])->name('pagocxp');
+Route::get('multiplecxp', [CxpagarController::class, 'multiplep'])->name('multiplecxp');
 //informes de ventas
 Route::get('resumenventas', [ReportesventasController::class, 'ventas'])->name('resumenventas');
 Route::get('cortecaja', [ReportesventasController::class, 'corte'])->name('cortecaja');

@@ -11,7 +11,7 @@ function add_ceros($numero,$ceros) {
   }
 return $insertar_ceros = $recibo.$numero;
 };
-$acum=0; $acum2=0; $acumn=0; $count=0; $contdoc=0; $link=1; $p=1;?>
+$acum=0; $acum2=0; $acumn=0; $count=0; $contdoc=0; $link=1; $p=1; $acumn=0;$acumf=0; $count2=0;?>
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 		<h3>Detalles de Cuentas por Pagar</h3>
@@ -99,7 +99,7 @@ $acum=0; $acum2=0; $acumn=0; $count=0; $contdoc=0; $link=1; $p=1;?>
 				</tr>	
 				@endforeach
 				<tr>
-				<td><strong>TOTAL:</strong></td>
+				<td>@include('proveedores.pagar.modalmultiple')<strong>TOTAL:</strong></td>
 					<td></td>
 					<td></td>
 					<td style="background-color: #A9D0F5">
@@ -107,8 +107,17 @@ $acum=0; $acum2=0; $acumn=0; $count=0; $contdoc=0; $link=1; $p=1;?>
 			
 				<td style="background-color: #A9D0F5">
 				<?php echo number_format( $acum, 2,',','.')." $"; ?></td><td>	
-				FAC:<a href="#" data-target="#modal" data-toggle="modal"title="Pago total de Facturas">
-				<?php echo number_format(($acumn), 2,',','.'); ?> </a></td>
+					<div class="btn-group">
+                    <button type="button" class="btn btn-warning btn-xs">Opciones</button>
+                    <button type="button" class="btn btn-warning dropdown-toggle dropdown-hover dropdown-icon btn-xs" data-toggle="dropdown">
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                      <a class="dropdown-item" href="#" data-target="#modal" data-toggle="modal">Pago total de Facturas: <?php echo number_format($acumn, 2,',','.'); ?></a>
+                      <a class="dropdown-item" href="#" data-target="#modalmultiple" data-toggle="modal">Abono Multiple</a>
+                    </div>
+                  </div>
+				</td>
 				</tr>
 			</table>
 		</div>
