@@ -86,7 +86,7 @@ $idv=0;
 
 	<div class ="row" id="optventa">		
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<form action="{{route('validart')}}" method="POST" id="formvisor" enctype="multipart/form-data" >         
+			<form action=""  id="formvisor" enctype="multipart/form-data" >         
         {{csrf_field()}}
 	
 				<input type="text" id="barcode" name="codigo" class="input-precio-visor" placeholder="Codigo de Barra">	
@@ -147,7 +147,14 @@ $idv=0;
 @push ('scripts')
 <script>
 $(document).ready(function(){	
-
+ $('#barcode').on('keypress', function(e) {
+    if (e.which === 13) {
+        e.preventDefault(); 
+    }
+});
+$('#formvisor').on('submit', function(e) {
+    e.preventDefault();
+});
 let barcodeTimer;
 const barcodeInput = document.getElementById('barcode'); 
 var 	bs= $("#valortasa").val();
