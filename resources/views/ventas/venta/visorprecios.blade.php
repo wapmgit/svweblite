@@ -184,7 +184,9 @@ barcodeInput.addEventListener('input', function(e) {
            $("#barcode").val("");
            $("#barcode").focus();
 		}    else{
-		$('#nameart').text('Codigo No Registrado.');
+			$('#nameart').text('Codigo No Registrado.');
+			$("#barcode").val("");
+           $("#barcode").focus();
 		}
           });
         }
