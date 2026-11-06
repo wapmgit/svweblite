@@ -70,53 +70,74 @@ $idv=0;
   border-color: #ced4da;
 }
   </style> 	
-	<div class="row" style="background-color:#f3f4f4"> 	<hr>
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"  align="right">	
-				<h1>{{$empresa->nombre}}</h1>
-			</div>
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">	
-				<img src="{{ asset('dist/img/'.$empresa->logo)}}"  class="img-circle" width="20%" height="55%" align="left">
-			</div>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<form action="{{route('guardarventa')}}" method="POST" id="formvisor" enctype="multipart/form-data" >         
+<div class="row" style="background-color: #f3f4f4; align-items: center; display: flex;">
+    
+    <!-- Columna del Nombre de la Empresa (Ocupa 10 columnas) -->
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-center">
+        <h1 style="margin: 10px 0;">{{ $empresa->nombre }}</h1>
+    </div>
+    
+    <!-- Columna del Logo (Ocupa 2 columnas) -->
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-left">
+        <img src="{{ asset('dist/img/' . $empresa->logo) }}" class="img-circle" style="max-height: 60px; width: auto;" alt="Logo Empresa">
+    </div>
+
+</div>
+
+	<div class ="row" id="optventa">		
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<form action="{{route('validart')}}" method="POST" id="formvisor" enctype="multipart/form-data" >         
         {{csrf_field()}}
 	
 				<input type="text" id="barcode" name="codigo" class="input-precio-visor" placeholder="Codigo de Barra">	
 				<input type="hidden" value="{{$empresa->tc}}" id="valortasa" name="tc"></input>
 				<input type="hidden" value="{{$empresa->peso}}" id="valortasap" name="peso"></input>	
 				</form> 
-			</div>		
-	</div>
-
-	<div class ="row" id="optventa">
-		<hr>
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<h1 align="center" id="nameart">Esperando Codigo...</h1>
 			</div>
 		<hr>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin: 25px 0;">
+        <div class="box box-default" style="padding: 20px; background-color: #fff; border-top: 3px solid #00a65a;">
+            
+            <!-- Contenedor flexible para alinear imagen y texto en horizontal -->
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                
+                <!-- Imagen del Artículo (Oculta por defecto hasta que se busque) -->
+                <div id="contenedor-img-art" style="display: none;">
+                    <img id="imgart" src="" alt="Imagen del Artículo" class="img-thumbnail" style="max-height: 100px; width: auto;">
+                </div>
+
+                <!-- Título / Descripción del Artículo -->
+                <div>
+                    <h2 id="nameart" style="margin: 0; font-weight: bold; color: #333;">Esperando Codigo...</h2>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+		<hr>
 		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-				<div class="small-box bg-green">
-				<label>Bolivares</label>
+			<div class="small-box bg-green text-center">
+			<label style="display: block; padding-top: 10px; font-size: 16px;">Bolívares</label>
 				<div class="inner">
-				   <h1 id="muestramontobs" align="center"><sup style="font-size: 25px"><?php ?>$   0.00</sup></h1>
+				   <h1 id="muestramontobs" align="center"><sup style="font-size: 30px"><?php ?>$   0.00</sup></h1>
+					</div>					 
+					</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+				<div class="small-box bg-blue text-center">
+				<label style="display: block; padding-top: 10px; font-size: 16px;">Dolares</label>
+				<div class="inner">
+				   <h1 id="muestramonto" align="center"><sup style="font-size: 30px"><?php ?>Bs   0.00</sup></h1>
 					</div>
 					 
 					</div>
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-				<div class="small-box bg-blue">
-				<label>Dolares</label>
-				<div class="inner">
-				   <h1 id="muestramonto" align="center"><sup style="font-size: 25px"><?php ?>Bs   0.00</sup></h1>
-					</div>
-					 
-					</div>
-		</div>
-		<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-			<div class="small-box bg-yellow">
-			<label>Pesos</label>
+			<div class="small-box bg-yellow text-center">
+			<label style="display: block; padding-top: 10px; font-size: 16px;">Pesos</label>
 			<div class="inner">
-			   <h1 id="muestramontops" align="center"><sup style="font-size: 25px"><?php ?>Ps   0.00</sup></h1>
+			   <h1 id="muestramontops" align="center"><sup style="font-size: 30px"><?php ?>Ps   0.00</sup></h1>
 				</div>
 				 
 				</div>
@@ -128,14 +149,13 @@ $idv=0;
 $(document).ready(function(){	
 
 let barcodeTimer;
-const barcodeInput = document.getElementById('barcode'); // Cambia por tu ID
+const barcodeInput = document.getElementById('barcode'); 
 var 	bs= $("#valortasa").val();
 var  	ps= $("#valortasap").val();
 barcodeInput.addEventListener('input', function(e) {
-    // Limpiamos el temporizador cada vez que entra un nuevo carácter
+
     clearTimeout(barcodeTimer);
 
-    // Esperamos 300ms de "silencio" (cuando el escáner termina de escribir)
     barcodeTimer = setTimeout(() => {
         const codigo = e.target.value.trim();
         
@@ -149,14 +169,23 @@ barcodeInput.addEventListener('input', function(e) {
       if (existemp > 0){
             var nombre=resultado2[0][0].nombre;
           var price=resultado2[0][0].precio1;  
+          var imagen=resultado2[0][0].imagen;  
 		   $("#nameart").html(nombre); 
 		   $("#muestramonto").html(price); 
 		   $("#muestramontobs").html(price*bs); 
 		   $("#muestramontops").html(price*ps); 
-		   
+		   if (imagen) {
+				// Asume que tus imágenes están guardadas en la carpeta pública correspondiente
+				$('#imgart').attr('src', '/img/articulos/' + imagen);
+				$('#contenedor-img-art').show(); // Muestra el contenedor de la foto
+			} else {
+				$('#contenedor-img-art').hide(); // Oculta si no tiene foto cargada
+			}
            $("#barcode").val("");
            $("#barcode").focus();
-		}    
+		}    else{
+		$('#nameart').text('Codigo No Registrado.');
+		}
           });
         }
     }, 300); // 300ms es el estándar ideal para escáneres
