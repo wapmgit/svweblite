@@ -542,6 +542,7 @@ public function fbs(Request $request, $id){
 	$personas=DB::table('clientes')
 	->join('vendedores','vendedores.id_vendedor','=','clientes.vendedor')
 	->select('clientes.id_cliente','clientes.tipo_precio','clientes.nombre','clientes.cedula','clientes.tipo_cliente','vendedores.comision','vendedores.id_vendedor as nombrev')
+	-> where('clientes.idempresa','=',$empresa->idempresa)
 	-> where('clientes.cedula','=',$request->get('ccedula'))->get();
            return response()->json($personas);
 	}
