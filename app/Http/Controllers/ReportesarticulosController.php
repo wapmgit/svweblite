@@ -217,5 +217,75 @@ class ReportesarticulosController extends Controller
 			return view("reportes.mensajes.noautorizado")->with("empresa",$empresa);
 		}    
   }
-   
+      		public function tomainventario(Request $request)
+    { 
+		$rol=DB::table('roles')-> select('crearajuste','iduser')->where('iduser','=',$request->user()->id)->first();	
+		$empresa=DB::table('users')->join('empresa','empresa.idempresa','=','users.idempresa')-> where('id','=',$rol->iduser)->first();			
+		$categorias=DB::table('categoria')->where('condicion','=','1') ->where('idempresa',$empresa->idempresa)->get();
+
+		$movimientos = DB::table('kardex as k')
+		 ->join ('articulos as art', 'art.idarticulo','=','k.idarticulo')
+		 ->join ('empresa as emp', 'emp.idempresa','=','art.idempresa')
+		 ->where('emp.idempresa',$empresa->idempresa)
+			->select(
+				'k.idarticulo',
+		DB::raw("COALESCE(SUM(CASE WHEN k.tipo = 1 THEN k.cantidad WHEN k.tipo = 2 THEN -k.cantidad ELSE 0 END), 0) as stock_kardex")
+			)
+			->groupBy('idarticulo');		
+		if($request->get('grupo')){	
+			$datos = DB::table('articulos as art')
+					->join ('empresa as emp', 'emp.idempresa','=','art.idempresa')
+					
+					->leftJoinSub($movimientos, 'k', function ($join) {
+					$join->on('art.idarticulo', '=', 'k.idarticulo');
+				})
+				->select(
+					'art.idarticulo',
+					'art.nombre',
+					'art.stock',
+					'art.unidad',
+					DB::raw('COALESCE(k.stock_kardex, 0) as dif')	
+				)
+				->where('emp.idempresa',$empresa->idempresa)
+				->where('art.idcategoria','=',$request->get('grupo'))	
+				->where('art.estado', '=', 'Activo')
+				->orderBy('art.nombre', 'asc')
+				->get();
+			$data=DB::table('categoria')->select('nombre')-> where('idcategoria','=',$request->get('grupo'))->first(); 
+			$filtro=$data->nombre;
+			}else{
+				$datos = DB::table('articulos as art')
+				->join ('empresa as emp', 'emp.idempresa','=','art.idempresa')
+				
+				->leftJoinSub($movimientos, 'k', function ($join) {
+					$join->on('art.idarticulo', '=', 'k.idarticulo');
+				})
+				->select(
+					'art.idarticulo',
+					'art.nombre',
+					'art.stock',
+					'art.unidad',
+					DB::raw('COALESCE(k.stock_kardex, 0) as dif')	
+				)
+					->where('emp.idempresa',$empresa->idempresa)
+				->where('art.estado', '=', 'Activo')
+				->orderBy('art.nombre', 'asc')
+				->get();
+				$filtro="";
+			}
+
+		return view('reportes.articulos.tomainventario.index',["rol"=>$rol,"filtro"=>$filtro,"lista"=>$datos,"empresa"=>$empresa,"categorias"=>$categorias]);
+		}   
+	public function actstockinv(Request $request)
+    {   
+	//dd($request);
+		$id=$request->get('id');
+		$exis=$request->get('exis');
+        $articulo=Articulos::findOrFail($id);
+		$articulo->stock=$exis;
+        $articulo->update();
+	 
+	  return Redirect::to('tomainventario');
+      
+    }		
 }
